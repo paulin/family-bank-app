@@ -2,6 +2,7 @@ package com.example.family_bank_app;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ public class CreateAccDialog  extends AppCompatDialogFragment {
 
     private EditText editTextName;
     private EditText editTextValue;
+    private CreateAccountDialogListener listener;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState){
@@ -28,7 +30,9 @@ public class CreateAccDialog  extends AppCompatDialogFragment {
                 .setPositiveButton("Create", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //do something
+                        String name = editTextName.getText().toString();
+                        Double value = Double.parseDouble(editTextValue.getText().toString());
+                        listener.sendText(name, value);
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -42,5 +46,20 @@ public class CreateAccDialog  extends AppCompatDialogFragment {
         editTextValue = view.findViewById(R.id.edit_account_balance);
 
         return builder.create();
+    }
+
+    @Override
+    public void onAttach(Context context){
+        super.onAttach(context);
+
+        try {
+            listener = (CreateAccountDialogListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + "must implement CreateAccountDialogListener");
+        }
+    }
+
+    public interface CreateAccountDialogListener{
+        void sendText(String name, Double balance);
     }
 }

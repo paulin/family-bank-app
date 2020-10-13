@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import static java.security.AccessController.getContext;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements CreateAccDialog.CreateAccountDialogListener {
     RecyclerView accountRecyclerView;
     MyAdapter myAdapter;
     String names[], balances[];
@@ -52,5 +52,12 @@ public class MainActivity extends AppCompatActivity {
         // see CreateAccDialog class in /java/com.example.family_bank_app
         CreateAccDialog accDialog = new CreateAccDialog();
         accDialog.show(getSupportFragmentManager(), "create acc dialog");
+    }
+
+    //From CreateAccDialog.java
+    //Gets the values entered in the create account dialog
+    @Override
+    public void sendText(String name, Double balance) {
+        Toast.makeText(getApplicationContext(), name + " $" + balance, Toast.LENGTH_LONG).show();
     }
 }
