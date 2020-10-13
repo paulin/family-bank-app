@@ -38,9 +38,15 @@ public class MainActivity extends AppCompatActivity {
         createAcct = (ImageButton)findViewById(R.id.CreateAcct);
         createAcct.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
-                Toast.makeText(getApplicationContext(), "click!", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "click!", Toast.LENGTH_LONG).show();
+                createAccDialog();
             }
         });
 
+    }
+
+    public void createAccDialog() {
+        CreateAccDialog accDialog = new CreateAccDialog();
+        accDialog.show(getSupportFragmentManager(), "create acc dialog");
     }
 }
