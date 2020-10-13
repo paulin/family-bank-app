@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         accountRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         myAdapter.notifyDataSetChanged();
 
+        //Set up onclick listener for the create new account button
         createAcct = (ImageButton)findViewById(R.id.CreateAcct);
         createAcct.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
@@ -45,7 +46,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //Called when create new account button is clicked
+    //Brings up dialog for entering account name and starting balance
     public void createAccDialog() {
+        // see CreateAccDialog class in /java/com.example.family_bank_app
         CreateAccDialog accDialog = new CreateAccDialog();
         accDialog.show(getSupportFragmentManager(), "create acc dialog");
     }
