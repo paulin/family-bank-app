@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 
 public class CreateAccDialog  extends AppCompatDialogFragment {
     //Made following a video tutorial from Coding in Flow on youtube, shamelessly
+    //https://www.youtube.com/watch?v=ARezg1D9Zd0
 
     private EditText editTextName;
     private EditText editTextValue;
