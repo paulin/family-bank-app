@@ -9,7 +9,7 @@ import androidx.room.PrimaryKey;
 public class AccountEntity {
 
     // Fields for table with default values
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @NonNull
     private int accountUid;
 
