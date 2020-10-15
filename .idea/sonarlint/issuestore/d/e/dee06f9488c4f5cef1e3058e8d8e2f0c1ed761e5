@@ -1,0 +1,15 @@
+
+n	java:S116"VRename this field "AccountName" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ùúèÆÿÿÿÿÿ
+M
+java:S1128"2Remove this unused import 'android.widget.Button'.(²òıÿÿÿÿ
+Q
+java:S1197"8Move the array designator from the variable to the type.(ùúèÆÿÿÿÿÿ
+J
+java:S1128"1Remove this unused import 'android.widget.Toast'.(©›ïÍúÿÿÿÿ
+E
+java:S1659",Declare "AccountBalance" on a separate line.(ùúèÆÿÿÿÿÿ
+q	java:S116"YRename this field "AccountBalance" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ùúèÆÿÿÿÿÿ
+Q
+java:S1197"8Move the array designator from the variable to the type.(ùúèÆÿÿÿÿÿ
+<
+java:S1659"#Declare "text2" on a separate line.(Ì÷è±úÿÿÿÿ
