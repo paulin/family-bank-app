@@ -10,4 +10,8 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="family_bank">Family Bank</string>
+
+    <string name="acc_create_name" comment="used in create account dialog">Account Name</string>
+    <string name="acc_create_balance" comment="used in create account dialog">Account Balance</string>
+
 </resources>
