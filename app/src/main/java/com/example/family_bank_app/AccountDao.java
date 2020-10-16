@@ -1,11 +1,11 @@
 package com.example.family_bank_app;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Transaction;
-import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ public interface AccountDao {
     // Query all transaction data associated with an account uid
     @Transaction // Like batching
     @Query("SELECT * FROM AccountEntity WHERE accountUid = :accountUid")
-    public List<AccountWithTransactions> getAccountsWithTransactions(int accountUid);
+    List<AccountWithTransactions> getAccountsWithTransactions(int accountUid);
 
     // Query for all accounts in db
     @Query("SELECT * FROM AccountEntity")

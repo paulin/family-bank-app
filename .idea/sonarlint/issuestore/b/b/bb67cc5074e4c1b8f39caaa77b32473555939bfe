@@ -1,15 +1,15 @@
 
-X	java:S125+"<This block of commented-out lines of code should be removed.(Ö†²8Ó–ë¦Ò.
-U
-java:S1197"8Move the array designator from the variable to the type.(ºá×ë8Ó–ë¦Ò.
-Y
-java:S1128	">Remove this unused import 'androidx.appcompat.widget.Toolbar'.(ÔËûİùÿÿÿÿ
-U
-java:S1197"8Move the array designator from the variable to the type.(ºá×ë8Ó–ë¦Ò.
-]	java:S110"<This class has 9 parents which is greater than 5 authorized.(Ù‡˜Øıÿÿÿÿ8Ó–ë¦Ò.
 `
-java:S1128"JRemove this unused import 'com.google.android.material.snackbar.Snackbar'.(ë„ƒŠ
-}
-java:S1128"bRemove this unused import 'com.google.android.material.floatingactionbutton.FloatingActionButton'.(ôˆêãÿÿÿÿÿ
+java:S1128	">Remove this unused import 'androidx.appcompat.widget.Toolbar'.(ÔËûİùÿÿÿÿ8£×ã×Ò.
+g
+java:S1128"JRemove this unused import 'com.google.android.material.snackbar.Snackbar'.(ë„ƒŠ8£×ã×Ò.
+X	java:S125*"<This block of commented-out lines of code should be removed.(Ö†²8£×ã×Ò.
+„
+java:S1128"bRemove this unused import 'com.google.android.material.floatingactionbutton.FloatingActionButton'.(ôˆêãÿÿÿÿÿ8£×ã×Ò.
+]	java:S110"<This class has 9 parents which is greater than 5 authorized.(Ù‡˜Øıÿÿÿÿ8£×ã×Ò.
 C
-java:S1659"&Declare "balances" on a separate line.(ºá×ë8Ó–ë¦Ò.
+java:S1659"&Declare "balances" on a separate line.(ºá×ë8£×ã×Ò.
+U
+java:S1197"8Move the array designator from the variable to the type.(ºá×ë8£×ã×Ò.
+U
+java:S1197"8Move the array designator from the variable to the type.(ºá×ë8£×ã×Ò.

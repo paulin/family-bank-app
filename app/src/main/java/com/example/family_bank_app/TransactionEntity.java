@@ -29,6 +29,7 @@ public class TransactionEntity {
     private int transactionAmount = 0;
 
     // Add field for 'new total' AccountEntity - newTotal. Do we want this in the DB or calculated on runtime?
+    //Aggregate query of transactions would be most accurate, is there a way to cache that calculation?
 
 
     // Accessors/Mutators
