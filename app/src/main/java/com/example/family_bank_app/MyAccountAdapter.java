@@ -17,19 +17,11 @@ public class MyAccountAdapter extends RecyclerView.Adapter<MyAccountAdapter.View
     String AccountName[], AccountBalance[];
     Context context;
 
-
-
-
-
-
-    public MyAccountAdapter(Context ct, String[] s1, String[] s2 ) {
+    public MyAdapter(Context ct, String[] s1, String[] s2 ) {
         context = ct;
         AccountName = s1;
         AccountBalance = s2;
-
-
     }
-
 
     @NonNull
     @Override
@@ -38,26 +30,18 @@ public class MyAccountAdapter extends RecyclerView.Adapter<MyAccountAdapter.View
         View view = inflater.inflate(R.layout.account_card_layout, parent, false );
 
         return new ViewHolder(view);
-
     }
-
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-
-
         holder.text1.setText(AccountName[position]);
-
         holder.text2.setText(AccountBalance[position]);
-
     }
-
 
     @Override
     public int getItemCount() {
         if(AccountName == null){return 0;}
         return AccountName.length;
-
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -67,7 +51,6 @@ public class MyAccountAdapter extends RecyclerView.Adapter<MyAccountAdapter.View
             super(itemView);
             text1 = itemView.findViewById(R.id.AccountName);
             text2 = itemView.findViewById(R.id.AccountBalance);
-
         }
     }
 
