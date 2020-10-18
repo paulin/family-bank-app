@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity implements CreateAccDialog.C
     MyAccountAdapter myAccountAdapter;
     String names[], balances[];
     ImageButton createAcct;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,22 +35,22 @@ public class MainActivity extends AppCompatActivity implements CreateAccDialog.C
         myAccountAdapter.notifyDataSetChanged();
 
     }
-        public void toAccountActivity(View view){
-            Intent intent = new Intent(MainActivity.this, AccountActivity.class);
-            startActivity(intent);
 
-        }
-
-        //Set up onclick listener for the create new account button
-        createAcct = (ImageButton)findViewById(R.id.CreateAcct);
-        createAcct.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v){
-                //Toast.makeText(getApplicationContext(), "click!", Toast.LENGTH_LONG).show();
-                createAccDialog();
-            }
-        });
+    public void toAccountActivity(View view) {
+        Intent intent = new Intent(MainActivity.this, AccountActivity.class);
+        startActivity(intent);
 
     }
+
+   /* //Set up onclick listener for the create new account button
+     createAcct =(ImageButton)findViewById(R.id.CreateAcct);
+        createAcct.setOnClickListener(new View.OnClickListener(){
+        public void onClick (View v){
+        //Toast.makeText(getApplicationContext(), "click!", Toast.LENGTH_LONG).show();
+        createAccDialog();
+    }
+    }); */
+
 
     //Called when create new account button is clicked
     //Brings up dialog for entering account name and starting balance
@@ -65,3 +66,4 @@ public class MainActivity extends AppCompatActivity implements CreateAccDialog.C
     public void sendText(String name, Double balance) {
         Toast.makeText(getApplicationContext(), name + " $" + balance, Toast.LENGTH_LONG).show();
     }
+}

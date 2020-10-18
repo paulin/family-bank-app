@@ -17,7 +17,7 @@ public class MyAccountAdapter extends RecyclerView.Adapter<MyAccountAdapter.View
     String AccountName[], AccountBalance[];
     Context context;
 
-    public MyAdapter(Context ct, String[] s1, String[] s2 ) {
+    public MyAccountAdapter(Context ct, String[] s1, String[] s2 ) {
         context = ct;
         AccountName = s1;
         AccountBalance = s2;
