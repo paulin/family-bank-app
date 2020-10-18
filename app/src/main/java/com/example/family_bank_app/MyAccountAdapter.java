@@ -4,17 +4,15 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
+public class MyAccountAdapter extends RecyclerView.Adapter<MyAccountAdapter.ViewHolder> {
 
     String AccountName[], AccountBalance[];
     Context context;
@@ -24,7 +22,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
 
 
-    public MyAdapter(Context ct, String[] s1, String[] s2 ) {
+    public MyAccountAdapter(Context ct, String[] s1, String[] s2 ) {
         context = ct;
         AccountName = s1;
         AccountBalance = s2;

@@ -15,5 +15,8 @@
     <string name="new_account">new account</string>
     <string name="mary_sampson">Mary Sampson</string>
     <string name="logo">Logo</string>
+    <string name="account_name">account_name</string>
+    <string name="transaction_history">Transaction History</string>
+    <string name="account_activity">AccountActivity</string>
 
 </resources>

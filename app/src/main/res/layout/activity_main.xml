@@ -27,9 +27,7 @@
         <ImageView
             android:layout_width="433dp"
             android:padding="10dp"
-
             android:layout_height="100dp"
-
             android:src="@drawable/logo"
             android:contentDescription="@string/logo" />
 
@@ -67,6 +65,7 @@
         android:contentDescription="@string/new_account"
         android:padding="0dp"
         android:src="@drawable/button"
+        android:onClick="toAccountActivity"
          />
 
 
