@@ -29,11 +29,12 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <TextView
+        android:id="@+id/AccountsTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
         android:padding="10dp"
-        android:text="Accounts"
+        android:text="@string/accounts"
         android:textSize="30dp"
 
         android:layout_marginLeft="135dp"
