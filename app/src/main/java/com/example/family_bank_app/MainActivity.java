@@ -52,22 +52,19 @@ public class MainActivity extends AppCompatActivity implements CreateAccDialog.C
     //From CreateAccDialog.java
     //Gets the values entered in the create account dialog
     @Override
-    public void sendText(String name, Double balance) {
+    public void sendText(String name, int balance) {
         Toast.makeText(getApplicationContext(), name + " $" + balance, Toast.LENGTH_LONG).show();
-        updateDatabase();
+        updateDatabase(name, balance);
     }
 
     //Updates the DB with new values
-    public void updateDatabase() {
-        //TODO Instantiate new account
-        /*
-        Account newAcct - new Account();
-        newAcct.setaccountnmame(name);
-        newAcct.setaccountBal(bal);
-        AccountViewModel.insert(newAcct);
-         */
+    public void updateDatabase(String acctName, int acctBal) {
+        //Create New Account obj
+        AccountEntity newAccount = new AccountEntity();
+        newAccount.setAccountName(acctName);
+        newAccount.setAccountBalance(acctBal);
+        //send obj to db
 
-        //TODO Assign Values
     }
 
     //Deletes entity from DB

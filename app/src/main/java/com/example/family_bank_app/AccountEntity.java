@@ -25,9 +25,13 @@ public class AccountEntity {
     // Accessors/Mutators
 
     @NonNull
-    public int getAccountUid() { return accountUid; }
+    public int getAccountUid() {
+        return accountUid;
+    }
 
-    public void setAccountUid(int uid) { this.accountUid = uid; }
+    public void setAccountUid(int id) {
+        this.accountUid = id;
+    }
 
     @NonNull
     public String getAccountName() { return accountName; }
