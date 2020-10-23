@@ -20,11 +20,20 @@ public class AccountViewModel extends ViewModel {
         });
     }
 
-    public void deleteUser(Context context, AccountEntity account) {
+    public void updateAccount(Context context, final AccountEntity account) {
         AppDatabase db = AppDatabaseSingleton.getDatabase(context);
         db.getTransactionExecutor().execute(() -> {
-            //TODO Create a deleteAccount method for AccountDAO.
-            //db.deleteAccount(accountID)
+            db.accountDao().insertAccount(account);
+        });
+    }
+
+    public void deleteAccount(Context context, AccountEntity account) {
+        AppDatabase db = AppDatabaseSingleton.getDatabase(context);
+        db.getTransactionExecutor().execute(() -> {
+            db.getTransactionExecutor().execute(() -> {
+                db.accountDao().delete(account);
+            });
+
         });
     }
 }

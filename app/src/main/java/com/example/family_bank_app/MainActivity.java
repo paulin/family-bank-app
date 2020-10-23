@@ -59,7 +59,14 @@ public class MainActivity extends AppCompatActivity implements CreateAccDialog.C
 
     //Updates the DB with new values
     public void updateDatabase() {
-        //TODO Instantiate new user
+        //TODO Instantiate new account
+        /*
+        Account newAcct - new Account();
+        newAcct.setaccountnmame(name);
+        newAcct.setaccountBal(bal);
+        AccountViewModel.insert(newAcct);
+         */
+
         //TODO Assign Values
     }
 

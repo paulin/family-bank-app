@@ -2,6 +2,7 @@ package com.example.family_bank_app;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -29,5 +30,8 @@ public interface AccountDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertTransaction(TransactionEntity... transactionEntity);
 
-    // Can build out update/delete functionality later.
+    // Delete specific account
+    @Delete
+    void delete(AccountEntity account);
+
 }
