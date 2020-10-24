@@ -14,5 +14,8 @@
     <string name="acc_create_name" comment="used in create account dialog">Account Name</string>
     <string name="acc_create_balance" comment="used in create account dialog">Account Balance</string>
     <string name="accounts">Accounts</string>
+    <string name="create">Create</string>
+    <string name="cancel">Cancel</string>
+    <string name="test_1">test $1.0</string>
 
 </resources>
