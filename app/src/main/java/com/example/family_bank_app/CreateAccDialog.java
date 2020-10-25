@@ -32,7 +32,7 @@ public class CreateAccDialog  extends AppCompatDialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String name = editTextName.getText().toString();
-                        int value = Integer.parseInt(editTextValue.getText().toString());
+                        double value = Double.parseDouble(editTextValue.getText().toString());
                         listener.sendText(name, value);
                     }
                 })
@@ -61,6 +61,6 @@ public class CreateAccDialog  extends AppCompatDialogFragment {
     }
 
     public interface CreateAccountDialogListener{
-        void sendText(String name, int balance);
+        void sendText(String name, double balance);
     }
 }

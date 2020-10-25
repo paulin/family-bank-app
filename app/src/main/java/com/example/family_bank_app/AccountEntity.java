@@ -20,7 +20,7 @@ public class AccountEntity {
     // Will need to convert between int and currency for accuracy
     @NonNull
     @ColumnInfo(name = "Balance")
-    private int accountBalance = 0;
+    private double accountBalance = 0;
 
     // Accessors/Mutators
 
@@ -39,7 +39,11 @@ public class AccountEntity {
     public void setAccountName(String name) { this.accountName = name; }
 
     @NonNull
-    public int getAccountBalance() { return accountBalance; }
+    public double getAccountBalance() {
+        return accountBalance;
+    }
 
-    public void setAccountBalance(int balance) { this.accountBalance = balance; }
+    public void setAccountBalance(double balance) {
+        this.accountBalance = balance;
+    }
 }
