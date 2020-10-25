@@ -1,13 +1,14 @@
 package com.example.family_bank_app;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.Date;
@@ -18,7 +19,7 @@ public class MyTransactionAdapter extends RecyclerView.Adapter<MyTransactionAdap
     String Note[], Amount[], CurBalance[];
     Date Date[];
     Context context;
-
+    CardView cardView;
 
 
 
@@ -40,6 +41,8 @@ public class MyTransactionAdapter extends RecyclerView.Adapter<MyTransactionAdap
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.transaction_card_layout, parent, false );
+
+
 
         return new ViewHolder(view);
 
@@ -66,8 +69,9 @@ public class MyTransactionAdapter extends RecyclerView.Adapter<MyTransactionAdap
 
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView text1, text2, text3, text4;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -75,9 +79,32 @@ public class MyTransactionAdapter extends RecyclerView.Adapter<MyTransactionAdap
             text2 = itemView.findViewById(R.id.transactionAmt);
             text3 = itemView.findViewById(R.id.transactionNote);
             text4 = itemView.findViewById(R.id.transactionCurrentBalance);
+            cardView = itemView.findViewById(R.id.transactionCardView);
+            cardView.setOnClickListener(this);
 
         }
-    }
 
-}
+        @Override
+        public void onClick(View v) {
+            int position = getLayoutPosition();
+                 goToTransactionActivity(position);
+        }
+
+
+
+        public void goToTransactionActivity(int position) {
+            Intent intent = new Intent(context, TransactionActivity.class);
+
+            intent.putExtra("POSITION", position);
+            context.startActivity(intent);
+
+
+        }
+
+        }
+
+        }
+
+
+
 
