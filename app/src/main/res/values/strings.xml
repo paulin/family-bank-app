@@ -23,6 +23,8 @@
 
     <string name="acc_create_name" comment="used in create account dialog">Account Name</string>
     <string name="acc_create_balance" comment="used in create account dialog">Account Balance</string>
+    <string name="deposit_hint">Enter Deposit Amount</string>
+    <string name="withdraw_hint">Enter Withdraw Amount</string>
     <string name="balance">Balance</string>
 
 </resources>
