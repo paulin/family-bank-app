@@ -1,15 +1,8 @@
 
-`
-java:S1128	">Remove this unused import 'androidx.appcompat.widget.Toolbar'.(ÔËûİùÿÿÿÿ8£×ã×Ò.
-g
-java:S1128"JRemove this unused import 'com.google.android.material.snackbar.Snackbar'.(ë„ƒŠ8£×ã×Ò.
-X	java:S125*"<This block of commented-out lines of code should be removed.(Ö†²8£×ã×Ò.
-„
-java:S1128"bRemove this unused import 'com.google.android.material.floatingactionbutton.FloatingActionButton'.(ôˆêãÿÿÿÿÿ8£×ã×Ò.
-]	java:S110"<This class has 9 parents which is greater than 5 authorized.(Ù‡˜Øıÿÿÿÿ8£×ã×Ò.
-C
-java:S1659"&Declare "balances" on a separate line.(ºá×ë8£×ã×Ò.
-U
-java:S1197"8Move the array designator from the variable to the type.(ºá×ë8£×ã×Ò.
-U
-java:S1197"8Move the array designator from the variable to the type.(ºá×ë8£×ã×Ò.
+E
+java:S1604#"(Make this anonymous inner class a lambda(”Øß8±®¤Ó.
+X	java:S125%"<This block of commented-out lines of code should be removed.(Ö†²8±®¤Ó.
+]	java:S110"<This class has 9 parents which is greater than 5 authorized.(Ù‡˜Øıÿÿÿÿ8±®¤Ó.
+X	java:S125A"<This block of commented-out lines of code should be removed.(—»•Î8½Ä‡’Ö.
+]	java:S1258"<This block of commented-out lines of code should be removed.(—±Ëáûÿÿÿÿ8öš´Ö.
+]	java:S125N"<This block of commented-out lines of code should be removed.(ìá‰êüÿÿÿÿ8ÚĞÈ“Ö.
