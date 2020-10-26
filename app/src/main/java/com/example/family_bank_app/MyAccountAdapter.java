@@ -57,7 +57,6 @@ public class MyAccountAdapter extends RecyclerView.Adapter<MyAccountAdapter.View
 
             cardView = itemView.findViewById(R.id.card_view);
             cardView.setOnClickListener(this);
-
         }
 
         @Override
@@ -66,18 +65,14 @@ public class MyAccountAdapter extends RecyclerView.Adapter<MyAccountAdapter.View
             goToTransactionActivity(position);
         }
 
-
-
         public void goToTransactionActivity(int position) {
             Intent intent = new Intent(context, AccountActivity.class);
 
             intent.putExtra("POSITION", position);
             context.startActivity(intent);
-
-
-        }
         }
     }
+}
 
 
 

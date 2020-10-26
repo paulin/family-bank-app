@@ -21,20 +21,13 @@ public class MyTransactionAdapter extends RecyclerView.Adapter<MyTransactionAdap
     Context context;
     CardView cardView;
 
-
-
-
-
     public MyTransactionAdapter(Context ct, String[] s1, String[] s2, String[] s3, Date[] s4 ) {
         context = ct;
         Note = s1;
         Amount = s2;
         CurBalance = s3;
         Date= s4;
-
-
     }
-
 
     @NonNull
     @Override
@@ -42,25 +35,16 @@ public class MyTransactionAdapter extends RecyclerView.Adapter<MyTransactionAdap
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.transaction_card_layout, parent, false );
 
-
-
         return new ViewHolder(view);
-
     }
-
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-
-
-
         holder.text2.setText(Amount[position]);
 
         holder.text3.setText(Note[position]);
         holder.text4.setText(CurBalance[position]);
-
     }
-
 
     @Override
     public int getItemCount() {
@@ -72,7 +56,6 @@ public class MyTransactionAdapter extends RecyclerView.Adapter<MyTransactionAdap
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView text1, text2, text3, text4;
 
-
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             text1 = itemView.findViewById(R.id.transactionDate);
@@ -81,7 +64,6 @@ public class MyTransactionAdapter extends RecyclerView.Adapter<MyTransactionAdap
             text4 = itemView.findViewById(R.id.transactionCurrentBalance);
             cardView = itemView.findViewById(R.id.transactionCardView);
             cardView.setOnClickListener(this);
-
         }
 
         @Override
@@ -90,20 +72,15 @@ public class MyTransactionAdapter extends RecyclerView.Adapter<MyTransactionAdap
                  goToTransactionActivity(position);
         }
 
-
-
         public void goToTransactionActivity(int position) {
             Intent intent = new Intent(context, TransactionActivity.class);
 
             intent.putExtra("POSITION", position);
             context.startActivity(intent);
 
-
         }
-
-        }
-
-        }
+    }
+}
 
 
 
