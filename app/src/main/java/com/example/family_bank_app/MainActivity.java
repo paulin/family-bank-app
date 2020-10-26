@@ -53,26 +53,33 @@ public class MainActivity extends AppCompatActivity implements CreateAccDialog.C
     //Gets the values entered in the create account dialog
     @Override
     public void sendText(String name, double balance) {
-        Toast.makeText(getApplicationContext(), name + " $" + balance, Toast.LENGTH_LONG).show();
-        updateDatabase(name, balance);
+        //Toast.makeText(getApplicationContext(), name + " $" + balance, Toast.LENGTH_LONG).show();
+        //updateDatabase(name, balance);
+        smolDemo();
     }
 
     //Updates the DB with new values
     public void updateDatabase(String acctName, double acctBal) {
-        //Create New Account obj
-        AccountEntity newAccount = new AccountEntity();
-        newAccount.setAccountName(acctName);
-        newAccount.setAccountBalance(acctBal);
-        AccountViewModel.updateAccount(this, newAccount);
-        Toast.makeText(getApplicationContext(), "Data object: " + newAccount.getAccountUid(), Toast.LENGTH_LONG).show();
-        //send obj to db
+        //If Account Exists Update
+        //IF Account Does not Exist Create
+        //AccountEntity newAccount = new AccountEntity();
+        // newAccount.setAccountName(acctName);
+        // newAccount.setAccountBalance(acctBal);
+        // AccountViewModel.createAccount(this, newAccount);
 
     }
 
-    //Deletes entity from DB
-    public void deleteAccount(View view) {
-        //TODO Select User
-        //TODO Null all fields
-        //TODO return confirm of deletion
+    public void smolDemo() {
+        AccountEntity demoAccount = new AccountEntity();
+        demoAccount.setAccountName("Demo Account");
+        demoAccount.setAccountBalance(9999.99);
+        AccountViewModel.createAccount(this, demoAccount);
+        Toast.makeText(getApplicationContext(), "Account ID: " + demoAccount.getAccountUid() + "Account Name: " + demoAccount.getAccountName() + "Account Balance: " + demoAccount.getAccountBalance(), Toast.LENGTH_LONG).show();
+        //demoAccount.setAccountBalance(1111.99);
+        //AccountViewModel.updateAccount(this, demoAccount);
+        //Toast.makeText(getApplicationContext(), "Account ID: " + demoAccount.getAccountUid() + "Account Name: " + demoAccount.getAccountName() + "Account Balance: " + demoAccount.getAccountBalance(), Toast.LENGTH_LONG).show();
+        //AccountViewModel.deleteAccount(this, demoAccount);
+        //Toast.makeText(getApplicationContext(), "Account ID: " + demoAccount.getAccountUid() + "Account Name: " + demoAccount.getAccountName() + "Account Balance: " + demoAccount.getAccountBalance(), Toast.LENGTH_LONG).show();
     }
+
 }

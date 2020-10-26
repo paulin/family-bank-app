@@ -13,11 +13,9 @@ public class AccountViewModel extends ViewModel {
         return db.accountDao().getAllAccounts();
     }
 
-    public void createAccount(Context context, final AccountEntity newAccount) {
+    public static void createAccount(Context context, final AccountEntity newAccount) {
         AppDatabase db = AppDatabaseSingleton.getDatabase(context);
-        db.getTransactionExecutor().execute(() -> {
-            db.accountDao().insertAccount(newAccount);
-        });
+        db.accountDao().insertAccount(newAccount);
     }
 
     public static void updateAccount(Context context, final AccountEntity account) {
@@ -27,7 +25,7 @@ public class AccountViewModel extends ViewModel {
         });
     }
 
-    public void deleteAccount(Context context, AccountEntity account) {
+    public static void deleteAccount(Context context, AccountEntity account) {
         AppDatabase db = AppDatabaseSingleton.getDatabase(context);
         db.getTransactionExecutor().execute(() -> {
             db.getTransactionExecutor().execute(() -> {
@@ -36,4 +34,12 @@ public class AccountViewModel extends ViewModel {
 
         });
     }
+
+    public static AccountEntity getAccount(Context context, long accountUID) {
+        AppDatabase db = AppDatabaseSingleton.getDatabase(context);
+        return db.accountDao().getAccount(accountUID);
+
+    }
+
+
 }
