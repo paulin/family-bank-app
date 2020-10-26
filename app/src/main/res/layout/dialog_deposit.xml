@@ -7,19 +7,20 @@
     <EditText
         android:id="@+id/deposit_dialog"
         android:hint="@string/deposit_hint"
+        android:inputType="numberDecimal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"/>
 
     <EditText
-        android:id="@+id/withdraw_dialog"
-        android:hint="@string/withdraw_hint"
+        android:id="@+id/depwith_memo_dialog"
+        android:hint="@string/depwith_memo_hint"
+        android:inputType="text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="invisible"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/deposit_dialog"
         app:layout_constraintLeft_toLeftOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
