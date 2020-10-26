@@ -75,11 +75,11 @@ public class MainActivity extends AppCompatActivity implements CreateAccDialog.C
         demoAccount.setAccountBalance(9999.99);
         AccountViewModel.createAccount(this, demoAccount);
         Toast.makeText(getApplicationContext(), "Account ID: " + demoAccount.getAccountUid() + "Account Name: " + demoAccount.getAccountName() + "Account Balance: " + demoAccount.getAccountBalance(), Toast.LENGTH_LONG).show();
-        //demoAccount.setAccountBalance(1111.99);
-        //AccountViewModel.updateAccount(this, demoAccount);
-        //Toast.makeText(getApplicationContext(), "Account ID: " + demoAccount.getAccountUid() + "Account Name: " + demoAccount.getAccountName() + "Account Balance: " + demoAccount.getAccountBalance(), Toast.LENGTH_LONG).show();
-        //AccountViewModel.deleteAccount(this, demoAccount);
-        //Toast.makeText(getApplicationContext(), "Account ID: " + demoAccount.getAccountUid() + "Account Name: " + demoAccount.getAccountName() + "Account Balance: " + demoAccount.getAccountBalance(), Toast.LENGTH_LONG).show();
+        demoAccount.setAccountBalance(1111.99);
+        AccountViewModel.updateAccount(this, demoAccount);
+        Toast.makeText(getApplicationContext(), "Account ID: " + demoAccount.getAccountUid() + "Account Name: " + demoAccount.getAccountName() + "Account Balance: " + demoAccount.getAccountBalance(), Toast.LENGTH_LONG).show();
+        AccountViewModel.deleteAccount(this, demoAccount);
+        Toast.makeText(getApplicationContext(), "Account ID: " + demoAccount.getAccountUid() + "Account Name: " + demoAccount.getAccountName() + "Account Balance: " + demoAccount.getAccountBalance(), Toast.LENGTH_LONG).show();
     }
 
 }
