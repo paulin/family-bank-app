@@ -2,7 +2,11 @@ package com.example.family_bank_app;
 
 import android.app.FragmentManager;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
@@ -20,6 +24,11 @@ public class AccountActivity extends AppCompatActivity {
     Date date[];
     Date d;
     TextView accountName, accountBal;
+
+    //inits for deposit and withdraw dialog
+    EditText deposit_dialog, withdraw_dialog;
+    Button btn_withdraw, btn_deposit;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +63,22 @@ public class AccountActivity extends AppCompatActivity {
         transactionRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         myTransactionAdapter.notifyDataSetChanged();
 
+        /*
+        Code for deposit and withdraw dialog below:
+        */
+        btn_deposit = findViewById(R.id.Btn_Deposit);
+        btn_deposit.setOnClickListener(new View.OnClickListener(){
+            public void onClick (View v){
+                Toast.makeText(getApplicationContext(), "click deposit", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        btn_withdraw = findViewById(R.id.Btn_Withdraw);
+        btn_withdraw.setOnClickListener(new View.OnClickListener(){
+            public void onClick (View v){
+                Toast.makeText(getApplicationContext(), "click withdraw", Toast.LENGTH_LONG).show();
+            }
+        });
 
     }
 
