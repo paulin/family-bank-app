@@ -5,7 +5,7 @@ import android.view.View;
 
 import androidx.test.espresso.action.ViewActions;
 
-import androidx.test.espresso.contrib.RecyclerViewActions;
+
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
@@ -52,7 +52,6 @@ public class UiTest {
         onView(withId(R.id.CreateAcct)).check(matches(isDisplayed()));
         onView(withId(R.id.AccountRecycler)).check(matches(isDisplayed()));
 
-        onView(withId(R.id.AccountRecycler)).perform(RecyclerViewActions.actionOnItemAtPosition(2, click()));
 
     }
 
