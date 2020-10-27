@@ -8,13 +8,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import static java.security.AccessController.getContext;
-
-public class MainActivity extends AppCompatActivity implements CreateAccDialog.CreateAccountDialogListener {
+public class MainActivity extends AppCompatActivity implements Dialog_CreateAcc.CreateAccountDialogListener {
     RecyclerView accountRecyclerView;
     MyAccountAdapter myAccountAdapter;
     String names[], balances[];
@@ -56,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements CreateAccDialog.C
     //Brings up dialog for entering account name and starting balance
     public void createAccDialog() {
         // see CreateAccDialog class in /java/com.example.family_bank_app
-        CreateAccDialog accDialog = new CreateAccDialog();
+        Dialog_CreateAcc accDialog = new Dialog_CreateAcc();
         accDialog.show(getSupportFragmentManager(), "create acc dialog");
     }
 

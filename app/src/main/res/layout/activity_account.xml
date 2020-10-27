@@ -86,7 +86,7 @@
 
         <Button
             android:text="withdraw"
-            android:id="@+id/Withdraw"
+            android:id="@+id/Btn_Withdraw"
             android:layout_width="170dp"
             android:layout_height="@dimen/createAcct_height"
             android:layout_below="@+id/TransactionRecycler"
@@ -97,12 +97,9 @@
             android:background="@drawable/button_blank"
             />
 
-
-
-
         <Button
             android:text="deposit"
-            android:id="@+id/Deposit"
+            android:id="@+id/Btn_Deposit"
             android:layout_width="170dp"
             android:layout_height="@dimen/createAcct_height"
             android:layout_below="@+id/TransactionRecycler"
