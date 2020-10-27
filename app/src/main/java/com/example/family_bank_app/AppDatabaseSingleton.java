@@ -14,7 +14,7 @@ public class AppDatabaseSingleton {
 
         if(db == null) {
             db = Room.databaseBuilder(context,
-                    AppDatabase.class, "settings_database")
+                    AppDatabase.class, "FamilyBankDB")
                     .fallbackToDestructiveMigration()
                     .build();
         }

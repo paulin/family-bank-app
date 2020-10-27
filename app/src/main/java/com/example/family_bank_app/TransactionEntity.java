@@ -3,7 +3,6 @@ package com.example.family_bank_app;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
 // Store the transactions related to each account, one to many with account Entity
@@ -12,7 +11,7 @@ import androidx.room.PrimaryKey;
 public class TransactionEntity {
 
     // Fields
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @NonNull
     private int transactionUid;
 
@@ -30,6 +29,7 @@ public class TransactionEntity {
     private int transactionAmount = 0;
 
     // Add field for 'new total' AccountEntity - newTotal. Do we want this in the DB or calculated on runtime?
+    //Aggregate query of transactions would be most accurate, is there a way to cache that calculation?
 
 
     // Accessors/Mutators
