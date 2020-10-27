@@ -10,7 +10,7 @@ import java.util.Date;
 
 public class TransactionActivity extends AppCompatActivity {
 
-    String note[], amount[], currentBal[], names[], balances[];
+    String note[], amount[], currentBal[];
     TextView Note, Amount, CurrentBal;
 
     @Override
@@ -32,8 +32,8 @@ public class TransactionActivity extends AppCompatActivity {
         CurrentBal = findViewById(R.id.transactionActivityBal);
 
         Note.setText(note[pos]);
-        Amount.setText("$" + amount[pos]);
-        CurrentBal.setText("$" + currentBal[pos]);
+        Amount.setText("Amount: $" + amount[pos]);
+        CurrentBal.setText("Balance: $" + currentBal[pos]);
 
 
 

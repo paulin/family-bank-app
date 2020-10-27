@@ -46,7 +46,7 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
         int pos = getIntent().getIntExtra("POSITION", 0);
 
         accountName.setText(names[pos]);
-        accountBal.setText(balances[pos]);
+        accountBal.setText("Balance: " + balances[pos]);
 
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");

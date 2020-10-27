@@ -25,6 +25,7 @@
 
 
         <ImageView
+            android:id="@+id/MainLogo"
             android:layout_width="433dp"
             android:padding="10dp"
             android:layout_height="100dp"
@@ -38,6 +39,7 @@
 
 
     <TextView
+        android:id="@+id/MainAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"
