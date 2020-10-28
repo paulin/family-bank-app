@@ -11,7 +11,26 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="family_bank">Family Bank</string>
 
+    <string name="accounts">Accounts</string>
+    <string name="todo">TODO</string>
+    <string name="new_account">new account</string>
+    <string name="mary_sampson">Mary Sampson</string>
+    <string name="logo">Logo</string>
+    <string name="account_name">account_name</string>
+    <string name="transaction_history">Transaction History</string>
+    <string name="account_activity">AccountActivity</string>
+
+
     <string name="acc_create_name" comment="used in create account dialog">Account Name</string>
     <string name="acc_create_balance" comment="used in create account dialog">Account Balance</string>
+    <string name="deposit_hint">Enter Amount</string>
+    <string name="withdraw_hint">Enter Withdraw Amount</string>
+    <string name="depwith_memo_hint">Note</string>
+    <string name="depwith_default_hint">Deposit Withdraw bad hint</string>
+    <string name="balance">Balance</string>
+    <string name="withdraw">withdraw</string>
+    <string name="current_bal">Current Bal</string>
+    <string name="amount">Amount</string>
+    <string name="datetime">datetime</string>
 
 </resources>

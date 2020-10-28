@@ -1,19 +1,21 @@
 package com.example.family_bank_app;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageButton;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class MainActivity extends AppCompatActivity implements CreateAccDialog.CreateAccountDialogListener {
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.Toast;
+
+public class MainActivity extends AppCompatActivity implements Dialog_CreateAcc.CreateAccountDialogListener {
     RecyclerView accountRecyclerView;
-    MyAdapter myAdapter;
-    String[] names;
-    String[] balances;
+    MyAccountAdapter myAccountAdapter;
+    String names[], balances[];
     ImageButton createAcct;
 
     @Override
@@ -25,10 +27,10 @@ public class MainActivity extends AppCompatActivity implements CreateAccDialog.C
 
         accountRecyclerView = findViewById(R.id.AccountRecycler);
 
-        myAdapter = new MyAdapter(this,names ,balances );
-        accountRecyclerView.setAdapter(myAdapter);
+        myAccountAdapter = new MyAccountAdapter(this, names, balances);
+        accountRecyclerView.setAdapter(myAccountAdapter);
         accountRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        myAdapter.notifyDataSetChanged();
+        myAccountAdapter.notifyDataSetChanged();
 
         //Set up onclick listener for the create new account button
         createAcct = findViewById(R.id.CreateAcct);
@@ -39,13 +41,24 @@ public class MainActivity extends AppCompatActivity implements CreateAccDialog.C
             }
         });
 
+
+        /*
+======= Remnants of old Merge conflict: Leaving for posterity
+    }
+
+    public void toAccountActivity(View view) {
+        Intent intent = new Intent(MainActivity.this, AccountActivity.class);
+        startActivity(intent);
+>>>>>>> KieransBranch
+         */
+
     }
 
     //Called when create new account button is clicked
     //Brings up dialog for entering account name and starting balance
     public void createAccDialog() {
         // see CreateAccDialog class in /java/com.example.family_bank_app
-        CreateAccDialog accDialog = new CreateAccDialog();
+        Dialog_CreateAcc accDialog = new Dialog_CreateAcc();
         accDialog.show(getSupportFragmentManager(), "create acc dialog");
     }
 
