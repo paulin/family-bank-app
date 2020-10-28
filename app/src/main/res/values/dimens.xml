@@ -1,3 +1,10 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="accounts_margin">100dp</dimen>
+    <dimen name="default_pad">10dp</dimen>
+    <dimen name="accounts_marginLeft">135dp</dimen>
+    <dimen name="accounts_marginTop">100</dimen>
+    <dimen name="addaccount_marginLeft">95dp</dimen>
+    <dimen name="cardMargin">80dp</dimen>
+    <dimen name="createAcct_height">80dp</dimen>
 </resources>
