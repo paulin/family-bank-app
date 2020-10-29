@@ -8,15 +8,16 @@ import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity implements Dialog_CreateAcc.CreateAccountDialogListener {
     RecyclerView accountRecyclerView;
     MyAccountAdapter myAccountAdapter;
-    String[] names;
-    String[] balances;
-    Long[] UIDS;
+    List<String> names;
+    List<String> balances;
+    List<Long> UIDS;
     ImageButton createAcct;
     AccountViewModel viewModel;
 
@@ -24,9 +25,9 @@ public class MainActivity extends AppCompatActivity implements Dialog_CreateAcc.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        names = new String[40];
-        balances = new String[40];    //Need to add Array-doubler in Observer
-        UIDS = new Long[40];
+        names = new ArrayList<String>();
+        balances = new ArrayList<String>();     //Need to add Array-doubler in Observer
+        UIDS = new ArrayList<Long>();
 
         viewModel = new AccountViewModel();
 
@@ -37,9 +38,9 @@ public class MainActivity extends AppCompatActivity implements Dialog_CreateAcc.
             }
         for(int i=0; i < newAccounts.size();i++) {
             AccountEntity account = newAccounts.get(i);
-            names[i] = account.getAccountName();
-            balances[i] = String.valueOf(account.getAccountBalance());
-            UIDS[i] = account.getAccountUid();
+            names.add(account.getAccountName());
+            balances.add(String.valueOf(account.getAccountBalance()));
+            UIDS.add(account.getAccountUid());
         }
 
 
