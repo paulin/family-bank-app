@@ -6,8 +6,10 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import java.util.List;
+import java.util.Observer;
 
 public class AccountViewModel extends ViewModel {
+
     public LiveData<List<AccountEntity>> loadAllByIds(Context context) {
         AppDatabase db = AppDatabaseSingleton.getDatabase(context);
         return db.accountDao().getAllAccounts();

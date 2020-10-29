@@ -6,13 +6,16 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+
 import java.util.Date;
+import java.util.List;
 
 public class TransactionActivity extends AppCompatActivity {
 
     String note[], amount[], currentBal[];
     TextView Note, Amount, CurrentBal;
-
+    AccountViewModel viewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +27,31 @@ public class TransactionActivity extends AppCompatActivity {
         note = new String[]{"Cheese", "More Cheese", "PepperJack"};
         amount = new String[]{"5.00", "6.00", "7.00"};
         currentBal = new String[]{"20.00", "14.00", "7.00" };
+        viewModel = new AccountViewModel();
+        Long UID = getIntent().getLongExtra("UID", 0);
 
+        /*
+           final Observer<AccountEntity> getAccountObserver = newAccount -> {
+            if (newAccount == null) {
+                return;
+            }
+
+                AccountEntity account = newAccount;
+                names[i] = account.getAccountName();
+                balances[i] = String.valueOf(account.getAccountBalance());
+                UIDS[i] = account.getAccountUid();
+
+
+
+
+            myAccountAdapter.notifyDataSetChanged();
+
+        };
+
+        viewModel.getAccount(this, UID) {
+
+        };
+    */
         int pos = getIntent().getIntExtra("POSITION", 0);
 
         Note = findViewById(R.id.transactionActivityMessage);

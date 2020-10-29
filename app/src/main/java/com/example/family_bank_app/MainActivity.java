@@ -1,10 +1,13 @@
 package com.example.family_bank_app;
 
+import android.accounts.Account;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,22 +15,49 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity implements Dialog_CreateAcc.CreateAccountDialogListener {
     RecyclerView accountRecyclerView;
     MyAccountAdapter myAccountAdapter;
     String names[], balances[];
+    Long UIDS[];
     ImageButton createAcct;
-
+    AccountViewModel viewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        names = new String[]{"Jerry Law", "Mary Stringer"};
-        balances = new String[]{"413.20$", "876.45$"};
+        names = new String[40];
+        balances = new String[40];    //Need to add Array-doubler in Observer
+        UIDS = new Long[40];
+
+        viewModel = new AccountViewModel();
+
+        //Account Loader from Database
+        final Observer<List<AccountEntity>> getAccountsObserver = newAccounts -> {
+            if (newAccounts == null || newAccounts.size() <= 0) {
+                return;
+            }
+        for(int i=0; i < newAccounts.size();i++) {
+            AccountEntity account = newAccounts.get(i);
+            names[i] = account.getAccountName();
+            balances[i] = String.valueOf(account.getAccountBalance());
+            UIDS[i] = account.getAccountUid();
+        }
+
+
+
+            myAccountAdapter.notifyDataSetChanged();
+
+        };
+
+        viewModel.loadAllByIds(this).observe(this, getAccountsObserver);
+
 
         accountRecyclerView = findViewById(R.id.AccountRecycler);
 
-        myAccountAdapter = new MyAccountAdapter(this, names, balances);
+        myAccountAdapter = new MyAccountAdapter(this, names, balances, UIDS);
         accountRecyclerView.setAdapter(myAccountAdapter);
         accountRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         myAccountAdapter.notifyDataSetChanged();

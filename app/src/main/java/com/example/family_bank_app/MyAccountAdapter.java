@@ -17,13 +17,15 @@ import androidx.recyclerview.widget.RecyclerView;
 public class MyAccountAdapter extends RecyclerView.Adapter<MyAccountAdapter.ViewHolder> {
 
     String AccountName[], AccountBalance[];
+    Long AccountUID[];
     Context context;
     CardView cardView;
 
-    public MyAccountAdapter(Context ct, String[] s1, String[] s2 ) {
+    public MyAccountAdapter(Context ct, String[] s1, String[] s2, Long[] s3) {
         context = ct;
         AccountName = s1;
         AccountBalance = s2;
+        AccountUID = s3;
     }
 
     @NonNull
@@ -49,7 +51,7 @@ public class MyAccountAdapter extends RecyclerView.Adapter<MyAccountAdapter.View
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView text1, text2;
-        ImageView image1;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             text1 = itemView.findViewById(R.id.AccountName);
@@ -62,13 +64,15 @@ public class MyAccountAdapter extends RecyclerView.Adapter<MyAccountAdapter.View
         @Override
         public void onClick(View v) {
             int position = getLayoutPosition();
-            goToTransactionActivity(position);
+            Long UID = AccountUID[position];
+            goToTransactionActivity(position, UID);
         }
 
-        public void goToTransactionActivity(int position) {
+        public void goToTransactionActivity(int position, Long UID) {
             Intent intent = new Intent(context, AccountActivity.class);
 
             intent.putExtra("POSITION", position);
+            intent.putExtra("UID", UID);
             context.startActivity(intent);
         }
     }
