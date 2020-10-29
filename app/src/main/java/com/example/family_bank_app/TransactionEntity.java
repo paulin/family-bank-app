@@ -38,7 +38,9 @@ public class TransactionEntity {
         return transactionUid;
     }
 
-    public void setTransactionUid(@NonNull int transactionUid) { this.transactionUid = transactionUid; }
+    public void setTransactionUid(@NonNull long transactionUid) {
+        this.transactionUid = transactionUid;
+    }
 
     @NonNull
     public String getTransactionDate() { return transactionDate; }
@@ -55,6 +57,8 @@ public class TransactionEntity {
         return transactionAmount;
     }
 
-    public void setTransactionAmount( int transactionAmount ) { this.transactionAmount = transactionAmount; }
+    public void setTransactionAmount(double transactionAmount) {
+        this.transactionAmount = transactionAmount;
+    }
 
 }
