@@ -13,7 +13,7 @@ public class TransactionEntity {
     // Fields
     @PrimaryKey(autoGenerate = true)
     @NonNull
-    private int transactionUid;
+    private long transactionUid;
 
     // Will need to convert between date and string.
     @NonNull
@@ -26,7 +26,7 @@ public class TransactionEntity {
 
     @NonNull
     @ColumnInfo(name = "transactionAmount")
-    private int transactionAmount = 0;
+    private double transactionAmount = 0;
 
     // Add field for 'new total' AccountEntity - newTotal. Do we want this in the DB or calculated on runtime?
     //Aggregate query of transactions would be most accurate, is there a way to cache that calculation?
@@ -34,7 +34,9 @@ public class TransactionEntity {
 
     // Accessors/Mutators
     @NonNull
-    public int getTransactionUid() { return transactionUid; }
+    public long getTransactionUid() {
+        return transactionUid;
+    }
 
     public void setTransactionUid(@NonNull int transactionUid) { this.transactionUid = transactionUid; }
 
@@ -49,7 +51,9 @@ public class TransactionEntity {
     public void setTransactionTitle( String transactionTitle ) { this.transactionTitle = transactionTitle; }
 
     @NonNull
-    public int getTransactionAmount() { return transactionAmount; }
+    public double getTransactionAmount() {
+        return transactionAmount;
+    }
 
     public void setTransactionAmount( int transactionAmount ) { this.transactionAmount = transactionAmount; }
 
