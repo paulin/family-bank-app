@@ -38,7 +38,7 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
         amount = new String[]{"5.00", "6.00", "7.00"};
         currentBal = new String[]{"20.00", "14.00", "7.00" };
         names = new String[]{"Jerry Law", "Mary Stringer"};
-        balances = new String[]{"413.20$", "876.45$"};
+        balances = new String[]{"413.20$", "876.45$" , "200.34$", "850"};
 
         accountName = findViewById(R.id.NameOfAccount);
         accountBal = findViewById(R.id.balance);

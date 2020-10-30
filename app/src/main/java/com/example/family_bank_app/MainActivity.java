@@ -32,10 +32,14 @@ public class MainActivity extends AppCompatActivity implements Dialog_CreateAcc.
         viewModel = new AccountViewModel();
 
         //Account Loader from Database
+
         final Observer<List<AccountEntity>> getAccountsObserver = newAccounts -> {
             if (newAccounts == null || newAccounts.size() <= 0) {
                 return;
             }
+            names.clear();
+            balances.clear();
+            UIDS.clear();
         for(int i=0; i < newAccounts.size();i++) {
             AccountEntity account = newAccounts.get(i);
             names.add(account.getAccountName());
