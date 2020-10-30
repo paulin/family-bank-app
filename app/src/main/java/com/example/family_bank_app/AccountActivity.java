@@ -10,19 +10,28 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import static java.lang.String.valueOf;
 
 public class AccountActivity extends AppCompatActivity implements Dialog_DepositWithdraw.DepositWithdrawDialogListener {
     RecyclerView transactionRecyclerView;
     MyTransactionAdapter myTransactionAdapter;
-    String note[], amount[], currentBal[], names[], balances[];
+    List<String> note, transactionName;
+    List<Double> amount, currentBal;
+    String name;
+    Double balance;
     Date date[];
     Date d;
+    AccountViewModel viewModel;
     TextView accountName, accountBal;
 
     //inits for deposit and withdraw dialog
@@ -34,19 +43,38 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
-        note = new String[]{"Cheese", "More Cheese", "PepperJack"};
-        amount = new String[]{"5.00", "6.00", "7.00"};
-        currentBal = new String[]{"20.00", "14.00", "7.00" };
-        names = new String[]{"Jerry Law", "Mary Stringer"};
-        balances = new String[]{"413.20$", "876.45$" , "200.34$", "850"};
+        note = new ArrayList<String>();
+        amount = new ArrayList<Double>();
+        currentBal = new ArrayList<Double>();
+        name = "";
+        balance = 0.0;
+
+
+        viewModel = new AccountViewModel();
+
+        //Account Loader from Database
+
+        int pos = getIntent().getIntExtra("POSITION", 0);
+        Long UID = getIntent().getLongExtra("UID", 0);
+        AccountEntity account = new AccountEntity();
+        viewModel.getAccount(this, UID);
+
+         name = account.getAccountName();
+         balance = account.getAccountBalance();
+
+
+
+
+
+
 
         accountName = findViewById(R.id.NameOfAccount);
         accountBal = findViewById(R.id.balance);
 
-        int pos = getIntent().getIntExtra("POSITION", 0);
 
-        accountName.setText(names[pos]);
-        accountBal.setText("Balance: " + balances[pos]);
+
+        accountName.setText(name);
+        accountBal.setText(valueOf(balance));
 
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
@@ -58,12 +86,12 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
         date = new Date[]{d, d, d};
 
         transactionRecyclerView = findViewById(R.id.TransactionRecycler);
-
+    /*
         myTransactionAdapter = new MyTransactionAdapter(this, note, amount, currentBal, date );
         transactionRecyclerView.setAdapter(myTransactionAdapter);
         transactionRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         myTransactionAdapter.notifyDataSetChanged();
-
+*/
         /*
         Code for deposit and withdraw dialog below:
         */
