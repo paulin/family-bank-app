@@ -6,7 +6,6 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import java.util.List;
-import java.util.Observer;
 
 public class AccountViewModel extends ViewModel {
 
@@ -39,7 +38,7 @@ public class AccountViewModel extends ViewModel {
         });
     }
 
-    public static AccountEntity getAccount(Context context, long accountUID) {
+    public static LiveData<AccountEntity> getAccount(Context context, long accountUID) {
         AppDatabase db = AppDatabaseSingleton.getDatabase(context);
         return db.accountDao().getAccount(accountUID);
 
