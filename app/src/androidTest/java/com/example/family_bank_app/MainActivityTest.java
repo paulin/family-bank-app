@@ -61,5 +61,4 @@ public class MainActivityTest {
 
         onView(withText(R.string.cancel)).perform(click());
     }
-
 }
