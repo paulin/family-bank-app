@@ -1,6 +1,7 @@
 package com.example.family_bank_app;
 
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
@@ -34,7 +35,7 @@ public class MainActivityTest {
 
     @Test
     public void hasTextOnScreen() {
-        onView(withId(R.id.AccountsTitle)).check(matches(withText(R.string.accounts)));
+        onView(withId(R.id.MainAccount)).check(matches(withText(R.string.accounts)));
     }
 
     @Test
@@ -50,8 +51,8 @@ public class MainActivityTest {
         onView(withText(R.string.create)).inRoot(isDialog()).perform(click());
         Thread.sleep(1000);
 
-        // Check Toast
-        onView(withText(R.string.test_1))
+        // Check toast
+        onView(withText("Account ID: 0Account Name: Demo AccountAccount Balance: 9999.99"))
                 .inRoot(withDecorView(not(mActivityRuleMain.getActivity()
                         .getWindow().getDecorView()))).check(matches(isDisplayed()));
 

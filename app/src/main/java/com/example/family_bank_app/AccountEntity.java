@@ -5,37 +5,45 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity
+@Entity(tableName = "Accounts")
 public class AccountEntity {
 
     // Fields for table with default values
     @PrimaryKey(autoGenerate = true)
     @NonNull
-    private int accountUid;
+    @ColumnInfo(name = "accountUid")
+    private long accountUid;
+
+    @ColumnInfo(name = "name")
+    private String accountName;
+
+    @ColumnInfo(name = "balance")
+    private double accountBalance;
+
+    // Accessors/Mutator
+    @NonNull
+    public long getAccountUid() {
+        return accountUid;
+    }
 
     @NonNull
-    @ColumnInfo(name = "Name")
-    private String accountName = "";
+    public void setAccountUid(long id) {
+        this.accountUid = id;
+    }
 
-    // Will need to convert between int and currency for accuracy
-    @NonNull
-    @ColumnInfo(name = "Balance")
-    private int accountBalance = 0;
+    public String getAccountName() {
+        return accountName;
+    }
 
-    // Accessors/Mutators
+    public void setAccountName(String name) {
+        this.accountName = name;
+    }
 
-    @NonNull
-    public int getAccountUid() { return accountUid; }
+    public double getAccountBalance() {
+        return accountBalance;
+    }
 
-    public void setAccountUid(int uid) { this.accountUid = uid; }
-
-    @NonNull
-    public String getAccountName() { return accountName; }
-
-    public void setAccountName(String name) { this.accountName = name; }
-
-    @NonNull
-    public int getAccountBalance() { return accountBalance; }
-
-    public void setAccountBalance(int balance) { this.accountBalance = balance; }
+    public void setAccountBalance(double balance) {
+        this.accountBalance = balance;
+    }
 }

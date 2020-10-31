@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+
+<ScrollView
+    android:layout_width="wrap_content"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:background="@color/BankGreenBackground">
+    android:background="@color/BankGreenBackground"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="wrap_content"
@@ -16,30 +21,26 @@
         android:id="@+id/toolbar"
         >
 
-
         <ImageView
+            android:id="@+id/MainLogo"
             android:layout_width="433dp"
-            android:paddingVertical="10dp"
-            android:layout_height="wrap_content"
-
-            android:src="@drawable/logo" />
-
-
+            android:padding="10dp"
+            android:layout_height="100dp"
+            android:src="@drawable/logo"
+            android:contentDescription="@string/logo" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
     <TextView
-        android:id="@+id/AccountsTitle"
+        android:id="@+id/MainAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:padding="10dp"
-        android:text="@string/accounts"
-        android:textSize="30dp"
-
-        android:layout_marginLeft="135dp"
-        />
-
+        android:layout_below="@+id/toolbar"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="30dp"
+        android:textSize="40sp"
+        android:typeface="serif"
+        android:text="@string/accounts" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
@@ -49,14 +50,15 @@
         android:id="@+id/AccountRecycler"/>
 
     <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="500dp"
-        android:layout_marginLeft="95dp"
-        android:padding="0dp"
         android:id="@+id/CreateAcct"
-        android:src="@drawable/button"/>
+        android:layout_width="170dp"
+        android:layout_height="@dimen/createAcct_height"
+        android:layout_below="@+id/AccountRecycler"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="20dp"
+        android:contentDescription="@string/new_account"
+        android:padding="0dp"
+        android:src="@drawable/button" />
 
-
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</RelativeLayout>
+</ScrollView>

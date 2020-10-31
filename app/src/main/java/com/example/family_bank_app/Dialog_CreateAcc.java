@@ -11,7 +11,7 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-public class CreateAccDialog  extends AppCompatDialogFragment {
+public class Dialog_CreateAcc extends AppCompatDialogFragment {
     //Made following a video tutorial from Coding in Flow on youtube, shamelessly
     //https://www.youtube.com/watch?v=ARezg1D9Zd0
 
@@ -32,7 +32,7 @@ public class CreateAccDialog  extends AppCompatDialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) { // This onClick needs to deal with empty string inputs.
                         String name = editTextName.getText().toString();
-                        Double value = Double.parseDouble(editTextValue.getText().toString());
+                        double value = Double.parseDouble(editTextValue.getText().toString());
                         listener.sendText(name, value);
                     }
                 })
@@ -61,6 +61,6 @@ public class CreateAccDialog  extends AppCompatDialogFragment {
     }
 
     public interface CreateAccountDialogListener{
-        void sendText(String name, Double balance);
+        void sendText(String name, double balance);
     }
 }
