@@ -12,7 +12,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
 
-
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -22,8 +21,6 @@
         android:id="@+id/toolbar"
         >
 
-
-
         <ImageView
             android:id="@+id/MainLogo"
             android:layout_width="433dp"
@@ -32,11 +29,7 @@
             android:src="@drawable/logo"
             android:contentDescription="@string/logo" />
 
-
-
     </com.google.android.material.appbar.AppBarLayout>
-
-
 
     <TextView
         android:id="@+id/MainAccount"
@@ -48,7 +41,6 @@
         android:textSize="40sp"
         android:typeface="serif"
         android:text="@string/accounts" />
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
@@ -67,7 +59,6 @@
         android:contentDescription="@string/new_account"
         android:padding="0dp"
         android:src="@drawable/button" />
-
 
 </RelativeLayout>
 </ScrollView>

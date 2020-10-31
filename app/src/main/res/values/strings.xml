@@ -11,7 +11,6 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="family_bank">Family Bank</string>
 
-    <string name="accounts">Accounts</string>
     <string name="todo">TODO</string>
     <string name="new_account">new account</string>
     <string name="mary_sampson">Mary Sampson</string>
@@ -23,6 +22,10 @@
 
     <string name="acc_create_name" comment="used in create account dialog">Account Name</string>
     <string name="acc_create_balance" comment="used in create account dialog">Account Balance</string>
+    <string name="accounts">Accounts</string>
+    <string name="create">Create</string>
+    <string name="cancel">Cancel</string>
+    <string name="test_1">test $1.0</string>
     <string name="deposit_hint">Enter Amount</string>
     <string name="withdraw_hint">Enter Withdraw Amount</string>
     <string name="depwith_memo_hint">Note</string>

@@ -28,9 +28,9 @@ public class Dialog_CreateAcc extends AppCompatDialogFragment {
 
         builder.setTitle("Create New Account")
                 .setView(view)
-                .setPositiveButton("Create", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Create", new DialogInterface.OnClickListener() { // Extract Create string
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                    public void onClick(DialogInterface dialog, int which) { // This onClick needs to deal with empty string inputs.
                         String name = editTextName.getText().toString();
                         double value = Double.parseDouble(editTextValue.getText().toString());
                         listener.sendText(name, value);
@@ -38,7 +38,7 @@ public class Dialog_CreateAcc extends AppCompatDialogFragment {
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                    public void onClick(DialogInterface dialog, int which) { // Extract Cancel string
                         //do nothing
                     }
                 });
