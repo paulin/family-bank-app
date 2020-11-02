@@ -82,12 +82,6 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
         date = new Date[]{d, d, d};
 
         transactionRecyclerView = findViewById(R.id.TransactionRecycler);
-    /*
-        myTransactionAdapter = new MyTransactionAdapter(this, note, amount, currentBal, date );
-        transactionRecyclerView.setAdapter(myTransactionAdapter);
-        transactionRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        myTransactionAdapter.notifyDataSetChanged();
-*/
         /*
         Code for deposit and withdraw dialog below:
         */

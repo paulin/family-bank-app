@@ -14,13 +14,6 @@ public class AccountViewModel extends ViewModel {
         return db.accountDao().getAllAccounts();
     }
 
-    public static void createAccount(Context context, final AccountEntity newAccount) {
-        AppDatabase db = AppDatabaseSingleton.getDatabase(context);
-        db.getTransactionExecutor().execute(() -> {
-            db.accountDao().insertAccount(newAccount);
-        });
-    }
-
     public static void updateAccount(Context context, final AccountEntity account) {
         AppDatabase db = AppDatabaseSingleton.getDatabase(context);
         db.getTransactionExecutor().execute(() -> {
