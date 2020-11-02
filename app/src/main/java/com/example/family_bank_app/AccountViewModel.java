@@ -36,14 +36,12 @@ public class AccountViewModel extends ViewModel {
             db.getTransactionExecutor().execute(() -> {
                 db.accountDao().delete(account);
             });
-
         });
     }
 
     public static AccountEntity getAccount(Context context, long accountUID) {
         AppDatabase db = AppDatabaseSingleton.getDatabase(context);
         return db.accountDao().getAccount(accountUID);
-
     }
 
 }

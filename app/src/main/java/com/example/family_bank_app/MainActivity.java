@@ -2,6 +2,7 @@ package com.example.family_bank_app;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +14,8 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements Dialog_CreateAcc.CreateAccountDialogListener {
+    private static final String TAG = MainActivity.class.getSimpleName();
+
     RecyclerView accountRecyclerView;
     MyAccountAdapter myAccountAdapter;
     String names[], balances[];
@@ -22,6 +25,8 @@ public class MainActivity extends AppCompatActivity implements Dialog_CreateAcc.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // @@@ May need to restructure recycler view for testing moving forward.
         names = new String[]{"Jerry Law", "Mary Stringer"};
         balances = new String[]{"413.20$", "876.45$"};
 
@@ -87,12 +92,22 @@ public class MainActivity extends AppCompatActivity implements Dialog_CreateAcc.
         demoAccount.setAccountName("Demo Account");
         demoAccount.setAccountBalance(9999.99);
         AccountViewModel.createAccount(this, demoAccount);
-        Toast.makeText(getApplicationContext(), "Account ID: " + demoAccount.getAccountUid() + "Account Name: " + demoAccount.getAccountName() + "Account Balance: " + demoAccount.getAccountBalance(), Toast.LENGTH_LONG).show();
-        demoAccount.setAccountBalance(1111.99);
-        AccountViewModel.updateAccount(this, demoAccount);
-        Toast.makeText(getApplicationContext(), "Account ID: " + demoAccount.getAccountUid() + "Account Name: " + demoAccount.getAccountName() + "Account Balance: " + demoAccount.getAccountBalance(), Toast.LENGTH_LONG).show();
-        AccountViewModel.deleteAccount(this, demoAccount);
-        Toast.makeText(getApplicationContext(), "Account ID: " + demoAccount.getAccountUid() + "Account Name: " + demoAccount.getAccountName() + "Account Balance: " + demoAccount.getAccountBalance(), Toast.LENGTH_LONG).show();
+
+
+        Log.i(TAG, ""+demoAccount.getAccountUid());
     }
+
+//    public void smolDemo() {
+//        AccountEntity demoAccount = new AccountEntity();
+//        demoAccount.setAccountName("Demo Account");
+//        demoAccount.setAccountBalance(9999.99);
+//        AccountViewModel.createAccount(this, demoAccount);
+//        Toast.makeText(getApplicationContext(), "Account ID: " + demoAccount.getAccountUid() + "Account Name: " + demoAccount.getAccountName() + "Account Balance: " + demoAccount.getAccountBalance(), Toast.LENGTH_LONG).show();
+//        demoAccount.setAccountBalance(1111.99);
+//        AccountViewModel.updateAccount(this, demoAccount);
+//        Toast.makeText(getApplicationContext(), "Account ID: " + demoAccount.getAccountUid() + "Account Name: " + demoAccount.getAccountName() + "Account Balance: " + demoAccount.getAccountBalance(), Toast.LENGTH_LONG).show();
+//        AccountViewModel.deleteAccount(this, demoAccount);
+//        Toast.makeText(getApplicationContext(), "Account ID: " + demoAccount.getAccountUid() + "Account Name: " + demoAccount.getAccountName() + "Account Balance: " + demoAccount.getAccountBalance(), Toast.LENGTH_LONG).show();
+//    }
 
 }

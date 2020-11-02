@@ -2,6 +2,7 @@ package com.example.family_bank_app;
 
 import android.app.FragmentManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -9,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.Date;
 
 public class TransactionActivity extends AppCompatActivity {
+    private static final String TAG = TransactionActivity.class.getSimpleName();
+
 
     String note[], amount[], currentBal[];
     TextView Note, Amount, CurrentBal;
@@ -18,7 +21,7 @@ public class TransactionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transaction);
 
-
+        Log.i(TAG, "in transactivity");
 
 
         note = new String[]{"Cheese", "More Cheese", "PepperJack"};

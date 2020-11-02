@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -12,6 +13,7 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 public class Dialog_DepositWithdraw extends AppCompatDialogFragment {
+    private static final String TAG = Dialog_DepositWithdraw.class.getSimpleName();
 
     //Status indicator
     public static final int STATUS_WITHDRAW = 1;
@@ -38,6 +40,17 @@ public class Dialog_DepositWithdraw extends AppCompatDialogFragment {
                         String memo = editTextMemo.getText().toString();
                         Double value = Double.parseDouble(editTextAmount.getText().toString());
                         listener.sendText(value, memo);
+
+                        // Demo to test transaction data
+                        TransactionEntity transactionEntity = new TransactionEntity();
+
+                        transactionEntity.setTransactionAmount(100.00);
+                        transactionEntity.setTransactionDate("1/1/1111");
+                        transactionEntity.setTransactionTitle("test transaction");
+                        transactionEntity.setAccountMainUid(0);
+
+                        TransactionViewModel.createTransaction(view.getContext(), transactionEntity);
+                        Log.i(TAG, ""+TransactionViewModel.getTransaction(view.getContext(),0));
                     }
                 })
                 .setNegativeButton("Cancel",new DialogInterface.OnClickListener() {

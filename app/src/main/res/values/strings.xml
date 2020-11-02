@@ -31,9 +31,12 @@
     <string name="depwith_memo_hint">Note</string>
     <string name="depwith_default_hint">Deposit Withdraw bad hint</string>
     <string name="balance">Balance</string>
-    <string name="withdraw">withdraw</string>
+    <string name="withdraw">Withdraw</string>
+    <string name="deposit">Deposit</string>
     <string name="current_bal">Current Bal</string>
     <string name="amount">Amount</string>
     <string name="datetime">datetime</string>
+    <string name="confirm">Confirm</string>
+    <string name="jerry_law">Jerry Law</string>
 
 </resources>

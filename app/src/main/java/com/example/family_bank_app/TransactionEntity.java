@@ -31,7 +31,7 @@ public class TransactionEntity {
 
     @NonNull
     @ColumnInfo(name = "transactionAmount")
-    private int transactionAmount = 0;
+    private double transactionAmount = 0;
 
     // Add field for 'new total' AccountEntity - newTotal. Do we want this in the DB or calculated on runtime?
     //Aggregate query of transactions would be most accurate, is there a way to cache that calculation?
@@ -58,8 +58,8 @@ public class TransactionEntity {
     public void setTransactionTitle( String transactionTitle ) { this.transactionTitle = transactionTitle; }
 
     @NonNull
-    public int getTransactionAmount() { return transactionAmount; }
+    public double getTransactionAmount() { return transactionAmount; }
 
-    public void setTransactionAmount( int transactionAmount ) { this.transactionAmount = transactionAmount; }
+    public void setTransactionAmount( double transactionAmount ) { this.transactionAmount = transactionAmount; }
 
 }
