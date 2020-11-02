@@ -7,13 +7,18 @@ import androidx.room.PrimaryKey;
 
 // Store the transactions related to each account, one to many with account Entity
 //https://developer.android.com/training/data-storage/room/relationships
-@Entity
+@Entity (tableName = "Transactions")
 public class TransactionEntity {
 
     // Fields
     @PrimaryKey(autoGenerate = true)
     @NonNull
-    private int transactionUid;
+    @ColumnInfo(name = "transactionUid")
+    private long transactionUid;
+
+    @NonNull
+    @ColumnInfo(name = "accountMainUid")
+    private long accountMainUid;
 
     // Will need to convert between date and string.
     @NonNull
@@ -34,10 +39,14 @@ public class TransactionEntity {
 
     // Accessors/Mutators
     @NonNull
-    public int getTransactionUid() { return transactionUid; }
+    public long getTransactionUid() { return transactionUid; }
 
-    public void setTransactionUid(@NonNull int transactionUid) { this.transactionUid = transactionUid; }
+    public void setTransactionUid(@NonNull long transactionUid) { this.transactionUid = transactionUid; }
 
+    @NonNull
+    public long getAccountMainUid() { return accountMainUid; }
+
+    public void setAccountMainUid(@NonNull long accountMainUid) { this.accountMainUid = accountMainUid; }
     @NonNull
     public String getTransactionDate() { return transactionDate; }
 

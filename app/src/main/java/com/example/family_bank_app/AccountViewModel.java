@@ -8,11 +8,14 @@ import androidx.lifecycle.ViewModel;
 import java.util.List;
 
 public class AccountViewModel extends ViewModel {
-    public LiveData<List<AccountEntity>> loadAllByIds(Context context) {
+
+    // Grab all accounts and associated transactions
+    public LiveData<List<AccountWithTransactions>> getAccountWithTransactions(Context context) {
         AppDatabase db = AppDatabaseSingleton.getDatabase(context);
-        return db.accountDao().getAllAccounts();
+        return db.accountDao().getAccountWithTransactions();
     }
 
+    // @@@ create and update are the same, probably only need one.
     public static void createAccount(Context context, final AccountEntity newAccount) {
         AppDatabase db = AppDatabaseSingleton.getDatabase(context);
         db.getTransactionExecutor().execute(() -> {
@@ -42,6 +45,5 @@ public class AccountViewModel extends ViewModel {
         return db.accountDao().getAccount(accountUID);
 
     }
-
 
 }
