@@ -22,8 +22,8 @@ public interface AccountDao {
 
     // @@@Not sure if we want to query accounts by the name, this could lead to data issues. What if two users have the same name?
     //Query all Accounts with Regular Expression
-    @Query("SELECT * FROM Accounts WHERE name = :name")
-    AccountEntity getAccount(String name);
+//    @Query("SELECT * FROM Accounts WHERE name = :name")
+//    AccountEntity getAccount(String name);
 
     // Query for all accounts in db
     @Query("SELECT * FROM Accounts")
@@ -59,7 +59,8 @@ public interface AccountDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertTransaction(TransactionEntity... transactionEntity);
 
-    @Delete
-    void deleteTransaction(TransactionEntity transaction);
+    // Ask matt
+//    @Delete
+//    void deleteTransaction(TransactionEntity transaction);
 
 }

@@ -23,12 +23,12 @@ public class AccountViewModel extends ViewModel {
         });
     }
 
-    public static void updateAccount(Context context, final AccountEntity account) {
-        AppDatabase db = AppDatabaseSingleton.getDatabase(context);
-        db.getTransactionExecutor().execute(() -> {
-            db.accountDao().insertAccount(account);
-        });
-    }
+//    public static void updateAccount(Context context, final AccountEntity account) {
+//        AppDatabase db = AppDatabaseSingleton.getDatabase(context);
+//        db.getTransactionExecutor().execute(() -> {
+//            db.accountDao().insertAccount(account);
+//        });
+//    }
 
     public static void deleteAccount(Context context, AccountEntity account) {
         AppDatabase db = AppDatabaseSingleton.getDatabase(context);
