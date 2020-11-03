@@ -9,26 +9,24 @@ import java.util.List;
 
 public class AccountViewModel extends ViewModel {
 
+
     // Grab all accounts and associated transactions
-    public LiveData<List<AccountWithTransactions>> getAccountWithTransactions(Context context) {
+//    public LiveData<List<AccountWithTransactions>> getAccountWithTransactions(Context context) {
+//        AppDatabase db = AppDatabaseSingleton.getDatabase(context);
+//        return db.accountDao().getAccountWithTransactions();
+//    }
+
+    public LiveData<List<AccountEntity>> loadAllByIds(Context context) {
         AppDatabase db = AppDatabaseSingleton.getDatabase(context);
-        return db.accountDao().getAccountWithTransactions();
+        return db.accountDao().getAllAccounts();
     }
 
-    // @@@ create and update are the same, probably only need one.
-    public static void createAccount(Context context, final AccountEntity newAccount) {
+    public static void updateAccount(Context context, final AccountEntity account) {
         AppDatabase db = AppDatabaseSingleton.getDatabase(context);
         db.getTransactionExecutor().execute(() -> {
-            db.accountDao().insertAccount(newAccount);
+            db.accountDao().insertAccount(account);
         });
     }
-
-//    public static void updateAccount(Context context, final AccountEntity account) {
-//        AppDatabase db = AppDatabaseSingleton.getDatabase(context);
-//        db.getTransactionExecutor().execute(() -> {
-//            db.accountDao().insertAccount(account);
-//        });
-//    }
 
     public static void deleteAccount(Context context, AccountEntity account) {
         AppDatabase db = AppDatabaseSingleton.getDatabase(context);
@@ -39,7 +37,7 @@ public class AccountViewModel extends ViewModel {
         });
     }
 
-    public static AccountEntity getAccount(Context context, long accountUID) {
+    public static LiveData<AccountEntity> getAccount(Context context, long accountUID) {
         AppDatabase db = AppDatabaseSingleton.getDatabase(context);
         return db.accountDao().getAccount(accountUID);
     }

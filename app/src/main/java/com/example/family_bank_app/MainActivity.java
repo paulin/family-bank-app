@@ -1,61 +1,78 @@
 package com.example.family_bank_app;
 
-import android.content.Intent;
 import android.os.Bundle;
+
 import android.util.Log;
 import android.view.View;
 
+import android.widget.ImageButton;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.Toast;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity implements Dialog_CreateAcc.CreateAccountDialogListener {
     private static final String TAG = MainActivity.class.getSimpleName();
 
     RecyclerView accountRecyclerView;
     MyAccountAdapter myAccountAdapter;
-    String names[], balances[];
+    List<String> names;
+    List<String> balances;
+    List<Long> UIDS;
     ImageButton createAcct;
+    AccountViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // @@@ May need to restructure recycler view for testing moving forward.
-        names = new String[]{"Jerry Law", "Mary Stringer"};
-        balances = new String[]{"413.20$", "876.45$"};
+        names = new ArrayList<String>();
+        balances = new ArrayList<String>();     //Need to add Array-doubler in Observer
+        UIDS = new ArrayList<Long>();
+
+        viewModel = new AccountViewModel();
+
+        //Account Loader from Database
+
+        final Observer<List<AccountEntity>> getAccountsObserver = newAccounts -> {
+            if (newAccounts == null || newAccounts.size() <= 0) {
+                return;
+            }
+            names.clear();
+            balances.clear();
+            UIDS.clear();
+        for(int i=0; i < newAccounts.size();i++) {
+            AccountEntity account = newAccounts.get(i);
+            names.add(account.getAccountName());
+            balances.add(String.valueOf(account.getAccountBalance()));
+            UIDS.add(account.getAccountUid());
+        }
+
+
+
+            myAccountAdapter.notifyDataSetChanged();
+
+        };
+
+        viewModel.loadAllByIds(this).observe(this, getAccountsObserver);
+
 
         accountRecyclerView = findViewById(R.id.AccountRecycler);
 
-        myAccountAdapter = new MyAccountAdapter(this, names, balances);
+        myAccountAdapter = new MyAccountAdapter(this, names, balances, UIDS);
         accountRecyclerView.setAdapter(myAccountAdapter);
         accountRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         myAccountAdapter.notifyDataSetChanged();
 
         //Set up onclick listener for the create new account button
         createAcct = findViewById(R.id.CreateAcct);
-        createAcct.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                //Toast.makeText(getApplicationContext(), "click!", Toast.LENGTH_LONG).show();
-                createAccDialog();
-            }
-        });
-
-
-        /*
-======= Remnants of old Merge conflict: Leaving for posterity
-    }
-
-    public void toAccountActivity(View view) {
-        Intent intent = new Intent(MainActivity.this, AccountActivity.class);
-        startActivity(intent);
->>>>>>> KieransBranch
-         */
+        createAcct.setOnClickListener(v -> createAccDialog());
 
     }
 
@@ -71,33 +88,15 @@ public class MainActivity extends AppCompatActivity implements Dialog_CreateAcc.
     //Gets the values entered in the create account dialog
     @Override
     public void sendText(String name, double balance) {
-        //Toast.makeText(getApplicationContext(), name + " $" + balance, Toast.LENGTH_LONG).show();
-        //updateDatabase(name, balance);
-        smolDemo();
+        updateDatabase(name, balance);
     }
 
-//    //Updates the DB with new values
-//    public void updateDatabase(String acctName, double acctBal) {
-//        //If Account Exists Update
-//        //IF Account Does not Exist Create
-//        //AccountEntity newAccount = new AccountEntity();
-//        // newAccount.setAccountName(acctName);
-//        // newAccount.setAccountBalance(acctBal);
-//        // AccountViewModel.createAccount(this, newAccount);
-//
-//    }
-
-    public void smolDemo() {
-        AccountEntity demoAccount = new AccountEntity();
-        demoAccount.setAccountName("Demo Account");
-        demoAccount.setAccountBalance(9999.99);
-        AccountViewModel.createAccount(this, demoAccount);
-        Toast.makeText(getApplicationContext(), "Account ID: " + demoAccount.getAccountUid() + "Account Name: " + demoAccount.getAccountName() + "Account Balance: " + demoAccount.getAccountBalance(), Toast.LENGTH_LONG).show();
-        demoAccount.setAccountBalance(1111.99);
-        AccountViewModel.createAccount(this, demoAccount);
-        Toast.makeText(getApplicationContext(), "Account ID: " + demoAccount.getAccountUid() + "Account Name: " + demoAccount.getAccountName() + "Account Balance: " + demoAccount.getAccountBalance(), Toast.LENGTH_LONG).show();
-        AccountViewModel.deleteAccount(this, demoAccount);
-        Toast.makeText(getApplicationContext(), "Account ID: " + demoAccount.getAccountUid() + "Account Name: " + demoAccount.getAccountName() + "Account Balance: " + demoAccount.getAccountBalance(), Toast.LENGTH_LONG).show();
+    //Updates the DB with new values
+    public void updateDatabase(String acctName, double acctBal) {
+        AccountEntity newAccount = new AccountEntity();
+        newAccount.setAccountName(acctName);
+        newAccount.setAccountBalance(acctBal);
+        AccountViewModel.updateAccount(this, newAccount);
     }
 
 }

@@ -3,6 +3,7 @@ package com.example.family_bank_app;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
 // Store the transactions related to each account, one to many with account Entity
@@ -11,7 +12,7 @@ import androidx.room.PrimaryKey;
 public class TransactionEntity {
 
     // Fields
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     @NonNull
     @ColumnInfo(name = "transactionUid")
     private long transactionUid;
@@ -19,6 +20,7 @@ public class TransactionEntity {
     @NonNull
     @ColumnInfo(name = "accountMainUid")
     private long accountMainUid;
+
 
     // Will need to convert between date and string.
     @NonNull
@@ -61,5 +63,6 @@ public class TransactionEntity {
     public double getTransactionAmount() { return transactionAmount; }
 
     public void setTransactionAmount( double transactionAmount ) { this.transactionAmount = transactionAmount; }
+
 
 }

@@ -15,15 +15,15 @@ public interface AccountDao {
 
     //Account ---------------------
 
+    @Transaction // Like batching
+    @Query("SELECT * FROM Accounts WHERE accountUid = :accountUid")
+    List<AccountWithTransactions> getAccountsWithTransactions(long accountUid);
+
     // @@@This should be changed to livedata
     //Query all Accounts with an account uid
     @Query("SELECT * FROM Accounts WHERE accountUid = :accountUid")
-    AccountEntity getAccount(long accountUid);
-
-    // @@@Not sure if we want to query accounts by the name, this could lead to data issues. What if two users have the same name?
-    //Query all Accounts with Regular Expression
-//    @Query("SELECT * FROM Accounts WHERE name = :name")
-//    AccountEntity getAccount(String name);
+//    AccountEntity getAccount(long accountUid);
+    LiveData<AccountEntity> getAccount(long accountUid);
 
     // Query for all accounts in db
     @Query("SELECT * FROM Accounts")
@@ -42,9 +42,9 @@ public interface AccountDao {
     // Transaction ---------------------
 
     // Grab all accounts and transactions
-    @Transaction // Like batching
-    @Query("SELECT * FROM Accounts")
-    LiveData<List<AccountWithTransactions>> getAccountWithTransactions();
+//    @Transaction // Like batching
+//    @Query("SELECT * FROM Accounts")
+//    LiveData<List<AccountWithTransactions>> getAccountWithTransactions();
 
     // Query for specific account and all associated transactions
 //    @Transaction // Like batching
@@ -64,3 +64,8 @@ public interface AccountDao {
 //    void deleteTransaction(TransactionEntity transaction);
 
 }
+
+// @@@Not sure if we want to query accounts by the name, this could lead to data issues. What if two users have the same name?
+//Query all Accounts with Regular Expression
+//    @Query("SELECT * FROM Accounts WHERE name = :name")
+//    AccountEntity getAccount(String name);
