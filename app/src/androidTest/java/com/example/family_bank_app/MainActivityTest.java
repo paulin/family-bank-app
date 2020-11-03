@@ -33,6 +33,8 @@ public class MainActivityTest {
 
     private static final String TAG = MainActivityTest.class.getSimpleName();
 
+    // TESTS DO NOT RUN SEQUENTIALLY
+
     public void checkToast(String toastText) {
 
         onView(withText(toastText))
@@ -74,15 +76,6 @@ public class MainActivityTest {
 
         onView(withText(R.string.cancel)).perform(click());
 
-    }
-
-    @Test
-    public void clickWithdraw() throws InterruptedException {
-
-        Thread.sleep(7000);
-
-        createNewAccount();
-
         Thread.sleep(7000);
 
         onView(new RecyclerViewMatcher(R.id.AccountRecycler)
@@ -96,6 +89,8 @@ public class MainActivityTest {
 
         Thread.sleep(2000);
 
+        //Deposit
+
         onView(withId(R.id.Btn_Withdraw)).perform(click());
         Thread.sleep(2000);
         onView(withId(R.id.deposit_dialog)).perform(typeText("1"));
@@ -108,22 +103,6 @@ public class MainActivityTest {
         checkToast("-1.0 p");
         Thread.sleep(2000);
 
-    }
-
-    @Test
-    public void clickDeposit() throws InterruptedException {
-
-        Thread.sleep(7000);
-
-        createNewAccount();
-
-        Thread.sleep(7000);
-
-        onView(new RecyclerViewMatcher(R.id.AccountRecycler)
-                .atPositionOnView(0, R.id.card_view))
-                .perform(click());
-
-        Thread.sleep(2000);
         onView(withId(R.id.Btn_Deposit)).perform(click());
         Thread.sleep(2000);
         onView(withText(R.string.cancel)).inRoot(isDialog()).perform(click());
@@ -142,6 +121,73 @@ public class MainActivityTest {
         Thread.sleep(2000);
 
     }
+
+//    @Test
+//    public void clickWithdraw() throws InterruptedException {
+//
+//        Thread.sleep(7000);
+//
+//        createNewAccount();
+//
+//        Thread.sleep(7000);
+//
+//        onView(new RecyclerViewMatcher(R.id.AccountRecycler)
+//                .atPositionOnView(0, R.id.card_view))
+//                .perform(click());
+//
+//        Thread.sleep(2000);
+//        onView(withId(R.id.Btn_Withdraw)).perform(click());
+//        Thread.sleep(2000);
+//        onView(withText(R.string.cancel)).inRoot(isDialog()).perform(click());
+//
+//        Thread.sleep(2000);
+//
+//        onView(withId(R.id.Btn_Withdraw)).perform(click());
+//        Thread.sleep(2000);
+//        onView(withId(R.id.deposit_dialog)).perform(typeText("1"));
+//        Thread.sleep(2000);
+//        onView(withId(R.id.depwith_memo_dialog)).perform(typeText("p"), closeSoftKeyboard());
+//
+//        Thread.sleep(2000);
+//        onView(withText(R.string.confirm)).inRoot(isDialog()).perform(click());
+//        Thread.sleep(2000);
+//        checkToast("-1.0 p");
+//        Thread.sleep(2000);
+//
+//    }
+
+//    @Test
+//    public void clickDeposit() throws InterruptedException {
+//
+//        Thread.sleep(7000);
+//
+//        createNewAccount();
+//
+//        Thread.sleep(7000);
+//
+//        onView(new RecyclerViewMatcher(R.id.AccountRecycler)
+//                .atPositionOnView(0, R.id.card_view))
+//                .perform(click());
+//
+//        Thread.sleep(2000);
+//        onView(withId(R.id.Btn_Deposit)).perform(click());
+//        Thread.sleep(2000);
+//        onView(withText(R.string.cancel)).inRoot(isDialog()).perform(click());
+//
+//        Thread.sleep(2000);
+//
+//        onView(withId(R.id.Btn_Deposit)).perform(click());
+//        Thread.sleep(2000);
+//        onView(withId(R.id.deposit_dialog)).perform(typeText("1"));
+//        Thread.sleep(1000);
+//        onView(withId(R.id.depwith_memo_dialog)).perform(typeText("p"), closeSoftKeyboard());
+//        Thread.sleep(2000);
+//        onView(withText(R.string.confirm)).inRoot(isDialog()).perform(click());
+//        Thread.sleep(2000);
+//        checkToast("1.0 p");
+//        Thread.sleep(2000);
+//
+//    }
 
 //    public void createNewAccount() throws InterruptedException {
 //        onView(withId(R.id.CreateAcct)).perform(click());
