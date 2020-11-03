@@ -26,7 +26,7 @@
     <string name="create">Create</string>
     <string name="cancel">Cancel</string>
     <string name="test_1">test $1.0</string>
-    <string name="deposit_hint">Enter Amount</string>
+    <string name="deposit_hint">Enter Deposit Amount</string>
     <string name="withdraw_hint">Enter Withdraw Amount</string>
     <string name="depwith_memo_hint">Note</string>
     <string name="depwith_default_hint">Deposit Withdraw bad hint</string>

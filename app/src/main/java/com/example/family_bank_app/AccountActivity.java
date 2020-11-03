@@ -81,7 +81,7 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
                 //CLICK DEPOSIT
                 //Toast.makeText(getApplicationContext(), "click deposit", Toast.LENGTH_LONG).show();
                 status_depositWithdraw = Dialog_DepositWithdraw.STATUS_DEPOSIT;
-                depositWithdrawDialog();
+                depositWithdrawDialog(status_depositWithdraw);
             }
         });
 
@@ -91,14 +91,19 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
                 //CLICK WITHDRAW
                 //Toast.makeText(getApplicationContext(), "click withdraw", Toast.LENGTH_LONG).show();
                 status_depositWithdraw = Dialog_DepositWithdraw.STATUS_WITHDRAW;
-                depositWithdrawDialog();
+                depositWithdrawDialog(status_depositWithdraw);
             }
         });
     }
 
     //Called when either deposit or withdraw is clicked
-    public void depositWithdrawDialog() {
+    public void depositWithdrawDialog(int status) {
         Dialog_DepositWithdraw depwithDialog = new Dialog_DepositWithdraw();
+
+        Bundle args = new Bundle();
+        args.putInt("STATUS_TYPE", status);
+        depwithDialog.setArguments(args);
+
         depwithDialog.show(getSupportFragmentManager(), "deposit and withdraw dialog");
     }
 

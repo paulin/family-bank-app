@@ -28,12 +28,39 @@ public class Dialog_DepositWithdraw extends AppCompatDialogFragment {
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_deposit, null);
+        editTextAmount = view.findViewById(R.id.deposit_dialog);
+        editTextMemo = view.findViewById(R.id.depwith_memo_dialog);
+
+        //Dynamically update title and value hint text based on deposit or withdraw
+        Bundle bundle = getArguments();
+        int status = 0;
+        String statusText = "", confirmButton = "Confirm";
+        if (bundle != null){
+            status = bundle.getInt("STATUS_TYPE");
+        }
+        switch(status){
+            case STATUS_WITHDRAW:
+                statusText = "Withdraw";
+                confirmButton = "Withdraw";
+                editTextAmount.setHint(R.string.withdraw_hint);
+                break;
+            case STATUS_DEPOSIT:
+                statusText = "Deposit";
+                confirmButton = "Deposit";
+                editTextAmount.setHint(R.string.deposit_hint);
+                break;
+            default:
+                //Arguments failed
+                //do nothing
+                break;
+        }
 
         //I want to have the title of the dialog change based on whether deposit or withdraw is clicked
         //But I'm currently having issues getting that to work
 
-        builder.setView(view)
-                .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+        builder.setTitle(statusText)
+                .setView(view)
+                .setPositiveButton(confirmButton, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //positive action
@@ -60,9 +87,6 @@ public class Dialog_DepositWithdraw extends AppCompatDialogFragment {
                         //do nothing
                     }
                 });
-
-        editTextAmount = view.findViewById(R.id.deposit_dialog);
-        editTextMemo = view.findViewById(R.id.depwith_memo_dialog);
 
         return builder.create();
     }
