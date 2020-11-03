@@ -22,10 +22,6 @@ public interface AccountDao {
     @Query("SELECT * FROM Accounts WHERE accountUid = :accountUid")
     LiveData<AccountEntity> getAccount(long accountUid);
 
-    //Query all Accounts with Regular Expression
-    @Query("SELECT * FROM Accounts WHERE name = :name")
-    AccountEntity getAccount(String name);
-
     // Query for all accounts in db
     @Query("SELECT * FROM Accounts")
     LiveData<List<AccountEntity>> getAllAccounts();

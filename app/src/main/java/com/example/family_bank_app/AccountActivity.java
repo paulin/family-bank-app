@@ -1,6 +1,5 @@
 package com.example.family_bank_app;
 
-import android.app.FragmentManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,9 +8,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.ParseException;
@@ -29,7 +25,7 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
     List<Double> amount, currentBal;
     String name;
     Double balance;
-    Date date[];
+    Date[] date;
     Date d;
     AccountViewModel viewModel;
     TextView accountName, accountBal;
@@ -56,6 +52,8 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
 
         int pos = getIntent().getIntExtra("POSITION", 0);
         Long UID = getIntent().getLongExtra("UID", 0);
+        AccountEntity account = new AccountEntity();
+        AccountViewModel.getAccount(this, UID);
 
         final Observer<AccountEntity> getTransactionObserver = newAccounts -> {
             if (newAccounts == null ) {
@@ -98,12 +96,6 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
         date = new Date[]{d, d, d};
 
         transactionRecyclerView = findViewById(R.id.TransactionRecycler);
-    /*
-        myTransactionAdapter = new MyTransactionAdapter(this, note, amount, currentBal, date );
-        transactionRecyclerView.setAdapter(myTransactionAdapter);
-        transactionRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        myTransactionAdapter.notifyDataSetChanged();
-*/
         /*
         Code for deposit and withdraw dialog below:
         */
@@ -135,13 +127,13 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
     }
 
     @Override
-    public void sendText(double amount, String memo){
-        int workingAmount = (int)Math.round(100*amount);
-        if(status_depositWithdraw == Dialog_DepositWithdraw.STATUS_WITHDRAW){
-            workingAmount = workingAmount * -1;
+    public void sendText(double amount, String memo) {
+        if (status_depositWithdraw == Dialog_DepositWithdraw.STATUS_WITHDRAW) {
+            amount = amount * -1;
         }
         //Right now takes in a double dollar amount and string memo
         //Then toasts out an int cent value to change and the memo
-        Toast.makeText(getApplicationContext(), "" + workingAmount + " " + memo, Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "" + amount + " " + memo, Toast.LENGTH_LONG).show();
+        //send transaction to Transaction handler
     }
 }
