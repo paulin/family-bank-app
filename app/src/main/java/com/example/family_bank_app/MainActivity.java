@@ -76,38 +76,28 @@ public class MainActivity extends AppCompatActivity implements Dialog_CreateAcc.
         smolDemo();
     }
 
-    //Updates the DB with new values
-    public void updateDatabase(String acctName, double acctBal) {
-        //If Account Exists Update
-        //IF Account Does not Exist Create
-        //AccountEntity newAccount = new AccountEntity();
-        // newAccount.setAccountName(acctName);
-        // newAccount.setAccountBalance(acctBal);
-        // AccountViewModel.createAccount(this, newAccount);
-
-    }
+//    //Updates the DB with new values
+//    public void updateDatabase(String acctName, double acctBal) {
+//        //If Account Exists Update
+//        //IF Account Does not Exist Create
+//        //AccountEntity newAccount = new AccountEntity();
+//        // newAccount.setAccountName(acctName);
+//        // newAccount.setAccountBalance(acctBal);
+//        // AccountViewModel.createAccount(this, newAccount);
+//
+//    }
 
     public void smolDemo() {
         AccountEntity demoAccount = new AccountEntity();
         demoAccount.setAccountName("Demo Account");
         demoAccount.setAccountBalance(9999.99);
         AccountViewModel.createAccount(this, demoAccount);
-
-
-        Log.i(TAG, ""+demoAccount.getAccountUid());
+        Toast.makeText(getApplicationContext(), "Account ID: " + demoAccount.getAccountUid() + "Account Name: " + demoAccount.getAccountName() + "Account Balance: " + demoAccount.getAccountBalance(), Toast.LENGTH_LONG).show();
+        demoAccount.setAccountBalance(1111.99);
+        AccountViewModel.createAccount(this, demoAccount);
+        Toast.makeText(getApplicationContext(), "Account ID: " + demoAccount.getAccountUid() + "Account Name: " + demoAccount.getAccountName() + "Account Balance: " + demoAccount.getAccountBalance(), Toast.LENGTH_LONG).show();
+        AccountViewModel.deleteAccount(this, demoAccount);
+        Toast.makeText(getApplicationContext(), "Account ID: " + demoAccount.getAccountUid() + "Account Name: " + demoAccount.getAccountName() + "Account Balance: " + demoAccount.getAccountBalance(), Toast.LENGTH_LONG).show();
     }
-
-//    public void smolDemo() {
-//        AccountEntity demoAccount = new AccountEntity();
-//        demoAccount.setAccountName("Demo Account");
-//        demoAccount.setAccountBalance(9999.99);
-//        AccountViewModel.createAccount(this, demoAccount);
-//        Toast.makeText(getApplicationContext(), "Account ID: " + demoAccount.getAccountUid() + "Account Name: " + demoAccount.getAccountName() + "Account Balance: " + demoAccount.getAccountBalance(), Toast.LENGTH_LONG).show();
-//        demoAccount.setAccountBalance(1111.99);
-//        AccountViewModel.updateAccount(this, demoAccount);
-//        Toast.makeText(getApplicationContext(), "Account ID: " + demoAccount.getAccountUid() + "Account Name: " + demoAccount.getAccountName() + "Account Balance: " + demoAccount.getAccountBalance(), Toast.LENGTH_LONG).show();
-//        AccountViewModel.deleteAccount(this, demoAccount);
-//        Toast.makeText(getApplicationContext(), "Account ID: " + demoAccount.getAccountUid() + "Account Name: " + demoAccount.getAccountName() + "Account Balance: " + demoAccount.getAccountBalance(), Toast.LENGTH_LONG).show();
-//    }
 
 }

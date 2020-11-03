@@ -20,13 +20,14 @@ public class TransactionViewModel extends ViewModel{
         });
     }
 
-    public static void deleteTransaction(Context context, TransactionEntity transaction) {
-        AppDatabase db = AppDatabaseSingleton.getDatabase(context);
-        db.getTransactionExecutor().execute(() -> {
-            db.getTransactionExecutor().execute(() -> {
-                db.accountDao().deleteTransaction(transaction);
-            });
-
-        });
-    }
+    // Ask matt
+//    public static void deleteTransaction(Context context, TransactionEntity transaction) {
+//        AppDatabase db = AppDatabaseSingleton.getDatabase(context);
+//        db.getTransactionExecutor().execute(() -> {
+//            db.getTransactionExecutor().execute(() -> {
+//                db.accountDao().deleteTransaction(transaction);
+//            });
+//
+//        });
+//    }
 }
