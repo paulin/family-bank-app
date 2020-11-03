@@ -56,7 +56,9 @@ public class MainActivityTest {
 
         // Enter form data
         onView(withId(R.id.edit_account_name)).perform(typeText("test"));
+        Thread.sleep(2000);
         onView(withId(R.id.edit_account_balance)).perform(typeText("1"), closeSoftKeyboard());
+        Thread.sleep(2000);
 
         // Click dialog
         onView(withText(R.string.create)).inRoot(isDialog()).perform(click());
@@ -77,7 +79,7 @@ public class MainActivityTest {
     @Test
     public void clickWithdraw() throws InterruptedException {
 
-        Thread.sleep(5000);
+        Thread.sleep(7000);
 
         onView(new RecyclerViewMatcher(R.id.AccountRecycler)
                 .atPositionOnView(0, R.id.card_view))
@@ -85,18 +87,20 @@ public class MainActivityTest {
 
         Thread.sleep(2000);
         onView(withId(R.id.Btn_Withdraw)).perform(click());
-        Thread.sleep(500);
+        Thread.sleep(2000);
         onView(withText(R.string.cancel)).inRoot(isDialog()).perform(click());
 
         Thread.sleep(2000);
 
         onView(withId(R.id.Btn_Withdraw)).perform(click());
-
+        Thread.sleep(2000);
         onView(withId(R.id.deposit_dialog)).perform(typeText("1"));
+        Thread.sleep(2000);
         onView(withId(R.id.depwith_memo_dialog)).perform(typeText("p"), closeSoftKeyboard());
 
+        Thread.sleep(2000);
         onView(withText(R.string.confirm)).inRoot(isDialog()).perform(click());
-        Thread.sleep(500);
+        Thread.sleep(2000);
         checkToast("-1.0 p");
         Thread.sleep(2000);
 
@@ -105,7 +109,7 @@ public class MainActivityTest {
     @Test
     public void clickDeposit() throws InterruptedException {
 
-        Thread.sleep(5000);
+        Thread.sleep(7000);
 
         onView(new RecyclerViewMatcher(R.id.AccountRecycler)
                 .atPositionOnView(0, R.id.card_view))
@@ -113,18 +117,19 @@ public class MainActivityTest {
 
         Thread.sleep(2000);
         onView(withId(R.id.Btn_Deposit)).perform(click());
-        Thread.sleep(500);
+        Thread.sleep(2000);
         onView(withText(R.string.cancel)).inRoot(isDialog()).perform(click());
 
         Thread.sleep(2000);
 
         onView(withId(R.id.Btn_Deposit)).perform(click());
-
+        Thread.sleep(2000);
         onView(withId(R.id.deposit_dialog)).perform(typeText("1"));
+        Thread.sleep(1000);
         onView(withId(R.id.depwith_memo_dialog)).perform(typeText("p"), closeSoftKeyboard());
-
+        Thread.sleep(2000);
         onView(withText(R.string.confirm)).inRoot(isDialog()).perform(click());
-        Thread.sleep(500);
+        Thread.sleep(2000);
         checkToast("1.0 p");
         Thread.sleep(2000);
 
