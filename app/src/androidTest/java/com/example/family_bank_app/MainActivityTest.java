@@ -81,6 +81,10 @@ public class MainActivityTest {
 
         Thread.sleep(7000);
 
+        createNewAccount();
+
+        Thread.sleep(7000);
+
         onView(new RecyclerViewMatcher(R.id.AccountRecycler)
                 .atPositionOnView(0, R.id.card_view))
                 .perform(click());
@@ -108,6 +112,10 @@ public class MainActivityTest {
 
     @Test
     public void clickDeposit() throws InterruptedException {
+
+        Thread.sleep(7000);
+
+        createNewAccount();
 
         Thread.sleep(7000);
 
