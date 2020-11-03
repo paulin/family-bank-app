@@ -31,7 +31,7 @@ public class Dialog_DepositWithdraw extends AppCompatDialogFragment {
         editTextAmount = view.findViewById(R.id.deposit_dialog);
         editTextMemo = view.findViewById(R.id.depwith_memo_dialog);
 
-        //Dynamically update title and value hint text based on deposit or withdraw
+        //Dynamically update title, hint text, and confirm button based on whether "Withdraw" or "Deposit" was clicked
         Bundle bundle = getArguments();
         int status = 0;
         String statusText = "", confirmButton = "Confirm";
@@ -51,12 +51,9 @@ public class Dialog_DepositWithdraw extends AppCompatDialogFragment {
                 break;
             default:
                 //Arguments failed
-                //do nothing
+                //do nothing, use default values for dialog build (bad!)
                 break;
         }
-
-        //I want to have the title of the dialog change based on whether deposit or withdraw is clicked
-        //But I'm currently having issues getting that to work
 
         builder.setTitle(statusText)
                 .setView(view)

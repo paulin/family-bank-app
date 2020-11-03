@@ -79,7 +79,6 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
         btn_deposit.setOnClickListener(new View.OnClickListener(){
             public void onClick (View v){
                 //CLICK DEPOSIT
-                //Toast.makeText(getApplicationContext(), "click deposit", Toast.LENGTH_LONG).show();
                 status_depositWithdraw = Dialog_DepositWithdraw.STATUS_DEPOSIT;
                 depositWithdrawDialog(status_depositWithdraw);
             }
@@ -89,7 +88,6 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
         btn_withdraw.setOnClickListener(new View.OnClickListener(){
             public void onClick (View v){
                 //CLICK WITHDRAW
-                //Toast.makeText(getApplicationContext(), "click withdraw", Toast.LENGTH_LONG).show();
                 status_depositWithdraw = Dialog_DepositWithdraw.STATUS_WITHDRAW;
                 depositWithdrawDialog(status_depositWithdraw);
             }
@@ -100,6 +98,7 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
     public void depositWithdrawDialog(int status) {
         Dialog_DepositWithdraw depwithDialog = new Dialog_DepositWithdraw();
 
+        //Expecting argument for STATUS_TYPE of STATUS_WITHDRAW or STATUS_DEPOSIT
         Bundle args = new Bundle();
         args.putInt("STATUS_TYPE", status);
         depwithDialog.setArguments(args);
