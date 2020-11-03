@@ -52,11 +52,11 @@ public class MainActivityTest {
         Thread.sleep(1000);
 
         // Check toast
-        onView(withText("Account ID: 0Account Name: Demo AccountAccount Balance: 9999.99"))
-                .inRoot(withDecorView(not(mActivityRuleMain.getActivity()
-                        .getWindow().getDecorView()))).check(matches(isDisplayed()));
+//        onView(withText("Account ID: 0Account Name: Demo AccountAccount Balance: 9999.99"))
+//                .inRoot(withDecorView(not(mActivityRuleMain.getActivity()
+//                        .getWindow().getDecorView()))).check(matches(isDisplayed()));
 
-        Thread.sleep(3000);
+//        Thread.sleep(3000);
         onView(withId(R.id.CreateAcct)).perform(click());
         Thread.sleep(3000);
 
