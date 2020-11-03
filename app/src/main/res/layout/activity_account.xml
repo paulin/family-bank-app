@@ -12,7 +12,6 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         >
 
-
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -22,8 +21,6 @@
             android:id="@+id/toolbarTransactionsPage"
             >
 
-
-
             <ImageView
                 android:layout_width="433dp"
                 android:padding="10dp"
@@ -31,11 +28,7 @@
                 android:src="@drawable/logo"
                 android:contentDescription="@string/logo" />
 
-
-
         </com.google.android.material.appbar.AppBarLayout>
-
-
 
         <TextView
             android:id="@+id/NameOfAccount"
@@ -87,7 +80,6 @@
 
             android:text="withdraw"
             android:id="@+id/Btn_Withdraw"
-
             android:layout_width="170dp"
             android:layout_height="@dimen/createAcct_height"
             android:layout_below="@+id/TransactionRecycler"
