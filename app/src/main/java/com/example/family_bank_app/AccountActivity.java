@@ -56,25 +56,37 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
 
         int pos = getIntent().getIntExtra("POSITION", 0);
         Long UID = getIntent().getLongExtra("UID", 0);
-        AccountEntity account = new AccountEntity();
-        viewModel.getAccount(this, UID);
 
-         name = account.getAccountName();
-         balance = account.getAccountBalance();
+        final Observer<AccountEntity> getTransactionObserver = newAccounts -> {
+            if (newAccounts == null ) {
+                return;
+            }
+            name = newAccounts.getAccountName();
+            balance = newAccounts.getAccountBalance();
 
-
-
-
-
-
-
-        accountName = findViewById(R.id.NameOfAccount);
-        accountBal = findViewById(R.id.balance);
+            accountName = findViewById(R.id.NameOfAccount);
+            accountBal = findViewById(R.id.balance);
 
 
 
-        accountName.setText(name);
-        accountBal.setText(valueOf(balance));
+            accountName.setText(name);
+            accountBal.setText("Balance: $" + valueOf(balance));
+
+
+        };
+
+
+         viewModel.getAccount(this, UID).observe(this, getTransactionObserver);
+
+
+
+
+
+
+
+
+
+
 
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
