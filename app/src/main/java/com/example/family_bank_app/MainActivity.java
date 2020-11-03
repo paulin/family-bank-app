@@ -47,17 +47,14 @@ public class MainActivity extends AppCompatActivity implements Dialog_CreateAcc.
             names.clear();
             balances.clear();
             UIDS.clear();
-        for(int i=0; i < newAccounts.size();i++) {
-            AccountEntity account = newAccounts.get(i);
-            names.add(account.getAccountName());
-            balances.add(String.valueOf(account.getAccountBalance()));
-            UIDS.add(account.getAccountUid());
-        }
-
-
+            for(int i=0; i < newAccounts.size();i++) {
+                AccountEntity account = newAccounts.get(i);
+                names.add(account.getAccountName());
+                balances.add(String.valueOf(account.getAccountBalance()));
+                UIDS.add(account.getAccountUid());
+            }
 
             myAccountAdapter.notifyDataSetChanged();
-
         };
 
         viewModel.loadAllByIds(this).observe(this, getAccountsObserver);

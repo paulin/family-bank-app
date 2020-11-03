@@ -45,7 +45,6 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
         name = "";
         balance = 0.0;
 
-
         viewModel = new AccountViewModel();
 
         //Account Loader from Database
@@ -55,23 +54,14 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
         AccountEntity account = new AccountEntity();
         AccountViewModel.getAccount(this, UID);
 
-         name = account.getAccountName();
-         balance = account.getAccountBalance();
-
-
-
-
-
-
+        name = account.getAccountName();
+        balance = account.getAccountBalance();
 
         accountName = findViewById(R.id.NameOfAccount);
         accountBal = findViewById(R.id.balance);
 
-
-
         accountName.setText(name);
         accountBal.setText(valueOf(balance));
-
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
         try {
