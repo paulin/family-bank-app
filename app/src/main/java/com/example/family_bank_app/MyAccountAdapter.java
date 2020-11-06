@@ -42,7 +42,7 @@ public class MyAccountAdapter extends RecyclerView.Adapter<MyAccountAdapter.View
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
 
         holder.text1.setText(AccountName.get(position));
-        holder.text2.setText(AccountBalance.get(position));
+        holder.text2.setText("$ " + AccountBalance.get(position));
     }
 
     @Override

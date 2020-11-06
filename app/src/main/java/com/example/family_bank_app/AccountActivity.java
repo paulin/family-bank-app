@@ -8,6 +8,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.ParseException;
@@ -21,13 +23,14 @@ import static java.lang.String.valueOf;
 public class AccountActivity extends AppCompatActivity implements Dialog_DepositWithdraw.DepositWithdrawDialogListener {
     RecyclerView transactionRecyclerView;
     MyTransactionAdapter myTransactionAdapter;
-    List<String> note, transactionName;
+    List<String> transactionName, date;
     List<Double> amount, currentBal;
+    List<Long> UIDS;
     String name;
     Double balance;
-    Date[] date;
-    Date d;
-    AccountViewModel viewModel;
+
+    AccountViewModel accountViewModel;
+    TransactionViewModel transactionViewModel;
     TextView accountName, accountBal;
 
     //inits for deposit and withdraw dialog
@@ -39,49 +42,71 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
-        note = new ArrayList<String>();
+        transactionName = new ArrayList<String>();
         amount = new ArrayList<Double>();
         currentBal = new ArrayList<Double>();
+        UIDS = new ArrayList<Long>();
         name = "";
         balance = 0.0;
 
 
-        viewModel = new AccountViewModel();
-
-        //Account Loader from Database
+        accountViewModel = new AccountViewModel();
 
         int pos = getIntent().getIntExtra("POSITION", 0);
         Long UID = getIntent().getLongExtra("UID", 0);
-        AccountEntity account = new AccountEntity();
-        AccountViewModel.getAccount(this, UID);
-
-         name = account.getAccountName();
-         balance = account.getAccountBalance();
-
-
-
-
-
-
 
         accountName = findViewById(R.id.NameOfAccount);
         accountBal = findViewById(R.id.balance);
 
-
-
-        accountName.setText(name);
-        accountBal.setText(valueOf(balance));
-
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-        try {
-            d = sdf.parse("20201018");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        date = new Date[]{d, d, d};
-
         transactionRecyclerView = findViewById(R.id.TransactionRecycler);
+
+        myTransactionAdapter = new MyTransactionAdapter(this, transactionName , amount, currentBal, date, UIDS);
+        transactionRecyclerView.setAdapter(myTransactionAdapter);
+        transactionRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        myTransactionAdapter.notifyDataSetChanged();
+
+
+        final Observer<AccountEntity> getAccountObserver = Account -> {
+            if (Account == null) {
+                return;
+            }
+            name = Account.getAccountName();
+            balance = Account.getAccountBalance();
+
+            accountName.setText(name);
+            accountBal.setText("Balance: $" + balance);
+
+
+
+        };
+
+        AccountViewModel.getAccount(this, UID).observe(this, getAccountObserver);
+
+
+        final Observer<List<TransactionEntity>> getTransactionsObserver = transactionEntities -> {
+            if (transactionEntities == null || transactionEntities.size() < 0) {
+                return;
+            }
+
+            for(int i=0; i < transactionEntities.size();i++) {
+                TransactionEntity transaction = transactionEntities.get(i);
+                transactionName.add(transaction.getTransactionTitle());
+                currentBal.add(transaction.getTransactionAmount());
+                amount.add(transaction.getTransactionAmount());
+                UIDS.add(transaction.getTransactionUid());
+                date.add(transaction.getTransactionDate());
+            }
+
+            myTransactionAdapter.notifyDataSetChanged();
+        };
+
+
+        TransactionViewModel.getAllTransactions(this, UID).observe(this, getTransactionsObserver);
+
+
+
+
+
         /*
         Code for deposit and withdraw dialog below:
         */

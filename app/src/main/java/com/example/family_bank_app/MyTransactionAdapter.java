@@ -13,22 +13,25 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.Date;
+import java.util.List;
 
 
 public class MyTransactionAdapter extends RecyclerView.Adapter<MyTransactionAdapter.ViewHolder> {
     private static final String TAG = MyTransactionAdapter.class.getSimpleName();
 
-    String Note[], Amount[], CurBalance[];
-    Date Date[];
+    List<String> transactionName, date;
+    List<Double> amount, currentBal;
+    List<Long> UIDS;
     Context context;
     CardView cardView;
-
-    public MyTransactionAdapter(Context ct, String[] s1, String[] s2, String[] s3, Date[] s4 ) {
+                                            //   name         amount            currentBal      date              UID
+    public MyTransactionAdapter(Context ct, List<String> s1, List<Double> s2, List<Double> s3, List<String> s4, List<Long> s5) {
         context = ct;
-        Note = s1;
-        Amount = s2;
-        CurBalance = s3;
-        Date= s4;
+        transactionName = s1;
+        amount = s2;
+        currentBal = s3;
+        date = s4;
+        UIDS = s5;
     }
 
     @NonNull
@@ -43,16 +46,16 @@ public class MyTransactionAdapter extends RecyclerView.Adapter<MyTransactionAdap
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-        holder.text2.setText(Amount[position]);
-
-        holder.text3.setText(Note[position]);
-        holder.text4.setText(CurBalance[position]);
+        holder.text1.setText(String.valueOf(date.get(position)));
+        holder.text2.setText(String.valueOf(amount.get(position)));
+        holder.text3.setText(transactionName.get(position));
+        holder.text4.setText(String.valueOf(currentBal.get(position)));
     }
 
     @Override
     public int getItemCount() {
-        if(Amount == null){return 0;}
-        return Amount.length;
+        if(amount == null){return 0;}
+        return amount.size();
 
     }
 
@@ -76,8 +79,9 @@ public class MyTransactionAdapter extends RecyclerView.Adapter<MyTransactionAdap
         }
 
         public void goToTransactionActivity(int position) {
+            Long uid = UIDS.get(position);
             Intent intent = new Intent(context, TransactionActivity.class);
-
+            intent.putExtra("TUID", uid);
             intent.putExtra("POSITION", position);
             context.startActivity(intent);
 
