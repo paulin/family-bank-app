@@ -88,6 +88,12 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
                 return;
             }
 
+            transactionName.clear();
+            currentBal.clear();
+            amount.clear();
+            UIDS.clear();
+            date.clear();
+
             for(int i=0; i < transactionEntities.size();i++) {
                 TransactionEntity transaction = transactionEntities.get(i);
                 transactionName.add(transaction.getTransactionTitle());
