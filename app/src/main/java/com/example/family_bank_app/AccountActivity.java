@@ -40,7 +40,6 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
     private static final String TAG = "AccountActivity";
 
     //inits for deposit and withdraw dialog
-    EditText deposit_withdraw_dialog;
     Button btn_withdraw, btn_deposit;
     private int status_depositWithdraw;
 
