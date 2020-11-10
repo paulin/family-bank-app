@@ -28,6 +28,7 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
     List<Long> UIDS;
     String name;
     Double balance;
+    Long UID;
 
     AccountViewModel accountViewModel;
     TransactionViewModel transactionViewModel;
@@ -46,6 +47,7 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
         amount = new ArrayList<Double>();
         currentBal = new ArrayList<Double>();
         UIDS = new ArrayList<Long>();
+        date = new ArrayList<String>();
         name = "";
         balance = 0.0;
 
@@ -53,7 +55,7 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
         accountViewModel = new AccountViewModel();
 
         int pos = getIntent().getIntExtra("POSITION", 0);
-        Long UID = getIntent().getLongExtra("UID", 0);
+         UID = getIntent().getLongExtra("UID", 0);
 
         accountName = findViewById(R.id.NameOfAccount);
         accountBal = findViewById(R.id.balance);
