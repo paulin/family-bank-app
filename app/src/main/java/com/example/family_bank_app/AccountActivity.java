@@ -161,7 +161,7 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
 
         TransactionEntity transactionEntity = new TransactionEntity();
         transactionEntity.setTransactionAmount(amount);
-        transactionEntity.setTransactionDate(new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date()));
+        transactionEntity.setTransactionDate(new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault()).format(new Date()));
         transactionEntity.setTransactionTitle(memo);
         transactionEntity.setAccountMainUid(UID);
 
