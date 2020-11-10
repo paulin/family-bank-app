@@ -146,9 +146,7 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
             amount = amount * -1;
         }
 
-        //Toast.makeText(getApplicationContext(), "" + amount + " " + memo, Toast.LENGTH_LONG).show();
-        //send transaction to Transaction handler
-
+        //Create new transaction in database
         TransactionEntity transactionEntity = new TransactionEntity();
         transactionEntity.setTransactionAmount(amount);
         transactionEntity.setTransactionDate(new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault()).format(new Date()));
