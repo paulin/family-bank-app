@@ -1,6 +1,7 @@
 package com.example.family_bank_app;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,8 +16,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import static java.lang.String.valueOf;
 
@@ -28,10 +31,13 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
     List<Long> UIDS;
     String name;
     Double balance;
+    Long UID;
 
     AccountViewModel accountViewModel;
     TransactionViewModel transactionViewModel;
     TextView accountName, accountBal;
+
+    private static final String TAG = "AccountActivity";
 
     //inits for deposit and withdraw dialog
     EditText deposit_withdraw_dialog;
@@ -43,6 +49,7 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
         transactionName = new ArrayList<String>();
+        date = new ArrayList<String>();
         amount = new ArrayList<Double>();
         currentBal = new ArrayList<Double>();
         UIDS = new ArrayList<Long>();
@@ -53,7 +60,7 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
         accountViewModel = new AccountViewModel();
 
         int pos = getIntent().getIntExtra("POSITION", 0);
-        Long UID = getIntent().getLongExtra("UID", 0);
+        UID = getIntent().getLongExtra("UID", 0);
 
         accountName = findViewById(R.id.NameOfAccount);
         accountBal = findViewById(R.id.balance);
@@ -91,7 +98,7 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
             currentBal.clear();
             amount.clear();
             UIDS.clear();
-//            date.clear();
+            date.clear();
 
             for(int i=0; i < transactionEntities.size();i++) {
                 TransactionEntity transaction = transactionEntities.get(i);
@@ -148,10 +155,18 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
         if (status_depositWithdraw == Dialog_DepositWithdraw.STATUS_WITHDRAW) {
             amount = amount * -1;
         }
-        //Right now takes in a double dollar amount and string memo
-        //Then toasts out an int cent value to change and the memo
-        Toast.makeText(getApplicationContext(), "" + amount + " " + memo, Toast.LENGTH_LONG).show();
+
+        //Toast.makeText(getApplicationContext(), "" + amount + " " + memo, Toast.LENGTH_LONG).show();
         //send transaction to Transaction handler
+
+        TransactionEntity transactionEntity = new TransactionEntity();
+        transactionEntity.setTransactionAmount(amount);
+        transactionEntity.setTransactionDate(new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date()));
+        transactionEntity.setTransactionTitle(memo);
+        transactionEntity.setAccountMainUid(UID);
+
+        TransactionViewModel.createTransaction(transactionRecyclerView.getContext(), transactionEntity);
+        Log.i(TAG, ""+TransactionViewModel.getTransaction(transactionRecyclerView.getContext(), 0) );
     }
 
      /*
