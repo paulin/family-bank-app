@@ -12,6 +12,8 @@ import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,21 +49,16 @@ public class MainActivity extends AppCompatActivity implements Dialog_CreateAcc.
             names.clear();
             balances.clear();
             UIDS.clear();
-        for(int i=0; i < newAccounts.size();i++) {
-            AccountEntity account = newAccounts.get(i);
-            names.add(account.getAccountName());
-            balances.add(String.valueOf(account.getAccountBalance()));
-            UIDS.add(account.getAccountUid());
-        }
-
-
-
+            for(int i=0; i < newAccounts.size();i++) {
+                AccountEntity account = newAccounts.get(i);
+                names.add(account.getAccountName());
+                balances.add(String.valueOf(account.getAccountBalance()));
+                UIDS.add(account.getAccountUid());
+            }
             myAccountAdapter.notifyDataSetChanged();
-
         };
 
         viewModel.loadAllByIds(this).observe(this, getAccountsObserver);
-
 
         accountRecyclerView = findViewById(R.id.AccountRecycler);
 
@@ -73,7 +70,6 @@ public class MainActivity extends AppCompatActivity implements Dialog_CreateAcc.
         //Set up onclick listener for the create new account button
         createAcct = findViewById(R.id.CreateAcct);
         createAcct.setOnClickListener(v -> createAccDialog());
-
     }
 
     //Called when create new account button is clicked
@@ -93,9 +89,14 @@ public class MainActivity extends AppCompatActivity implements Dialog_CreateAcc.
 
     //Updates the DB with new values
     public void updateDatabase(String acctName, double acctBal) {
+        //truncate value to two decimal places
+        DecimalFormat df = new DecimalFormat("#.##");
+        df.setRoundingMode(RoundingMode.DOWN); //Completely discard everything past two decimal places
+        double formatBal = Double.parseDouble(df.format(acctBal));
+
         AccountEntity newAccount = new AccountEntity();
         newAccount.setAccountName(acctName);
-        newAccount.setAccountBalance(acctBal);
+        newAccount.setAccountBalance(formatBal);
         AccountViewModel.updateAccount(this, newAccount);
     }
 
