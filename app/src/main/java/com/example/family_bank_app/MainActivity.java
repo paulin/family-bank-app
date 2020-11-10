@@ -40,6 +40,9 @@ public class MainActivity extends AppCompatActivity implements Dialog_CreateAcc.
 
         viewModel = new AccountViewModel();
 
+        //Format so accounts with less than two decimal places have the correct number of trailing zeroes
+        DecimalFormat df = new DecimalFormat("0.00");
+
         //Account Loader from Database
 
         final Observer<List<AccountEntity>> getAccountsObserver = newAccounts -> {
@@ -52,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements Dialog_CreateAcc.
             for(int i=0; i < newAccounts.size();i++) {
                 AccountEntity account = newAccounts.get(i);
                 names.add(account.getAccountName());
-                balances.add(String.valueOf(account.getAccountBalance()));
+                balances.add(df.format(account.getAccountBalance()));
                 UIDS.add(account.getAccountUid());
             }
             myAccountAdapter.notifyDataSetChanged();
