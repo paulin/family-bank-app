@@ -101,6 +101,8 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
             UIDS.clear();
 //            date.clear();
 
+            //TODO: transaction display value will likely need to be formatted too
+
             for(int i=0; i < transactionEntities.size();i++) {
                 TransactionEntity transaction = transactionEntities.get(i);
                 transactionName.add(transaction.getTransactionTitle());
