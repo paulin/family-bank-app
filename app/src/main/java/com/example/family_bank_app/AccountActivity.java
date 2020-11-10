@@ -153,4 +153,17 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
         Toast.makeText(getApplicationContext(), "" + amount + " " + memo, Toast.LENGTH_LONG).show();
         //send transaction to Transaction handler
     }
+
+     /*
+     // Demo to test transaction data
+     TransactionEntity transactionEntity = new TransactionEntity();
+
+     transactionEntity.setTransactionAmount(100.00);
+     transactionEntity.setTransactionDate("1/1/1111");
+     transactionEntity.setTransactionTitle("test transaction");
+     transactionEntity.setAccountMainUid(0);
+
+     TransactionViewModel.createTransaction(view.getContext(), transactionEntity);
+     Log.i(TAG, ""+TransactionViewModel.getTransaction(view.getContext(),0));
+     */
 }

@@ -66,18 +66,6 @@ public class Dialog_DepositWithdraw extends AppCompatDialogFragment {
                             String memo = editTextMemo.getText().toString();
                             Double value = Double.parseDouble(editTextAmount.getText().toString());
                             listener.sendText(value, memo);
-
-                            // Demo to test transaction data
-                            TransactionEntity transactionEntity = new TransactionEntity();
-
-                            transactionEntity.setTransactionAmount(100.00);
-                            transactionEntity.setTransactionDate("1/1/1111");
-                            transactionEntity.setTransactionTitle("test transaction");
-                            transactionEntity.setAccountMainUid(0);
-
-                            TransactionViewModel.createTransaction(view.getContext(), transactionEntity);
-                            Log.i(TAG, ""+TransactionViewModel.getTransaction(view.getContext(),0));
-
                         } else {
                             /* TODO: Fully disable confirm button if empty amount? */
                             //do nothing?
