@@ -70,7 +70,7 @@ public class MainActivityTest {
 //        onView(withText("Account ID: 0Account Name: Demo AccountAccount Balance: 9999.99"))
 //                .inRoot(withDecorView(not(mActivityRuleMain.getActivity()
 //                        .getWindow().getDecorView()))).check(matches(isDisplayed()));
-
+//
         onView(withId(R.id.CreateAcct)).perform(click());
         Thread.sleep(3000);
 
