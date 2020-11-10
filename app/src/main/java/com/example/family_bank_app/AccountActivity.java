@@ -36,6 +36,7 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
     TransactionViewModel transactionViewModel;
     TextView accountName, accountBal;
 
+    //Call df.format(DOUBLE) to output a string with proper formatting
     DecimalFormat df = new DecimalFormat("0.00");
 
     //inits for deposit and withdraw dialog
