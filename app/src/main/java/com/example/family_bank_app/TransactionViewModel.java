@@ -5,11 +5,18 @@ import android.content.Context;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
+import java.util.List;
+
 public class TransactionViewModel extends ViewModel{
 
     public static LiveData<TransactionEntity> getTransaction(Context context, long transactionId) {
         AppDatabase db = AppDatabaseSingleton.getDatabase(context);
         return db.accountDao().getTransaction(transactionId);
+    }
+
+    public static LiveData<List<TransactionEntity>> getAllTransactions(Context context, long AccountUID) {
+        AppDatabase db = AppDatabaseSingleton.getDatabase(context);
+        return db.accountDao().getAllTransactions(AccountUID);
     }
 
     // Also updates account

@@ -27,6 +27,7 @@ public class TransactionEntity {
     @ColumnInfo(name = "transactionDate")
     private String transactionDate = "";
 
+
     @NonNull
     @ColumnInfo(name = "transactionTitle")
     private String transactionTitle = "";

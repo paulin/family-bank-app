@@ -55,6 +55,11 @@ public interface AccountDao {
     @Query("SELECT * FROM Transactions WHERE transactionUid = :transactionUid")
     LiveData<TransactionEntity> getTransaction(long transactionUid);
 
+    //Query for all transaction data
+
+    @Query("SELECT * FROM transactions WHERE accountMainUid= :accountUID")
+    LiveData<List<TransactionEntity>> getAllTransactions(long accountUID);
+
     // Insert new transaction data
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertTransaction(TransactionEntity... transactionEntity);
