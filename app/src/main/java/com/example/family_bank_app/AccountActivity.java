@@ -55,7 +55,6 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
         name = "";
         balance = 0.0;
 
-
         accountViewModel = new AccountViewModel();
 
         int pos = getIntent().getIntExtra("POSITION", 0);
@@ -70,8 +69,7 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
         transactionRecyclerView.setAdapter(myTransactionAdapter);
         transactionRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         myTransactionAdapter.notifyDataSetChanged();
-
-
+        
         final Observer<AccountEntity> getAccountObserver = Account -> {
             if (Account == null) {
                 return;
@@ -81,18 +79,14 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
 
             accountName.setText(name);
             accountBal.setText("Balance: $" + balance);
-
-
         };
 
         AccountViewModel.getAccount(this, UID).observe(this, getAccountObserver);
-
 
         final Observer<List<TransactionEntity>> getTransactionsObserver = transactionEntities -> {
             if (transactionEntities == null || transactionEntities.size() < 0) {
                 return;
             }
-
             transactionName.clear();
             currentBal.clear();
             amount.clear();
@@ -107,13 +101,10 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
                 UIDS.add(transaction.getTransactionUid());
                 date.add(transaction.getTransactionDate());
             }
-
             myTransactionAdapter.notifyDataSetChanged();
         };
 
-
         TransactionViewModel.getAllTransactions(this, UID).observe(this, getTransactionsObserver);
-        
 
         /*
         Code for deposit and withdraw dialog below:
