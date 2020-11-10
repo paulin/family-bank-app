@@ -12,12 +12,15 @@ import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static java.lang.String.format;
 import static java.lang.String.valueOf;
 
 public class AccountActivity extends AppCompatActivity implements Dialog_DepositWithdraw.DepositWithdrawDialogListener {
@@ -75,9 +78,6 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
 
             accountName.setText(name);
             accountBal.setText("Balance: $" + balance);
-
-
-
         };
 
         AccountViewModel.getAccount(this, UID).observe(this, getAccountObserver);
@@ -106,12 +106,7 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
             myTransactionAdapter.notifyDataSetChanged();
         };
 
-
         TransactionViewModel.getAllTransactions(this, UID).observe(this, getTransactionsObserver);
-
-
-
-
 
         /*
         Code for deposit and withdraw dialog below:
@@ -145,12 +140,18 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
 
     @Override
     public void sendText(double amount, String memo) {
+        //truncate value to two decimal places
+        DecimalFormat df = new DecimalFormat("#.##");
+        df.setRoundingMode(RoundingMode.DOWN); //Throw away any entered decimal places past two
+        double formatAmount = Double.parseDouble(df.format(amount));
+
+
         if (status_depositWithdraw == Dialog_DepositWithdraw.STATUS_WITHDRAW) {
-            amount = amount * -1;
+            formatAmount = formatAmount * -1;
         }
         //Right now takes in a double dollar amount and string memo
         //Then toasts out an int cent value to change and the memo
-        Toast.makeText(getApplicationContext(), "" + amount + " " + memo, Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "" + formatAmount + " " + memo, Toast.LENGTH_LONG).show();
         //send transaction to Transaction handler
     }
 }
