@@ -12,7 +12,7 @@ import androidx.room.PrimaryKey;
 public class TransactionEntity {
 
     // Fields
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @NonNull
     @ColumnInfo(name = "transactionUid")
     private long transactionUid;

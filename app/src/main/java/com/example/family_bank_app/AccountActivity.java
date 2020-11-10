@@ -69,7 +69,7 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
         transactionRecyclerView.setAdapter(myTransactionAdapter);
         transactionRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         myTransactionAdapter.notifyDataSetChanged();
-        
+
         final Observer<AccountEntity> getAccountObserver = Account -> {
             if (Account == null) {
                 return;
