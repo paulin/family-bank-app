@@ -36,6 +36,8 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
     TransactionViewModel transactionViewModel;
     TextView accountName, accountBal;
 
+    DecimalFormat df = new DecimalFormat("0.00");
+
     //inits for deposit and withdraw dialog
     EditText deposit_withdraw_dialog;
     Button btn_withdraw, btn_deposit;
@@ -76,8 +78,12 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
             name = Account.getAccountName();
             balance = Account.getAccountBalance();
 
+            StringBuilder builderBalance = new StringBuilder();
+            builderBalance.append("Balance: $");
+            builderBalance.append(df.format(balance));
+
             accountName.setText(name);
-            accountBal.setText("Balance: $" + balance);
+            accountBal.setText(builderBalance);
         };
 
         AccountViewModel.getAccount(this, UID).observe(this, getAccountObserver);
