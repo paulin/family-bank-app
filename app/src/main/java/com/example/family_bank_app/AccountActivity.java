@@ -148,9 +148,9 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
     @Override
     public void sendText(double amount, String memo) {
         //truncate value to two decimal places
-        DecimalFormat df = new DecimalFormat("#.##");
-        df.setRoundingMode(RoundingMode.DOWN); //Throw away any entered decimal places past two
-        double formatAmount = Double.parseDouble(df.format(amount));
+        DecimalFormat truncate = new DecimalFormat("#.##");
+        truncate.setRoundingMode(RoundingMode.DOWN); //Throw away any entered decimal places past two
+        double formatAmount = Double.parseDouble(truncate.format(amount));
 
 
         if (status_depositWithdraw == Dialog_DepositWithdraw.STATUS_WITHDRAW) {

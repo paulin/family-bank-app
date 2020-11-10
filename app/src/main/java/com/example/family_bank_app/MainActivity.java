@@ -93,9 +93,9 @@ public class MainActivity extends AppCompatActivity implements Dialog_CreateAcc.
     //Updates the DB with new values
     public void updateDatabase(String acctName, double acctBal) {
         //truncate value to two decimal places
-        DecimalFormat df = new DecimalFormat("#.##");
-        df.setRoundingMode(RoundingMode.DOWN); //Completely discard everything past two decimal places
-        double formatBal = Double.parseDouble(df.format(acctBal));
+        DecimalFormat truncate = new DecimalFormat("#.##");
+        truncate.setRoundingMode(RoundingMode.DOWN); //Completely discard everything past two decimal places
+        double formatBal = Double.parseDouble(truncate.format(acctBal));
 
         AccountEntity newAccount = new AccountEntity();
         newAccount.setAccountName(acctName);
