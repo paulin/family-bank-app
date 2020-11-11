@@ -175,7 +175,7 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
 
 
             if (myBool) {
-                Toast.makeText(this, "" + Account.getAccountName(), Toast.LENGTH_LONG).show();
+//                Toast.makeText(this, "" + Account.getAccountName(), Toast.LENGTH_LONG).show();
                 double getBal = Account.getAccountBalance();
                 getBal += finalAmount;
                 Account.setAccountBalance(getBal);

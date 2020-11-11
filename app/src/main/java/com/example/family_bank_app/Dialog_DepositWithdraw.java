@@ -41,12 +41,12 @@ public class Dialog_DepositWithdraw extends AppCompatDialogFragment {
         switch(status){
             case STATUS_WITHDRAW:
                 statusText = "Withdraw";
-                confirmButton = "Withdraw";
+                confirmButton = "WITHDRAW";
                 editTextAmount.setHint(R.string.withdraw_hint);
                 break;
             case STATUS_DEPOSIT:
                 statusText = "Deposit";
-                confirmButton = "Deposit";
+                confirmButton = "DEPOSIT";
                 editTextAmount.setHint(R.string.deposit_hint);
                 break;
             default:

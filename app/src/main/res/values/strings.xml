@@ -33,6 +33,8 @@
     <string name="balance">Balance</string>
     <string name="withdraw">Withdraw</string>
     <string name="deposit">Deposit</string>
+    <string name="withdraw_test">WITHDRAW</string>
+    <string name="deposit_test">DEPOSIT</string>
     <string name="current_bal">Current Bal</string>
     <string name="amount">Amount</string>
     <string name="datetime">datetime</string>
