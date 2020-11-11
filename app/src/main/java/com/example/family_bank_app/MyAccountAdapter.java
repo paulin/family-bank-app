@@ -12,18 +12,21 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.List;
 
 
 public class MyAccountAdapter extends RecyclerView.Adapter<MyAccountAdapter.ViewHolder> {
 
-    String AccountName[], AccountBalance[];
+    List<String> AccountName, AccountBalance;
+    List<Long> AccountUID;
     Context context;
     CardView cardView;
 
-    public MyAccountAdapter(Context ct, String[] s1, String[] s2 ) {
+    public MyAccountAdapter(Context ct, List<String> s1, List<String> s2, List<Long> s3) {
         context = ct;
         AccountName = s1;
         AccountBalance = s2;
+        AccountUID = s3;
     }
 
     @NonNull
@@ -37,19 +40,20 @@ public class MyAccountAdapter extends RecyclerView.Adapter<MyAccountAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-        holder.text1.setText(AccountName[position]);
-        holder.text2.setText(AccountBalance[position]);
+
+        holder.text1.setText(AccountName.get(position));
+        holder.text2.setText("$ " + AccountBalance.get(position));
     }
 
     @Override
     public int getItemCount() {
         if(AccountName == null){return 0;}
-        return AccountName.length;
+        return AccountName.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView text1, text2;
-        ImageView image1;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             text1 = itemView.findViewById(R.id.AccountName);
@@ -62,13 +66,15 @@ public class MyAccountAdapter extends RecyclerView.Adapter<MyAccountAdapter.View
         @Override
         public void onClick(View v) {
             int position = getLayoutPosition();
-            goToTransactionActivity(position);
+            Long UID = AccountUID.get(position);
+            goToTransactionActivity(position, UID);
         }
 
-        public void goToTransactionActivity(int position) {
+        public void goToTransactionActivity(int position, Long UID) {
             Intent intent = new Intent(context, AccountActivity.class);
 
             intent.putExtra("POSITION", position);
+            intent.putExtra("UID", UID);
             context.startActivity(intent);
         }
     }

@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -12,6 +13,7 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 public class Dialog_DepositWithdraw extends AppCompatDialogFragment {
+    private static final String TAG = Dialog_DepositWithdraw.class.getSimpleName();
 
     //Status indicator
     public static final int STATUS_WITHDRAW = 1;
@@ -26,18 +28,48 @@ public class Dialog_DepositWithdraw extends AppCompatDialogFragment {
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_deposit, null);
+        editTextAmount = view.findViewById(R.id.deposit_dialog);
+        editTextMemo = view.findViewById(R.id.depwith_memo_dialog);
 
-        //I want to have the title of the dialog change based on whether deposit or withdraw is clicked
-        //But I'm currently having issues getting that to work
+        //Dynamically update title, hint text, and confirm button based on whether "Withdraw" or "Deposit" was clicked
+        Bundle bundle = getArguments();
+        int status = 0;
+        String statusText = "", confirmButton = "Confirm";
+        if (bundle != null){
+            status = bundle.getInt("STATUS_TYPE");
+        }
+        switch(status){
+            case STATUS_WITHDRAW:
+                statusText = "Withdraw";
+                confirmButton = "WITHDRAW";
+                editTextAmount.setHint(R.string.withdraw_hint);
+                break;
+            case STATUS_DEPOSIT:
+                statusText = "Deposit";
+                confirmButton = "DEPOSIT";
+                editTextAmount.setHint(R.string.deposit_hint);
+                break;
+            default:
+                //Arguments failed
+                //do nothing, use default values for dialog build (bad!)
+                break;
+        }
 
-        builder.setView(view)
-                .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+        builder.setTitle(statusText)
+                .setView(view)
+                .setPositiveButton(confirmButton, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //positive action
-                        String memo = editTextMemo.getText().toString();
-                        Double value = Double.parseDouble(editTextAmount.getText().toString());
-                        listener.sendText(value, memo);
+                        if(!editTextAmount.getText().toString().isEmpty()) {
+                            //Check if given amount is empty before attempting to parse
+                            String memo = editTextMemo.getText().toString();
+                            Double value = Double.parseDouble(editTextAmount.getText().toString());
+                            listener.sendText(value, memo);
+                        } else {
+                            /* TODO: Fully disable confirm button if empty amount? */
+                            //do nothing?
+                        }
                     }
                 })
                 .setNegativeButton("Cancel",new DialogInterface.OnClickListener() {
@@ -47,9 +79,6 @@ public class Dialog_DepositWithdraw extends AppCompatDialogFragment {
                         //do nothing
                     }
                 });
-
-        editTextAmount = view.findViewById(R.id.deposit_dialog);
-        editTextMemo = view.findViewById(R.id.depwith_memo_dialog);
 
         return builder.create();
     }

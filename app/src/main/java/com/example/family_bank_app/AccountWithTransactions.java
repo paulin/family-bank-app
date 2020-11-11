@@ -10,7 +10,7 @@ public class AccountWithTransactions {
 
     @Relation(
             parentColumn = "accountUid",
-            entityColumn = "transactionUid"
+            entityColumn = "accountMainUid"
     )
     public List<TransactionEntity> transactions;
 }

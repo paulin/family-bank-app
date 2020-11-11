@@ -1,7 +1,8 @@
 package com.example.family_bank_app;
 
-import android.app.FragmentManager;
+import android.accounts.Account;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -9,24 +10,41 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+
+import static java.lang.String.valueOf;
 
 public class AccountActivity extends AppCompatActivity implements Dialog_DepositWithdraw.DepositWithdrawDialogListener {
     RecyclerView transactionRecyclerView;
     MyTransactionAdapter myTransactionAdapter;
-    String note[], amount[], currentBal[], names[], balances[];
-    Date date[];
-    Date d;
+    List<String> transactionName, date;
+    List<Double> amount, currentBal;
+    List<Long> UIDS;
+    String name;
+    Double balance;
+    Long UID;
+    Boolean myBool;
+
+
+    AccountViewModel accountViewModel;
+    TransactionViewModel transactionViewModel;
     TextView accountName, accountBal;
 
+    private static final String TAG = "AccountActivity";
+
     //inits for deposit and withdraw dialog
-    EditText deposit_withdraw_dialog;
     Button btn_withdraw, btn_deposit;
     private int status_depositWithdraw;
 
@@ -34,35 +52,64 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
-        note = new String[]{"Cheese", "More Cheese", "PepperJack"};
-        amount = new String[]{"5.00", "6.00", "7.00"};
-        currentBal = new String[]{"20.00", "14.00", "7.00" };
-        names = new String[]{"Jerry Law", "Mary Stringer"};
-        balances = new String[]{"413.20$", "876.45$"};
+        transactionName = new ArrayList<String>();
+        date = new ArrayList<String>();
+        amount = new ArrayList<Double>();
+        currentBal = new ArrayList<Double>();
+        UIDS = new ArrayList<Long>();
+        name = "";
+        balance = 0.0;
+
+        accountViewModel = new AccountViewModel();
+
+        int pos = getIntent().getIntExtra("POSITION", 0);
+        UID = getIntent().getLongExtra("UID", 0);
 
         accountName = findViewById(R.id.NameOfAccount);
         accountBal = findViewById(R.id.balance);
 
-        int pos = getIntent().getIntExtra("POSITION", 0);
-
-        accountName.setText(names[pos]);
-        accountBal.setText("Balance: " + balances[pos]);
-
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-        try {
-            d = sdf.parse("20201018");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        date = new Date[]{d, d, d};
-
         transactionRecyclerView = findViewById(R.id.TransactionRecycler);
 
-        myTransactionAdapter = new MyTransactionAdapter(this, note, amount, currentBal, date );
+        myTransactionAdapter = new MyTransactionAdapter(this, transactionName , amount, currentBal, date, UIDS);
         transactionRecyclerView.setAdapter(myTransactionAdapter);
         transactionRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         myTransactionAdapter.notifyDataSetChanged();
+
+        final Observer<AccountEntity> getAccountObserver = Account -> {
+            if (Account == null) {
+                return;
+            }
+            name = Account.getAccountName();
+            balance = Account.getAccountBalance();
+
+            accountName.setText(name);
+            accountBal.setText("Balance: $" + balance);
+        };
+
+        AccountViewModel.getAccount(this, UID).observe(this, getAccountObserver);
+
+        final Observer<List<TransactionEntity>> getTransactionsObserver = transactionEntities -> {
+            if (transactionEntities == null || transactionEntities.size() < 0) {
+                return;
+            }
+            transactionName.clear();
+            currentBal.clear();
+            amount.clear();
+            UIDS.clear();
+            date.clear();
+
+            for(int i=0; i < transactionEntities.size();i++) {
+                TransactionEntity transaction = transactionEntities.get(i);
+                transactionName.add(transaction.getTransactionTitle());
+                currentBal.add(transaction.getTransactionAmount());
+                amount.add(transaction.getTransactionAmount());
+                UIDS.add(transaction.getTransactionUid());
+                date.add(transaction.getTransactionDate());
+            }
+            myTransactionAdapter.notifyDataSetChanged();
+        };
+
+        TransactionViewModel.getAllTransactions(this, UID).observe(this, getTransactionsObserver);
 
         /*
         Code for deposit and withdraw dialog below:
@@ -71,9 +118,8 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
         btn_deposit.setOnClickListener(new View.OnClickListener(){
             public void onClick (View v){
                 //CLICK DEPOSIT
-                //Toast.makeText(getApplicationContext(), "click deposit", Toast.LENGTH_LONG).show();
                 status_depositWithdraw = Dialog_DepositWithdraw.STATUS_DEPOSIT;
-                depositWithdrawDialog();
+                depositWithdrawDialog(status_depositWithdraw);
             }
         });
 
@@ -81,27 +127,76 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
         btn_withdraw.setOnClickListener(new View.OnClickListener(){
             public void onClick (View v){
                 //CLICK WITHDRAW
-                //Toast.makeText(getApplicationContext(), "click withdraw", Toast.LENGTH_LONG).show();
                 status_depositWithdraw = Dialog_DepositWithdraw.STATUS_WITHDRAW;
-                depositWithdrawDialog();
+                depositWithdrawDialog(status_depositWithdraw);
             }
         });
     }
 
     //Called when either deposit or withdraw is clicked
-    public void depositWithdrawDialog() {
+    public void depositWithdrawDialog(int status) {
         Dialog_DepositWithdraw depwithDialog = new Dialog_DepositWithdraw();
+
+        //Expecting argument for STATUS_TYPE of STATUS_WITHDRAW or STATUS_DEPOSIT
+        Bundle args = new Bundle();
+        args.putInt("STATUS_TYPE", status);
+        depwithDialog.setArguments(args);
+
         depwithDialog.show(getSupportFragmentManager(), "deposit and withdraw dialog");
     }
 
     @Override
-    public void sendText(double amount, String memo){
-        int workingAmount = (int)Math.round(100*amount);
-        if(status_depositWithdraw == Dialog_DepositWithdraw.STATUS_WITHDRAW){
-            workingAmount = workingAmount * -1;
+    public void sendText(double amount, String memo) {
+        if (status_depositWithdraw == Dialog_DepositWithdraw.STATUS_WITHDRAW) {
+            amount = amount * -1;
         }
-        //Right now takes in a double dollar amount and string memo
-        //Then toasts out an int cent value to change and the memo
-        Toast.makeText(getApplicationContext(), "" + workingAmount + " " + memo, Toast.LENGTH_LONG).show();
+
+        //Create new transaction in database
+        TransactionEntity transactionEntity = new TransactionEntity();
+        transactionEntity.setTransactionAmount(amount);
+        transactionEntity.setTransactionDate(new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault()).format(new Date()));
+        transactionEntity.setTransactionTitle(memo);
+        transactionEntity.setAccountMainUid(UID);
+
+        TransactionViewModel.createTransaction(transactionRecyclerView.getContext(), transactionEntity);
+        Log.i(TAG, ""+TransactionViewModel.getTransaction(transactionRecyclerView.getContext(), 0) );
+
+
+//        AccountEntity accEnt = AccountViewModel.getAccountEntity(this, UID);
+//        double workingBal = accEnt.getAccountBalance();
+//        workingBal += amount;
+//        accEnt.setAccountBalance(workingBal);
+//        //TODO: take this off main thread
+
+        myBool = true;
+        double finalAmount = amount;
+        final Observer<AccountEntity> getAccountObserver = Account -> {
+            if (Account == null){ return; }
+
+
+            if (myBool) {
+//                Toast.makeText(this, "" + Account.getAccountName(), Toast.LENGTH_LONG).show();
+                double getBal = Account.getAccountBalance();
+                getBal += finalAmount;
+                Account.setAccountBalance(getBal);
+                AccountViewModel.updateAccount(this, Account);
+                myBool = false;
+            }
+
+        };
+        AccountViewModel.getAccount(this, UID).observe(this, getAccountObserver);
     }
+
+     /*
+     // Demo to test transaction data
+     TransactionEntity transactionEntity = new TransactionEntity();
+
+     transactionEntity.setTransactionAmount(100.00);
+     transactionEntity.setTransactionDate("1/1/1111");
+     transactionEntity.setTransactionTitle("test transaction");
+     transactionEntity.setAccountMainUid(0);
+
+     TransactionViewModel.createTransaction(view.getContext(), transactionEntity);
+     Log.i(TAG, ""+TransactionViewModel.getTransaction(view.getContext(),0));
+     */
 }

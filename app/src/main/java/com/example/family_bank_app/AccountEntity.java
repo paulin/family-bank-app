@@ -25,7 +25,6 @@ public class AccountEntity {
     public long getAccountUid() {
         return accountUid;
     }
-
     @NonNull
     public void setAccountUid(long id) {
         this.accountUid = id;
