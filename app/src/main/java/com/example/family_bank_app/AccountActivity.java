@@ -10,12 +10,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -33,6 +35,8 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
     String name;
     Double balance;
     Long UID;
+    Boolean myBool;
+
 
     AccountViewModel accountViewModel;
     TransactionViewModel transactionViewModel;
@@ -158,26 +162,29 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
         Log.i(TAG, ""+TransactionViewModel.getTransaction(transactionRecyclerView.getContext(), 0) );
 
 
-        AccountEntity accEnt = AccountViewModel.getAccountEntity(this, UID);
-        double workingBal = accEnt.getAccountBalance();
-        workingBal += amount;
-        accEnt.setAccountBalance(workingBal);
-        //TODO: take this off main thread
+//        AccountEntity accEnt = AccountViewModel.getAccountEntity(this, UID);
+//        double workingBal = accEnt.getAccountBalance();
+//        workingBal += amount;
+//        accEnt.setAccountBalance(workingBal);
+//        //TODO: take this off main thread
 
-
-        /*
+        myBool = true;
         double finalAmount = amount;
         final Observer<AccountEntity> getAccountObserver = Account -> {
             if (Account == null){ return; }
-            Toast.makeText(this, "" + Account.getAccountName(), Toast.LENGTH_LONG).show();
-            double getBal = Account.getAccountBalance();
-            getBal += finalAmount;
-            Account.setAccountBalance(getBal);
-            AccountViewModel.updateAccount(this, Account);
+
+
+            if (myBool) {
+                Toast.makeText(this, "" + Account.getAccountName(), Toast.LENGTH_LONG).show();
+                double getBal = Account.getAccountBalance();
+                getBal += finalAmount;
+                Account.setAccountBalance(getBal);
+                AccountViewModel.updateAccount(this, Account);
+                myBool = false;
+            }
+
         };
         AccountViewModel.getAccount(this, UID).observe(this, getAccountObserver);
-
-         */
     }
 
      /*
