@@ -1,5 +1,6 @@
 package com.example.family_bank_app;
 
+import android.accounts.Account;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -155,6 +156,28 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
 
         TransactionViewModel.createTransaction(transactionRecyclerView.getContext(), transactionEntity);
         Log.i(TAG, ""+TransactionViewModel.getTransaction(transactionRecyclerView.getContext(), 0) );
+
+
+        AccountEntity accEnt = AccountViewModel.getAccountEntity(this, UID);
+        double workingBal = accEnt.getAccountBalance();
+        workingBal += amount;
+        accEnt.setAccountBalance(workingBal);
+        //TODO: take this off main thread
+
+
+        /*
+        double finalAmount = amount;
+        final Observer<AccountEntity> getAccountObserver = Account -> {
+            if (Account == null){ return; }
+            Toast.makeText(this, "" + Account.getAccountName(), Toast.LENGTH_LONG).show();
+            double getBal = Account.getAccountBalance();
+            getBal += finalAmount;
+            Account.setAccountBalance(getBal);
+            AccountViewModel.updateAccount(this, Account);
+        };
+        AccountViewModel.getAccount(this, UID).observe(this, getAccountObserver);
+
+         */
     }
 
      /*

@@ -25,6 +25,9 @@ public interface AccountDao {
 //    AccountEntity getAccount(long accountUid);
     LiveData<AccountEntity> getAccount(long accountUid);
 
+    @Query("SELECT * FROM Accounts WHERE accountUid = :accountUid")
+    AccountEntity getAccountEntity(long accountUid);
+
     // Query for all accounts in db
     @Query("SELECT * FROM Accounts")
     LiveData<List<AccountEntity>> getAllAccounts();
