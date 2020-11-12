@@ -122,6 +122,9 @@ public class MainActivityTest {
 //        checkToast("1.0 p");
         Thread.sleep(2000);
 
+        // Delete transaction
+        onView(withId(R.id.deleteTransactionButton)).perform(click());
+
     }
 
 //    @Test

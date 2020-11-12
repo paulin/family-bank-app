@@ -1,6 +1,7 @@
 package com.example.family_bank_app;
 
 import android.accounts.Account;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -21,6 +22,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 
@@ -35,11 +37,16 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
     String name;
     Double balance;
     Long UID;
+    int position;
+    List<String> status;
+
     Boolean myBool;
+    Boolean deleteTransaction;
+    double lastTransactionAmount;
 
 
     AccountViewModel accountViewModel;
-    TransactionViewModel transactionViewModel;
+//    TransactionViewModel transactionViewModel;
     TextView accountName, accountBal;
 
     private static final String TAG = "AccountActivity";
@@ -59,18 +66,20 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
         UIDS = new ArrayList<Long>();
         name = "";
         balance = 0.0;
+        status = new ArrayList<String>();
+
 
         accountViewModel = new AccountViewModel();
 
-        int pos = getIntent().getIntExtra("POSITION", 0);
         UID = getIntent().getLongExtra("UID", 0);
+        position = getIntent().getIntExtra("POSITION", 0);
 
         accountName = findViewById(R.id.NameOfAccount);
         accountBal = findViewById(R.id.balance);
 
         transactionRecyclerView = findViewById(R.id.TransactionRecycler);
 
-        myTransactionAdapter = new MyTransactionAdapter(this, transactionName , amount, currentBal, date, UIDS);
+        myTransactionAdapter = new MyTransactionAdapter(this, transactionName , amount, currentBal, date, UIDS, status);
         transactionRecyclerView.setAdapter(myTransactionAdapter);
         transactionRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         myTransactionAdapter.notifyDataSetChanged();
@@ -97,14 +106,22 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
             amount.clear();
             UIDS.clear();
             date.clear();
+            status.clear();
 
+
+            // This re-updates for each new transaction change. Can we optimize so it only runs initially?
             for(int i=0; i < transactionEntities.size();i++) {
+                Log.i(TAG, "updated " + i);
                 TransactionEntity transaction = transactionEntities.get(i);
                 transactionName.add(transaction.getTransactionTitle());
                 currentBal.add(transaction.getTransactionAmount());
                 amount.add(transaction.getTransactionAmount());
                 UIDS.add(transaction.getTransactionUid());
                 date.add(transaction.getTransactionDate());
+                // Strike through text for deleted
+                status.add(transaction.getTransactionStatus());
+
+
             }
             myTransactionAdapter.notifyDataSetChanged();
         };
@@ -146,20 +163,26 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
     }
 
     @Override
-    public void sendText(double amount, String memo) {
+    public void sendText(double amount, String memo, boolean deleteTransaction) {
+//                        Toast.makeText(this, "" + amount, Toast.LENGTH_LONG).show();
+
         if (status_depositWithdraw == Dialog_DepositWithdraw.STATUS_WITHDRAW) {
             amount = amount * -1;
         }
 
-        //Create new transaction in database
-        TransactionEntity transactionEntity = new TransactionEntity();
-        transactionEntity.setTransactionAmount(amount);
-        transactionEntity.setTransactionDate(new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault()).format(new Date()));
-        transactionEntity.setTransactionTitle(memo);
-        transactionEntity.setAccountMainUid(UID);
+        // Create new transaction in database if not delete action
+        if (!deleteTransaction) {
+            TransactionEntity transactionEntity = new TransactionEntity();
+            transactionEntity.setTransactionAmount(amount);
+            transactionEntity.setTransactionDate(new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault()).format(new Date()));
+            transactionEntity.setTransactionTitle(memo);
+            transactionEntity.setAccountMainUid(UID);
 
-        TransactionViewModel.createTransaction(transactionRecyclerView.getContext(), transactionEntity);
-        Log.i(TAG, ""+TransactionViewModel.getTransaction(transactionRecyclerView.getContext(), 0) );
+            TransactionViewModel.createTransaction(transactionRecyclerView.getContext(), transactionEntity);
+        }
+
+
+//        Log.i(TAG, ""+TransactionViewModel.getTransaction(transactionRecyclerView.getContext(), 0) );
 
 
 //        AccountEntity accEnt = AccountViewModel.getAccountEntity(this, UID);
@@ -185,6 +208,42 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
 
         };
         AccountViewModel.getAccount(this, UID).observe(this, getAccountObserver);
+    }
+
+    public void deleteLastTransaction (View view) {
+//        Toast.makeText(this, "delete " + lastTransactionUid, Toast.LENGTH_LONG).show();
+
+        // set status to deleted
+        deleteTransaction = true;
+        final Observer<TransactionEntity> getLastTransactionObserver = Transaction -> {
+            if (Transaction == null){
+                Toast.makeText(this, "There are no more transactions", Toast.LENGTH_LONG).show();
+            } else if (deleteTransaction) {
+                lastTransactionAmount = Transaction.getTransactionAmount();
+//                Toast.makeText(this, "" + lastTransactionAmount, Toast.LENGTH_LONG).show();
+                Transaction.setTransactionStatus("deleted");
+                TransactionViewModel.createTransaction(this, Transaction);
+
+                // Undo last OK status transaction in account balance
+                sendText( -1 * lastTransactionAmount, "", true);
+                deleteTransaction = false;
+
+                // reload activity to reflect strikethrough item
+                Intent intent = new Intent(AccountActivity.this, AccountActivity.class);
+                intent.putExtra("POSITION", position);
+                intent.putExtra("UID", UID);
+                finish();
+                startActivity(intent);
+
+            }
+
+        };
+
+        TransactionViewModel.getLastOkTransaction(this, "ok").observe(this, getLastTransactionObserver);
+
+        // Ensure transaction has strike-though or something
+        // popconfirm for delete
+
     }
 
      /*
