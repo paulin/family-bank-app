@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatDialogFragment;
 
@@ -65,10 +66,9 @@ public class Dialog_DepositWithdraw extends AppCompatDialogFragment {
                             //Check if given amount is empty before attempting to parse
                             String memo = editTextMemo.getText().toString();
                             Double value = Double.parseDouble(editTextAmount.getText().toString());
-                            listener.sendText(value, memo);
+                            listener.sendText(value, memo, false);
                         } else {
-                            /* TODO: Fully disable confirm button if empty amount? */
-                            //do nothing?
+                            Toast.makeText(getActivity(), "Please enter a value and note", Toast.LENGTH_LONG).show();
                         }
                     }
                 })
@@ -95,6 +95,6 @@ public class Dialog_DepositWithdraw extends AppCompatDialogFragment {
     }
 
     public interface DepositWithdrawDialogListener{
-        void sendText(double amount, String memo);
+        void sendText(double amount, String memo, boolean deleteTransaction);
     }
 }

@@ -35,7 +35,14 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-
+        <ImageButton
+            android:id="@+id/deleteTransactionButton"
+            android:onClick="deleteLastTransaction"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_delete_button"
+            android:layout_below="@+id/toolbarTransactionsPage"
+            android:layout_marginStart="5dp" />
 
         <TextView
             android:id="@+id/NameOfAccount"

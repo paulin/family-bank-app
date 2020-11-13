@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatDialogFragment;
 
@@ -31,9 +32,16 @@ public class Dialog_CreateAcc extends AppCompatDialogFragment {
                 .setPositiveButton("Create", new DialogInterface.OnClickListener() { // Extract Create string
                     @Override
                     public void onClick(DialogInterface dialog, int which) { // This onClick needs to deal with empty string inputs.
-                        String name = editTextName.getText().toString();
-                        double value = Double.parseDouble(editTextValue.getText().toString());
-                        listener.sendText(name, value);
+
+                        // Handle empty form
+                        if (editTextName.getText().toString().equals("") || editTextName.getText().toString().equals("")) {
+                            Toast.makeText(getActivity(), "Please enter a name and value", Toast.LENGTH_LONG).show();
+                        } else {
+                            String name = editTextName.getText().toString();
+                            double value = Double.parseDouble(editTextValue.getText().toString());
+                            listener.sendText(name, value);
+                        }
+
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
