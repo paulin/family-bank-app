@@ -64,6 +64,7 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
         amount = new ArrayList<Double>();
         currentBal = new ArrayList<Double>();
         UIDS = new ArrayList<Long>();
+        date = new ArrayList<String>();
         name = "";
         balance = 0.0;
         status = new ArrayList<String>();
