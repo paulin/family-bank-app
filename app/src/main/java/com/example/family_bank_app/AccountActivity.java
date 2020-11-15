@@ -16,6 +16,8 @@ import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
@@ -26,6 +28,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 
+import static java.lang.String.format;
 import static java.lang.String.valueOf;
 
 public class AccountActivity extends AppCompatActivity implements Dialog_DepositWithdraw.DepositWithdrawDialogListener {
@@ -48,7 +51,9 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
     AccountViewModel accountViewModel;
 //    TransactionViewModel transactionViewModel;
     TextView accountName, accountBal;
-
+    //Call df.format(DOUBLE) to output a string with proper formatting
+    DecimalFormat df = new DecimalFormat("0.00");
+  
     private static final String TAG = "AccountActivity";
 
     //inits for deposit and withdraw dialog
@@ -91,8 +96,12 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
             name = Account.getAccountName();
             balance = Account.getAccountBalance();
 
+            StringBuilder builderBalance = new StringBuilder();
+            builderBalance.append("Balance: $");
+            builderBalance.append(df.format(balance));
+
             accountName.setText(name);
-            accountBal.setText("Balance: $" + balance);
+            accountBal.setText(builderBalance);
         };
 
         AccountViewModel.getAccount(this, UID).observe(this, getAccountObserver);
@@ -108,6 +117,7 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
             date.clear();
             status.clear();
 
+            //TODO: transaction display value will likely need to be formatted too
 
             // This re-updates for each new transaction change. Can we optimize so it only runs initially?
             for(int i=0; i < transactionEntities.size();i++) {
@@ -164,16 +174,19 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
 
     @Override
     public void sendText(double amount, String memo, boolean deleteTransaction) {
-//                        Toast.makeText(this, "" + amount, Toast.LENGTH_LONG).show();
+        //truncate value to two decimal places
+        DecimalFormat truncate = new DecimalFormat("#.##");
+        truncate.setRoundingMode(RoundingMode.DOWN); //Throw away any entered decimal places past two
+        double formatAmount = Double.parseDouble(truncate.format(amount));
 
         if (status_depositWithdraw == Dialog_DepositWithdraw.STATUS_WITHDRAW) {
-            amount = amount * -1;
+            formatAmount = formatAmount * -1;
         }
 
         // Create new transaction in database if not delete action
         if (!deleteTransaction) {
             TransactionEntity transactionEntity = new TransactionEntity();
-            transactionEntity.setTransactionAmount(amount);
+            transactionEntity.setTransactionAmount(formatAmount);
             transactionEntity.setTransactionDate(new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault()).format(new Date()));
             transactionEntity.setTransactionTitle(memo);
             transactionEntity.setAccountMainUid(UID);
@@ -192,10 +205,9 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
 //        //TODO: take this off main thread
 
         myBool = true;
-        double finalAmount = amount;
+        double finalAmount = formatAmount;
         final Observer<AccountEntity> getAccountObserver = Account -> {
             if (Account == null){ return; }
-
 
             if (myBool) {
 //                Toast.makeText(this, "" + Account.getAccountName(), Toast.LENGTH_LONG).show();
