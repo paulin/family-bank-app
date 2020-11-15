@@ -6,7 +6,7 @@
 
     <EditText
         android:id="@+id/deposit_dialog"
-        android:hint="@string/deposit_hint"
+        android:hint="@string/depwith_default_hint"
         android:inputType="numberDecimal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

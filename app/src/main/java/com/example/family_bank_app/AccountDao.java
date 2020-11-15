@@ -13,18 +13,21 @@ import java.util.List;
 @Dao
 public interface AccountDao {
 
-    // Query all transaction data associated with an account uid
+    //Account ---------------------
+
     @Transaction // Like batching
     @Query("SELECT * FROM Accounts WHERE accountUid = :accountUid")
     List<AccountWithTransactions> getAccountsWithTransactions(long accountUid);
 
+    // @@@This should be changed to livedata
     //Query all Accounts with an account uid
     @Query("SELECT * FROM Accounts WHERE accountUid = :accountUid")
-    AccountEntity getAccount(long accountUid);
+//    AccountEntity getAccount(long accountUid);
+    LiveData<AccountEntity> getAccount(long accountUid);
 
-    //Query all Accounts with Regular Expression
-    @Query("SELECT * FROM Accounts WHERE name = :name")
-    AccountEntity getAccount(String name);
+//    @Query("SELECT * FROM Accounts WHERE accountUid = :accountUid")
+//    AccountEntity getAccountEntity(long accountUid);
+
 
     // Query for all accounts in db
     @Query("SELECT * FROM Accounts")
@@ -34,12 +37,48 @@ public interface AccountDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAccount(AccountEntity... accountEntity);
 
-    // Insert new transaction data
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertTransaction(TransactionEntity... transactionEntity);
-
+    // @@@Should rename to deleteAccount
     // Delete specific account
     @Delete
     void delete(AccountEntity account);
 
+
+    // Transaction ---------------------
+
+    // Grab all accounts and transactions
+//    @Transaction // Like batching
+//    @Query("SELECT * FROM Accounts")
+//    LiveData<List<AccountWithTransactions>> getAccountWithTransactions();
+
+    // Query for specific account and all associated transactions
+//    @Transaction // Like batching
+//    @Query("SELECT * FROM Accounts WHERE accountUid = :accountUid")
+//    LiveData<List<AccountWithTransactions>> getAccountWithTransactions(long accountUid);
+
+    // Query for specific transaction data
+    @Query("SELECT * FROM Transactions WHERE transactionUid = :transactionUid")
+    LiveData<TransactionEntity> getTransaction(long transactionUid);
+
+    //Query for all transaction data
+
+    @Query("SELECT * FROM transactions WHERE accountMainUid = :accountUID")
+    LiveData<List<TransactionEntity>> getAllTransactions(long accountUID);
+
+    // Insert new transaction data
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertTransaction(TransactionEntity... transactionEntity);
+
+    // Query for last transaction with status ok
+    @Query("SELECT * FROM Transactions WHERE transactionStatus = :transactionStatus ORDER BY transactionUid DESC LIMIT 1")
+    LiveData<TransactionEntity> getLastOkTransaction(String transactionStatus);
+
+    // Ask matt
+//    @Delete
+//    void deleteTransaction(TransactionEntity transaction);
+
 }
+
+// @@@Not sure if we want to query accounts by the name, this could lead to data issues. What if two users have the same name?
+//Query all Accounts with Regular Expression
+//    @Query("SELECT * FROM Accounts WHERE name = :name")
+//    AccountEntity getAccount(String name);

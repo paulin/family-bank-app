@@ -55,12 +55,12 @@ public class UiTest {
 
     }
 
-    @Test
-    public void hasAccountActivity() {
-
-
-
-    }
+//    @Test
+//    public void hasAccountActivity() {
+//
+//
+//
+//    }
 
 
 
