@@ -16,8 +16,9 @@ public class TransactionActivity extends AppCompatActivity {
     private static final String TAG = TransactionActivity.class.getSimpleName();
 
 
-    String note[], amount[], currentBal[];
-    TextView Note, Amount, CurrentBal;
+    String note, date;
+    Double amount, currentBal;
+    TextView Note, Amount, CurrentBal, Date;
     AccountViewModel viewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,9 +28,10 @@ public class TransactionActivity extends AppCompatActivity {
         Log.i(TAG, "in transactivity");
 
 
-        note = new String[]{"Cheese", "More Cheese", "PepperJack"};
-        amount = new String[]{"5.00", "6.00", "7.00"};
-        currentBal = new String[]{"20.00", "14.00", "7.00" };
+        note = getIntent().getStringExtra("NAME");
+        amount = getIntent().getDoubleExtra("AMOUNT", 0);
+        currentBal = getIntent().getDoubleExtra("BAL", 0);
+        date = getIntent().getStringExtra("DATE");
         viewModel = new AccountViewModel();
         Long UID = getIntent().getLongExtra("UID", 0);
 
@@ -55,15 +57,16 @@ public class TransactionActivity extends AppCompatActivity {
 
         };
     */
-        int pos = getIntent().getIntExtra("POSITION", 0);
 
         Note = findViewById(R.id.transactionActivityMessage);
         Amount = findViewById(R.id.transactionActivityAmt);
         CurrentBal = findViewById(R.id.transactionActivityBal);
+        Date = findViewById(R.id.transactionActivityDate);
 
-        Note.setText(note[pos]);
-        Amount.setText("Amount: $" + amount[pos]);
-        CurrentBal.setText("Balance: $" + currentBal[pos]);
+        Note.setText("Note" + note);
+        Amount.setText("Amount: $" + amount);
+        CurrentBal.setText("Balance: $" + currentBal);
+        Date.setText(date);
 
 
 
