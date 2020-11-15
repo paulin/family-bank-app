@@ -12,9 +12,8 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         >
 
-
         <com.google.android.material.appbar.AppBarLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
@@ -22,16 +21,13 @@
             android:id="@+id/toolbarTransactionsPage"
             >
 
-
-
             <ImageView
-                android:layout_width="433dp"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
                 android:padding="10dp"
                 android:layout_height="100dp"
                 android:src="@drawable/logo"
                 android:contentDescription="@string/logo" />
-
-
 
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -56,67 +52,78 @@
             android:text="@string/account_name" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/toolbarTransactionsPage"
-            android:paddingStart="10dp"
-            android:layout_marginTop="100dp"
-            android:textSize="20sp"
-            android:typeface="serif"
-            android:text="@string/transaction_history" />
-
-        <TextView
             android:id="@+id/balance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/toolbarTransactionsPage"
-            android:layout_marginTop="100dp"
-            android:layout_marginStart="220dp"
+            android:layout_below="@id/NameOfAccount"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:textSize="20sp"
             android:typeface="serif"
             android:text="@string/balance" />
 
         <View
-            android:layout_marginTop="140dp"
-            android:layout_below="@+id/toolbarTransactionsPage"
+            android:id="@+id/horizontalDivider"
+            android:layout_below="@id/balance"
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="@color/BankGreen"/>
+            android:layout_marginTop="10dp"
+            android:background="@color/BankGreen"
+            />
+
+        <TextView
+            android:id="@+id/historyHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/horizontalDivider"
+            android:layout_marginTop="10dp"
+            android:layout_centerInParent="true"
+            android:textSize="20sp"
+            android:typeface="serif"
+            android:text="@string/transaction_history" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:layout_below="@id/historyHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="250dp"
             android:padding="10dp"
             android:id="@+id/TransactionRecycler"/>
 
-        <Button
-
-            android:text="withdraw"
-            android:id="@+id/Btn_Withdraw"
-
-            android:layout_width="170dp"
-            android:layout_height="@dimen/createAcct_height"
-            android:layout_below="@+id/TransactionRecycler"
-            android:layout_marginLeft="220dp"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/TransactionRecycler"
             android:layout_marginTop="20dp"
-            android:contentDescription="@string/new_account"
-            android:padding="0dp"
-            android:background="@drawable/button_blank"
-            />
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp">
 
-        <Button
-            android:text="deposit"
-            android:id="@+id/Btn_Deposit"
-            android:layout_width="170dp"
-            android:layout_height="@dimen/createAcct_height"
-            android:layout_below="@+id/TransactionRecycler"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
-            android:contentDescription="@string/new_account"
-            android:padding="0dp"
-            android:background="@drawable/button_blank"
-            />
+            <Button
+                android:text="@string/deposit"
+                android:id="@+id/Btn_Deposit"
+                android:layout_width="170dp"
+                android:layout_height="@dimen/createAcct_height"
+                android:layout_weight="0.5"
+                android:contentDescription="@string/new_account"
+                android:padding="0dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/button_blank"
+                />
+
+            <Button
+                android:text="@string/withdraw"
+                android:id="@+id/Btn_Withdraw"
+                android:layout_width="170dp"
+                android:layout_height="@dimen/createAcct_height"
+                android:layout_weight="0.5"
+                android:contentDescription="@string/new_account"
+                android:padding="0dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/button_blank"
+                />
+
+        </LinearLayout>
+
 
 
     </RelativeLayout>
