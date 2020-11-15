@@ -21,49 +21,49 @@
 
         <TextView
             android:id="@+id/transactionDate"
-            android:layout_width="wrap_content"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toStartOf="parent"
 
-            android:textSize="20dp"
+            android:textSize="15dp"
             android:padding="5dp"
             android:text="datetime"
             android:textColor="#000000" />
 
         <TextView
             android:id="@+id/transactionNote"
-            android:layout_width="wrap_content"
+            android:layout_width="70dp"
             android:layout_height="wrap_content"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toStartOf="parent"
-            android:layout_marginLeft="90dp"
-            android:textSize="20dp"
+            android:layout_marginLeft="130dp"
+            android:textSize="15dp"
             android:padding="5dp"
             android:text="Note"
             android:textColor="#000000" />
 
         <TextView
             android:id="@+id/transactionAmt"
-            android:layout_width="wrap_content"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
 
             android:padding="5dp"
-            android:layout_marginLeft="220dp"
+            android:layout_marginLeft="200dp"
             android:text="+20.00$"
             android:textColor="#000000"
-            android:textSize="20dp" />
+            android:textSize="15dp" />
 
         <TextView
             android:id="@+id/transactionCurrentBalance"
-            android:layout_width="wrap_content"
+            android:layout_width="90dp"
             android:layout_height="wrap_content"
 
             android:padding="5dp"
             android:layout_marginLeft="280dp"
             android:text="830.45$"
             android:textColor="#000000"
-            android:textSize="20dp" />
+            android:textSize="15dp" />
 
 
     </androidx.cardview.widget.CardView>
