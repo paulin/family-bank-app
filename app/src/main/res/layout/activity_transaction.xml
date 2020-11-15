@@ -45,48 +45,44 @@
             android:typeface="serif"
             android:text="@string/datetime" />
 
-        <LinearLayout
-            android:id="@+id/amountBalanceBlock"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/transactionActivityBal"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/transactionActivityName"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp">
+            android:layout_marginEnd="20dp"
+            android:textSize="20sp"
+            android:typeface="serif"
+            android:text="@string/current_bal" />
 
-            <TextView
-                android:id="@+id/transactionActivityAmt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:textSize="20sp"
-                android:typeface="serif"
-                android:text="@string/amount" />
-
-            <TextView
-                android:id="@+id/transactionActivityBal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:textSize="20sp"
-                android:typeface="serif"
-                android:text="@string/current_bal" />
-
-        </LinearLayout>
 
         <View
             android:id="@+id/transactionDivider"
-            android:layout_below="@id/amountBalanceBlock"
+            android:layout_below="@id/transactionActivityBal"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_marginTop="10dp"
             android:background="@color/BankGreen"/>
 
         <TextView
+            android:id="@+id/transactionActivityAmt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/transactionDivider"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:textSize="20sp"
+            android:typeface="serif"
+            android:text="@string/amount" />
+
+        <TextView
             android:id="@+id/transactionActivityMessage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/transactionDivider"
+            android:layout_below="@+id/transactionActivityAmt"
             android:layout_marginTop="10dp"
             android:padding="20dp"
             android:textSize="20sp"
