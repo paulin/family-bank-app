@@ -15,7 +15,7 @@
 
 
         <com.google.android.material.appbar.AppBarLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
@@ -23,19 +23,15 @@
             android:id="@+id/toolbarTransactionsPage"
             >
 
-
-
             <ImageView
-                android:layout_width="433dp"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
                 android:padding="10dp"
                 android:layout_height="100dp"
                 android:src="@drawable/logo"
                 android:contentDescription="@string/logo" />
 
-
-
         </com.google.android.material.appbar.AppBarLayout>
-
 
 
         <TextView
@@ -49,66 +45,53 @@
             android:typeface="serif"
             android:text="@string/datetime" />
 
-        <TextView
-            android:id="@+id/transactionActivityAmt"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/amountBalanceBlock"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/toolbarTransactionsPage"
-            android:paddingStart="20dp"
-            android:layout_marginTop="100dp"
-            android:textSize="20sp"
-            android:typeface="serif"
-            android:text="@string/amount" />
+            android:layout_below="@id/transactionActivityName"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp">
 
-        <TextView
-            android:id="@+id/transactionActivityBal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/toolbarTransactionsPage"
-            android:paddingStart="10dp"
-            android:layout_marginTop="100dp"
-            android:textSize="20sp"
-            android:typeface="serif"
-            android:layout_marginStart="220dp"
-            android:text="@string/current_bal" />
+            <TextView
+                android:id="@+id/transactionActivityAmt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:textSize="20sp"
+                android:typeface="serif"
+                android:text="@string/amount" />
+
+            <TextView
+                android:id="@+id/transactionActivityBal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:textSize="20sp"
+                android:typeface="serif"
+                android:text="@string/current_bal" />
+
+        </LinearLayout>
 
         <View
-            android:layout_marginTop="140dp"
-            android:layout_below="@+id/toolbarTransactionsPage"
+            android:id="@+id/transactionDivider"
+            android:layout_below="@id/amountBalanceBlock"
             android:layout_width="match_parent"
             android:layout_height="2dp"
+            android:layout_marginTop="10dp"
             android:background="@color/BankGreen"/>
 
         <TextView
             android:id="@+id/transactionActivityMessage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/toolbarTransactionsPage"
+            android:layout_below="@+id/transactionDivider"
+            android:layout_marginTop="10dp"
             android:padding="20dp"
-            android:layout_marginTop="140dp"
             android:textSize="20sp"
             android:typeface="serif"
-            android:text="Message" />
-
-
-        <Button
-            android:text="go back"
-            android:layout_width="170dp"
-            android:layout_height="@dimen/createAcct_height"
-            android:layout_below="@+id/transactionActivityMessage"
-            android:layout_marginLeft="130dp"
-            android:layout_marginTop="20dp"
-            android:contentDescription="@string/new_account"
-            android:padding="0dp"
-            android:background="@drawable/button_blank"
-            android:onClick="toAccountActivity"
-            />
-
-
-
-
-
-
+            android:text="@string/default_memo" />
 
     </RelativeLayout>
 </ScrollView>
