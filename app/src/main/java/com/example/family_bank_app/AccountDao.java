@@ -25,6 +25,10 @@ public interface AccountDao {
 //    AccountEntity getAccount(long accountUid);
     LiveData<AccountEntity> getAccount(long accountUid);
 
+//    @Query("SELECT * FROM Accounts WHERE accountUid = :accountUid")
+//    AccountEntity getAccountEntity(long accountUid);
+
+
     // Query for all accounts in db
     @Query("SELECT * FROM Accounts")
     LiveData<List<AccountEntity>> getAllAccounts();
@@ -57,12 +61,16 @@ public interface AccountDao {
 
     //Query for all transaction data
 
-    @Query("SELECT * FROM transactions WHERE accountMainUid= :accountUID")
+    @Query("SELECT * FROM transactions WHERE accountMainUid = :accountUID")
     LiveData<List<TransactionEntity>> getAllTransactions(long accountUID);
 
     // Insert new transaction data
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertTransaction(TransactionEntity... transactionEntity);
+
+    // Query for last transaction with status ok
+    @Query("SELECT * FROM Transactions WHERE transactionStatus = :transactionStatus ORDER BY transactionUid DESC LIMIT 1")
+    LiveData<TransactionEntity> getLastOkTransaction(String transactionStatus);
 
     // Ask matt
 //    @Delete

@@ -89,7 +89,7 @@ public class MainActivityTest {
 
         Thread.sleep(2000);
 
-        //Deposit
+        // Withdraw
 
         onView(withId(R.id.Btn_Withdraw)).perform(click());
         Thread.sleep(2000);
@@ -98,9 +98,9 @@ public class MainActivityTest {
         onView(withId(R.id.depwith_memo_dialog)).perform(typeText("p"), closeSoftKeyboard());
 
         Thread.sleep(2000);
-        onView(withText(R.string.confirm)).inRoot(isDialog()).perform(click());
+        onView(withText(R.string.withdraw_test)).inRoot(isDialog()).perform(click());
         Thread.sleep(2000);
-        checkToast("-1.0 p");
+//        checkToast("-1.0 p");
         Thread.sleep(2000);
 
         onView(withId(R.id.Btn_Deposit)).perform(click());
@@ -109,16 +109,21 @@ public class MainActivityTest {
 
         Thread.sleep(2000);
 
+        // Deposit
+
         onView(withId(R.id.Btn_Deposit)).perform(click());
         Thread.sleep(2000);
         onView(withId(R.id.deposit_dialog)).perform(typeText("1"));
         Thread.sleep(1000);
         onView(withId(R.id.depwith_memo_dialog)).perform(typeText("p"), closeSoftKeyboard());
         Thread.sleep(2000);
-        onView(withText(R.string.confirm)).inRoot(isDialog()).perform(click());
+        onView(withText(R.string.deposit_test)).inRoot(isDialog()).perform(click());
         Thread.sleep(2000);
-        checkToast("1.0 p");
+//        checkToast("1.0 p");
         Thread.sleep(2000);
+
+        // Delete transaction
+        onView(withId(R.id.deleteTransactionButton)).perform(click());
 
     }
 

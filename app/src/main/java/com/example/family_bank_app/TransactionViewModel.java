@@ -27,6 +27,11 @@ public class TransactionViewModel extends ViewModel{
         });
     }
 
+    public static LiveData<TransactionEntity> getLastOkTransaction(Context context, String transactionStatus) {
+        AppDatabase db = AppDatabaseSingleton.getDatabase(context);
+        return db.accountDao().getLastOkTransaction(transactionStatus);
+    }
+
     // Ask matt
 //    public static void deleteTransaction(Context context, TransactionEntity transaction) {
 //        AppDatabase db = AppDatabaseSingleton.getDatabase(context);

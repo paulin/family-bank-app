@@ -12,7 +12,7 @@ import androidx.room.PrimaryKey;
 public class TransactionEntity {
 
     // Fields
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @NonNull
     @ColumnInfo(name = "transactionUid")
     private long transactionUid;
@@ -35,6 +35,11 @@ public class TransactionEntity {
     @NonNull
     @ColumnInfo(name = "transactionAmount")
     private double transactionAmount = 0;
+
+    // Status field,: empty string = normal, deleted = deleted...
+    @NonNull
+    @ColumnInfo(name = "transactionStatus")
+    private String transactionStatus = "ok";
 
     // Add field for 'new total' AccountEntity - newTotal. Do we want this in the DB or calculated on runtime?
     //Aggregate query of transactions would be most accurate, is there a way to cache that calculation?
@@ -64,6 +69,11 @@ public class TransactionEntity {
     public double getTransactionAmount() { return transactionAmount; }
 
     public void setTransactionAmount( double transactionAmount ) { this.transactionAmount = transactionAmount; }
+
+    @NonNull
+    public String getTransactionStatus() { return transactionStatus; }
+
+    public void setTransactionStatus( String transactionStatus ) { this.transactionStatus = transactionStatus; }
 
 
 }

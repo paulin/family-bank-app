@@ -42,4 +42,9 @@ public class AccountViewModel extends ViewModel {
         return db.accountDao().getAccount(accountUID);
     }
 
+//    public static AccountEntity getAccountEntity(Context context, long accountUID){
+//        AppDatabase db = AppDatabaseSingleton.getDatabase(context);
+//        return db.accountDao().getAccountEntity(accountUID);
+//    }
+
 }
