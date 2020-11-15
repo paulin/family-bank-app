@@ -16,7 +16,7 @@
     <string name="mary_sampson">Mary Sampson</string>
     <string name="logo">Logo</string>
     <string name="account_name">account_name</string>
-    <string name="transaction_history">Transaction History</string>
+    <string name="transaction_history">History</string>
     <string name="account_activity">AccountActivity</string>
 
 
@@ -33,6 +33,7 @@
     <string name="balance">Balance</string>
     <string name="withdraw">Withdraw</string>
     <string name="deposit">Deposit</string>
+    <string name="default_memo">DEFAULT MEMO</string>
     <string name="withdraw_test">WITHDRAW</string>
     <string name="deposit_test">DEPOSIT</string>
     <string name="current_bal">Current Bal</string>

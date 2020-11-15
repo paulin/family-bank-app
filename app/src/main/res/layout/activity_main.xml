@@ -13,7 +13,7 @@
     >
 
     <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
@@ -23,9 +23,10 @@
 
         <ImageView
             android:id="@+id/MainLogo"
-            android:layout_width="433dp"
-            android:padding="10dp"
+            android:layout_width="wrap_content"
             android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:padding="10dp"
             android:src="@drawable/logo"
             android:contentDescription="@string/logo" />
 
