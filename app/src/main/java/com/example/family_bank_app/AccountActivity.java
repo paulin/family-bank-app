@@ -259,6 +259,12 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
 
     }
 
+    public void toMainActivity(View view) {
+
+        finish();
+
+    }
+
      /*
      // Demo to test transaction data
      TransactionEntity transactionEntity = new TransactionEntity();
