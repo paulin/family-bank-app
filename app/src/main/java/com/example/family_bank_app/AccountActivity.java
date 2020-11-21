@@ -3,6 +3,7 @@ package com.example.family_bank_app;
 import android.accounts.Account;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +17,7 @@ import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.lang.reflect.Array;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -258,6 +260,18 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
         // popconfirm for delete
 
     }
+
+   public void graphActivity(){
+        Double currentBal2[] =  new Double[currentBal.size()];
+       currentBal2 = currentBal.toArray(currentBal2);
+        Intent intent = new Intent(AccountActivity.this, GraphActivity.class);
+        intent.putExtra("BAL", currentBal2);
+        intent.putExtra("DATE", (Parcelable) date);
+        finish();
+        startActivity(intent);
+
+    }
+
 
      /*
      // Demo to test transaction data

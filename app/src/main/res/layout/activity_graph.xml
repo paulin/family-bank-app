@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<ScrollView
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:background="@color/BankGreenBackground"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        >
+
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            android:background="@color/BankGreen"
+            android:id="@+id/toolbarTransactionsPage"
+            >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:padding="10dp"
+                android:layout_height="100dp"
+                android:src="@drawable/logo"
+                android:contentDescription="@string/logo" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+        <com.jjoe64.graphview.GraphView
+            android:layout_below="@+id/toolbarTransactionsPage"
+            android:layout_width = "match_parent"
+            android:layout_height = "350dp"
+            android:id = "@+id/graph"
+            android:layout_margin = "20dp"
+        />
+
+    </RelativeLayout>
+</ScrollView>
