@@ -223,41 +223,41 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
         AccountViewModel.getAccount(this, UID).observe(this, getAccountObserver);
     }
 
-    public void deleteLastTransaction (View view) {
-//        Toast.makeText(this, "delete " + lastTransactionUid, Toast.LENGTH_LONG).show();
-
-        // set status to deleted
-        deleteTransaction = true;
-        final Observer<TransactionEntity> getLastTransactionObserver = Transaction -> {
-            if (Transaction == null){
-                Toast.makeText(this, "There are no more transactions", Toast.LENGTH_LONG).show();
-            } else if (deleteTransaction) {
-                lastTransactionAmount = Transaction.getTransactionAmount();
-//                Toast.makeText(this, "" + lastTransactionAmount, Toast.LENGTH_LONG).show();
-                Transaction.setTransactionStatus("deleted");
-                TransactionViewModel.createTransaction(this, Transaction);
-
-                // Undo last OK status transaction in account balance
-                sendText( -1 * lastTransactionAmount, "", true);
-                deleteTransaction = false;
-
-                // reload activity to reflect strikethrough item
-                Intent intent = new Intent(AccountActivity.this, AccountActivity.class);
-                intent.putExtra("POSITION", position);
-                intent.putExtra("UID", UID);
-                finish();
-                startActivity(intent);
-
-            }
-
-        };
-
-        TransactionViewModel.getLastOkTransaction(this, "ok").observe(this, getLastTransactionObserver);
-
-        // Ensure transaction has strike-though or something
-        // popconfirm for delete
-
-    }
+//    public void deleteLastTransaction (View view) {
+////        Toast.makeText(this, "delete " + lastTransactionUid, Toast.LENGTH_LONG).show();
+//
+//        // set status to deleted
+//        deleteTransaction = true;
+//        final Observer<TransactionEntity> getLastTransactionObserver = Transaction -> {
+//            if (Transaction == null){
+//                Toast.makeText(this, "There are no more transactions", Toast.LENGTH_LONG).show();
+//            } else if (deleteTransaction) {
+//                lastTransactionAmount = Transaction.getTransactionAmount();
+////                Toast.makeText(this, "" + lastTransactionAmount, Toast.LENGTH_LONG).show();
+//                Transaction.setTransactionStatus("deleted");
+//                TransactionViewModel.createTransaction(this, Transaction);
+//
+//                // Undo last OK status transaction in account balance
+//                sendText( -1 * lastTransactionAmount, "", true);
+//                deleteTransaction = false;
+//
+//                // reload activity to reflect strikethrough item
+//                Intent intent = new Intent(AccountActivity.this, AccountActivity.class);
+//                intent.putExtra("POSITION", position);
+//                intent.putExtra("UID", UID);
+//                finish();
+//                startActivity(intent);
+//
+//            }
+//
+//        };
+//
+//        TransactionViewModel.getLastOkTransaction(this, "ok").observe(this, getLastTransactionObserver);
+//
+//        // Ensure transaction has strike-though or something
+//        // popconfirm for delete
+//
+//    }
 
     public void toMainActivity(View view) {
 

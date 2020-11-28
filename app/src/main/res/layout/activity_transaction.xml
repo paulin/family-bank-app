@@ -45,6 +45,15 @@
             android:typeface="serif"
             android:text="@string/datetime" />
 
+        <ImageButton
+            android:id="@+id/deleteTransactionButton"
+            android:onClick="deleteTransaction"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_delete_button"
+            android:layout_below="@+id/toolbarTransactionsPage"
+            android:layout_marginStart="5dp" />
+
         <TextView
             android:id="@+id/transactionActivityBal"
             android:layout_width="wrap_content"
@@ -89,12 +98,22 @@
             android:typeface="serif"
             android:text="@string/default_memo" />
 
+        <TextView
+            android:id="@+id/transactionActivityStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/transactionActivityMessage"
+            android:padding="20dp"
+            android:textSize="20sp"
+            android:typeface="serif"
+            android:text="@string/status" />
+
 
         <Button
             android:text="@string/back"
             android:id="@+id/Btn_TransactionBack"
             android:layout_width="170dp"
-            android:layout_below="@+id/transactionActivityMessage"
+            android:layout_below="@+id/transactionActivityStatus"
             android:layout_centerInParent="true"
             android:layout_height="@dimen/createAcct_height"
             android:layout_weight="0.5"
