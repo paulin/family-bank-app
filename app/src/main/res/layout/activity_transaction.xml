@@ -35,7 +35,7 @@
 
 
         <TextView
-            android:id="@+id/transactionActivityName"
+            android:id="@+id/transactionActivityDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/toolbarTransactionsPage"
@@ -49,7 +49,7 @@
             android:id="@+id/transactionActivityBal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/transactionActivityName"
+            android:layout_below="@id/transactionActivityDate"
             android:layout_marginTop="10dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"

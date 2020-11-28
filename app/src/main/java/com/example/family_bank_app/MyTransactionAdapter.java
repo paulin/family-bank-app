@@ -97,9 +97,19 @@ public class MyTransactionAdapter extends RecyclerView.Adapter<MyTransactionAdap
 
         public void goToTransactionActivity(int position) {
             Long uid = UIDS.get(position);
+
+            String Name = transactionName.get(position);
+            String Date = date.get(position);
+            Double Amount = amount.get(position);
+            Double Bal = currentBal.get(position);
+
             Intent intent = new Intent(context, TransactionActivity.class);
             intent.putExtra("TUID", uid);
-            intent.putExtra("POSITION", position);
+//            intent.putExtra("POSITION", position);
+            intent.putExtra("NAME", Name);
+            intent.putExtra("DATE", Date);
+            intent.putExtra("AMOUNT", Amount);
+            intent.putExtra("BAL", Bal);
             context.startActivity(intent);
 
         }
