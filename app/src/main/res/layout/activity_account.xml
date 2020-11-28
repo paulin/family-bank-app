@@ -118,8 +118,22 @@
                 android:layout_weight="0.5"
                 android:contentDescription="@string/new_account"
                 android:padding="0dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/button_blank"
+                />
+
+
+            <Button
+                android:text="@string/back"
+                android:id="@+id/Btn_AccountBack"
+                android:layout_width="170dp"
+                android:layout_height="@dimen/createAcct_height"
+                android:layout_weight="0.5"
+                android:contentDescription="@string/new_account"
+                android:padding="0dp"
                 android:layout_marginStart="10dp"
                 android:background="@drawable/button_blank"
+                android:onClick="toMainActivity"
                 />
 
         </LinearLayout>
