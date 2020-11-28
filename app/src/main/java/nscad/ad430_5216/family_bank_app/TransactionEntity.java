@@ -1,9 +1,8 @@
-package com.example.family_bank_app;
+package nscad.ad430_5216.family_bank_app;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
 // Store the transactions related to each account, one to many with account Entity

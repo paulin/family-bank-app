@@ -1,16 +1,13 @@
-package com.example.family_bank_app;
+package nscad.ad430_5216.family_bank_app;
 
-import android.app.FragmentManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 
-import java.util.Date;
-import java.util.List;
+import com.example.family_bank_app.R;
 
 public class TransactionActivity extends AppCompatActivity {
     private static final String TAG = TransactionActivity.class.getSimpleName();

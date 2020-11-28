@@ -1,4 +1,4 @@
-package com.example.family_bank_app;
+package nscad.ad430_5216.family_bank_app;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatDialogFragment;
+
+import com.example.family_bank_app.R;
 
 public class Dialog_CreateAcc extends AppCompatDialogFragment {
     //Made following a video tutorial from Coding in Flow on youtube, shamelessly
