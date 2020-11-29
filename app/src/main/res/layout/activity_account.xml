@@ -32,8 +32,7 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <ImageButton
-            android:id="@+id/deleteAccount"
-            android:onClick="deleteAccount"
+            android:id="@+id/deleteAccountButton"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:src="@drawable/ic_delete_button"

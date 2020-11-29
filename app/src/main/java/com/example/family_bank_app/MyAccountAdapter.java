@@ -74,7 +74,7 @@ public class MyAccountAdapter extends RecyclerView.Adapter<MyAccountAdapter.View
             Intent intent = new Intent(context, AccountActivity.class);
 
             intent.putExtra("POSITION", position);
-            intent.putExtra("UID", UID);
+            intent.putExtra("ACCOUNTUID", UID);
             context.startActivity(intent);
         }
     }

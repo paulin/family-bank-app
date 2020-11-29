@@ -27,19 +27,19 @@ public class TransactionViewModel extends ViewModel{
         });
     }
 
-    public static LiveData<TransactionEntity> getLastOkTransaction(Context context, String transactionStatus) {
-        AppDatabase db = AppDatabaseSingleton.getDatabase(context);
-        return db.accountDao().getLastOkTransaction(transactionStatus);
-    }
-
-    // Ask matt
-//    public static void deleteTransaction(Context context, TransactionEntity transaction) {
+    // No longer needed
+//    public static LiveData<TransactionEntity> getLastOkTransaction(Context context, String transactionStatus) {
 //        AppDatabase db = AppDatabaseSingleton.getDatabase(context);
-//        db.getTransactionExecutor().execute(() -> {
-//            db.getTransactionExecutor().execute(() -> {
-//                db.accountDao().deleteTransaction(transaction);
-//            });
-//
-//        });
+//        return db.accountDao().getLastOkTransaction(transactionStatus);
 //    }
+
+    public static void deleteTransaction(Context context, TransactionEntity transaction) {
+        AppDatabase db = AppDatabaseSingleton.getDatabase(context);
+        db.getTransactionExecutor().execute(() -> {
+            db.getTransactionExecutor().execute(() -> {
+                db.accountDao().deleteTransaction(transaction);
+            });
+
+        });
+    }
 }

@@ -34,7 +34,7 @@ public class Dialog_CreateAcc extends AppCompatDialogFragment {
                     public void onClick(DialogInterface dialog, int which) { // This onClick needs to deal with empty string inputs.
 
                         // Handle empty form
-                        if (editTextName.getText().toString().equals("") || editTextName.getText().toString().equals("")) {
+                        if (editTextName.getText().toString().equals("") || editTextValue.getText().toString().equals("")) {
                             Toast.makeText(getActivity(), "Please enter a name and value", Toast.LENGTH_LONG).show();
                         } else {
                             String name = editTextName.getText().toString();
@@ -64,7 +64,7 @@ public class Dialog_CreateAcc extends AppCompatDialogFragment {
         try {
             listener = (CreateAccountDialogListener) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + "must implement CreateAccountDialogListener");
+            throw new ClassCastException(context.toString() + " must implement CreateAccountDialogListener");
         }
     }
 

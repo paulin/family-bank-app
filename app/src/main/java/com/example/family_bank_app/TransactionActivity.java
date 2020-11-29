@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,17 +15,20 @@ import androidx.lifecycle.Observer;
 import java.util.Date;
 import java.util.List;
 
-public class TransactionActivity extends AppCompatActivity {
+public class TransactionActivity extends AppCompatActivity implements Dialog_DeleteTransaction.DeleteTransactionDialogListener {
     private static final String TAG = TransactionActivity.class.getSimpleName();
 
 
     String note, date, status, transactionStatus;
     Double amount, currentBal;
-    Long UID;
-    boolean deleteTransaction;
+    Long transactionUID, accountUID;
+    boolean deleteTransactionOk, undoAccountBalanceOk;
     int position;
+
     TextView Note, Amount, CurrentBal, Date, Status;
     AccountViewModel viewModel;
+    ImageButton deleteTrans;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,9 +42,10 @@ public class TransactionActivity extends AppCompatActivity {
         currentBal = getIntent().getDoubleExtra("BAL", 0);
         date = getIntent().getStringExtra("DATE");
         viewModel = new AccountViewModel();
-        UID = getIntent().getLongExtra("TUID", 0);
+        transactionUID = getIntent().getLongExtra("TRANSACTIONUID", 0);
         status = getIntent().getStringExtra("STATUS");
         position = getIntent().getIntExtra("POSITION", 0);
+        accountUID = getIntent().getLongExtra("ACCOUNTUID", 0);
 
         /*
            final Observer<AccountEntity> getAccountObserver = newAccount -> {
@@ -83,52 +88,72 @@ public class TransactionActivity extends AppCompatActivity {
             Status.setText("Status: Deleted");
         }
 
+        deleteTrans = findViewById(R.id.deleteTransactionButton);
+        deleteTrans.setOnClickListener(v -> deleteTransactionDialog());
     }
 
-    public void deleteTransaction(View view) {
+
+    public void deleteTransactionDialog() {
+        Dialog_DeleteTransaction deleteDialog = new Dialog_DeleteTransaction();
+        deleteDialog.show(getSupportFragmentManager(), "delete transaction dialog");
+    }
+
+    public void deleteTransaction(boolean deleteOk) {
 //        Toast.makeText(this, "delete: " + UID, Toast.LENGTH_LONG).show();
 
-        deleteTransaction = true;
+        deleteTransactionOk = deleteOk;
 
         final Observer<TransactionEntity> getTransactionObserver = Transaction -> {
             if (Transaction == null){ return; }
 
             transactionStatus = Transaction.getTransactionStatus();
 
-            if (deleteTransaction) {
-                if (status.equals("ok")) {
-                    Toast.makeText(this, Transaction.getTransactionUid() + "Transaction deleted", Toast.LENGTH_LONG).show();
+            if (deleteTransactionOk) {
+                if (transactionStatus.equals("ok")) {
+                    Toast.makeText(this, "Transaction deleted", Toast.LENGTH_LONG).show();
                     Transaction.setTransactionStatus("deleted");
+                    double transactionAmount = Transaction.getTransactionAmount();
                     TransactionViewModel.createTransaction(this, Transaction);
-                    deleteTransaction = false;
-                    Intent intent = new Intent(TransactionActivity.this, TransactionActivity.class);
-                intent.putExtra("POSITION", position);
-                intent.putExtra("UID", UID); //@@@ look into errors with deleting. Also consider how to change account balance in transaction.
-                finish();
-                startActivity(intent);
+                    deleteTransactionOk = false;
+
+                    undoAccountBalance(transactionAmount);
+
+                    Intent intent = new Intent(TransactionActivity.this, AccountActivity.class);
+                    intent.putExtra("POSITION", position);
+                    intent.putExtra("ACCOUNTUID", accountUID);
+                    startActivity(intent);
 
                 } else {
                     Toast.makeText(this, Transaction.getTransactionUid() + "Transaction already deleted", Toast.LENGTH_LONG).show();
                 }
             }
 
-//            if (myBool) {
-////                Toast.makeText(this, "" + Account.getAccountName(), Toast.LENGTH_LONG).show();
-//                double getBal = Account.getAccountBalance();
-//                getBal += finalAmount;
-//                Account.setAccountBalance(getBal);
-//                AccountViewModel.updateAccount(this, Account);
-//                myBool = false;
-//            }
-
         };
 
-        TransactionViewModel.getTransaction(this, UID).observe(this, getTransactionObserver);
-
-
+        TransactionViewModel.getTransaction(this, transactionUID).observe(this, getTransactionObserver);
 
     }
 
+    // Once transaction is delete, undo account balance
+    public void undoAccountBalance(double transactionAmount) {
+
+        undoAccountBalanceOk = true;
+        final Observer<AccountEntity> getAccountObserver = Account -> {
+            if (Account == null){ return; }
+
+            if (undoAccountBalanceOk) {
+                double getBal = Account.getAccountBalance();
+                getBal += -1 * transactionAmount;
+                Account.setAccountBalance(getBal);
+                AccountViewModel.updateAccount(this, Account);
+                undoAccountBalanceOk = false;
+            }
+
+        };
+        AccountViewModel.getAccount(this, accountUID).observe(this, getAccountObserver);
+    }
+
+    // Fix back button to go to last activity.
     public void toAccountActivity(View view) {
         finish();
     }
