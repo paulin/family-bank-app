@@ -30,6 +30,11 @@
             android:name=".TransactionActivity"
             android:label="TransactionActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity
+            android:name=".GraphActivity"
+            android:label="GraphActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 <!---->
     <uses-permission android:name="android.permission.INTERNET" />

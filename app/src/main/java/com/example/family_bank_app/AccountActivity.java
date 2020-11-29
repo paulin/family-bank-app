@@ -261,12 +261,17 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
 
     }
 
-   public void graphActivity(){
+   public void graphActivity(View view){
+
         Double currentBal2[] =  new Double[currentBal.size()];
-       currentBal2 = currentBal.toArray(currentBal2);
+        currentBal2 = currentBal.toArray(currentBal2);
+
+        String date2[] = new String[date.size()];
+        date2 = date.toArray(date2);
+
         Intent intent = new Intent(AccountActivity.this, GraphActivity.class);
         intent.putExtra("BAL", currentBal2);
-        intent.putExtra("DATE", (Parcelable) date);
+        intent.putExtra("DATE", date2);
         finish();
         startActivity(intent);
 
