@@ -77,7 +77,7 @@ public class MainActivityTest {
 
         // Deposit amount
         withdrawOrDepositTransaction("DEPOSIT", withdrawDepositAmount, withdrawDepositNote); // Extract later once finalized
-        checkAccount(accountName, "8"); // Later calculate change
+//        checkTransaction(accountName, "8"); // Later calculate change
         Thread.sleep(2000);
 
         // Check transaction details
@@ -185,7 +185,12 @@ public class MainActivityTest {
 
     }
 
-    public void checkTransaction(String transactionDate, String transactionBalance, String transactionNote, String transactionStatus) {
+    public void checkTransaction(String transactionDate, String transactionBalance, String transactionNote, String transactionStatus) throws InterruptedException {
+
+        onView(new RecyclerViewMatcher(R.id.TransactionRecycler)
+                .atPositionOnView(0, R.id.card_view))
+                .perform(click());
+        Thread.sleep(2000);
 
         onView(withId(R.id.transactionActivityDate)).check(matches(withText(transactionDate)));
         onView(withId(R.id.transactionActivityBal)).check(matches(withText("Balance: $" + transactionBalance + ".00")));
