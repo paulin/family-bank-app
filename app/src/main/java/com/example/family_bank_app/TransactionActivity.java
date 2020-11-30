@@ -110,7 +110,7 @@ public class TransactionActivity extends AppCompatActivity implements Dialog_Del
 
             if (deleteTransactionOk) {
                 if (transactionStatus.equals("ok")) {
-                    Toast.makeText(this, "Transaction deleted", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "Transaction Deleted", Toast.LENGTH_LONG).show();
                     Transaction.setTransactionStatus("deleted");
                     double transactionAmount = Transaction.getTransactionAmount();
                     TransactionViewModel.createTransaction(this, Transaction);

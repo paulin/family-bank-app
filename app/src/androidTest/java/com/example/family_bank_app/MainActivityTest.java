@@ -75,18 +75,10 @@ public class MainActivityTest {
                 .perform(click());
         Thread.sleep(2000);
 
-        // Deposit amount
-        withdrawOrDepositTransaction("DEPOSIT", withdrawDepositAmount, withdrawDepositNote); // Extract later once finalized
-//        checkTransaction(accountName, "8"); // Later calculate change
-        Thread.sleep(2000);
+        depositWithdrawTest();
 
-        // Check transaction details
-//        checkTransaction(); // @@@ HERE enter params and also determine where to click back
-//        onView(withId(R.id.Btn_AccountBack)).perform(click());
-//
-//        // Delete deposit transaction
-//        deleteTransaction();
-//        checkAccount(accountName, accountBalance);
+        deleteAccount();
+
 //
 //        // Withdraw amount
 //        withdrawOrDepositTransaction("WITHDRAW", withdrawDepositAmount, withdrawDepositNote); // Extract later once finalized
@@ -148,10 +140,6 @@ public class MainActivityTest {
         onView(withId(R.id.balance)).check(matches(withText("Balance: $" + accountBalance + ".00")));
     }
 
-    public void clickBack() {
-        onView(withId(R.id.Btn_AccountBack)).perform(click());
-    }
-
     // Interact with the deposit feature
     public void withdrawOrDepositTransaction(String withdrawDeposit, String withdrawDepositAmount, String withdrawDepositNote) throws InterruptedException {
 
@@ -177,74 +165,73 @@ public class MainActivityTest {
 
     public void deleteTransaction() throws InterruptedException {
 
-        onView(new RecyclerViewMatcher(R.id.TransactionRecycler)
-                .atPositionOnView(0, R.id.card_view))
-                .perform(click());
+        onView(withId(R.id.deleteTransactionButton)).perform(click());
         Thread.sleep(2000);
+        onView(withText("NO")).inRoot(isDialog()).perform(click());
 
+        Thread.sleep(2000);
+        onView(withId(R.id.deleteTransactionButton)).perform(click());
+        Thread.sleep(2000);
+        onView(withText("YES")).inRoot(isDialog()).perform(click());
 
+        checkToast("Transaction Deleted");
     }
 
-    public void checkTransaction(String transactionDate, String transactionBalance, String transactionNote, String transactionStatus) throws InterruptedException {
+    public void deleteAccount() throws InterruptedException {
 
-        onView(new RecyclerViewMatcher(R.id.TransactionRecycler)
-                .atPositionOnView(0, R.id.card_view))
-                .perform(click());
+        onView(withId(R.id.deleteAccountButton)).perform(click());
         Thread.sleep(2000);
+        onView(withText("NO")).inRoot(isDialog()).perform(click());
 
-        onView(withId(R.id.transactionActivityDate)).check(matches(withText(transactionDate)));
-        onView(withId(R.id.transactionActivityBal)).check(matches(withText("Balance: $" + transactionBalance + ".00")));
-//        onView(withId(R.id.transactionActivityAmt)).check(matches(withText("Amount: $" + transactionAmount + ".00"))); // Amount?
+        Thread.sleep(2000);
+        onView(withId(R.id.deleteAccountButton)).perform(click());
+        Thread.sleep(2000);
+        onView(withText("YES")).inRoot(isDialog()).perform(click());
+
+        checkToast("Account Deleted");
+    }
+
+    public void checkTransaction(String transactionDate, String transactionBalance, String transactionAmount, String transactionNote, String transactionStatus) throws InterruptedException {
+
+//        onView(withId(R.id.transactionActivityDate)).check(matches(withText(transactionDate)));
+        onView(withId(R.id.transactionActivityBal)).check(matches(withText("Balance: $" + transactionBalance + ".0"))); // TODO: fix single digit display balance
+        onView(withId(R.id.transactionActivityAmt)).check(matches(withText("Amount: $" + transactionAmount + ".0"))); // Amount?
         onView(withId(R.id.transactionActivityMessage)).check(matches(withText("Note: " + transactionNote)));
         onView(withId(R.id.transactionActivityStatus)).check(matches(withText("Status: " + transactionStatus)));
     }
-}
 
-//        onView(new RecyclerViewMatcher(R.id.AccountRecycler)
-//                .atPositionOnView(0, R.id.card_view))
-//                .perform(click());
-//
-//        Thread.sleep(2000);
-//        onView(withId(R.id.Btn_Withdraw)).perform(click());
-//        Thread.sleep(2000);
-//        onView(withText(R.string.cancel)).inRoot(isDialog()).perform(click());
-//
-//        Thread.sleep(2000);
-//
-//        // Withdraw
-//
-//        onView(withId(R.id.Btn_Withdraw)).perform(click());
-//        Thread.sleep(2000);
-//        onView(withId(R.id.deposit_dialog)).perform(typeText("1"));
-//        Thread.sleep(2000);
-//        onView(withId(R.id.depwith_memo_dialog)).perform(typeText("p"), closeSoftKeyboard());
-//
-//        Thread.sleep(2000);
-//        onView(withText(R.string.withdraw_test)).inRoot(isDialog()).perform(click());
-//        Thread.sleep(2000);
-////        checkToast("-1.0 p");
-//        Thread.sleep(2000);
-//
-//        onView(withId(R.id.Btn_Deposit)).perform(click());
-//        Thread.sleep(2000);
-//        onView(withText(R.string.cancel)).inRoot(isDialog()).perform(click());
-//
-//        Thread.sleep(2000);
-//
-//        // Deposit
-//
-//        onView(withId(R.id.Btn_Deposit)).perform(click());
-//        Thread.sleep(2000);
-//        onView(withId(R.id.deposit_dialog)).perform(typeText("1"));
-//        Thread.sleep(1000);
-//        onView(withId(R.id.depwith_memo_dialog)).perform(typeText("p"), closeSoftKeyboard());
-//        Thread.sleep(2000);
-//        onView(withText(R.string.deposit_test)).inRoot(isDialog()).perform(click());
-//        Thread.sleep(2000);
-////        checkToast("1.0 p");
-//        Thread.sleep(2000);
-//
-//        // Delete transaction
-//        onView(withId(R.id.deleteTransactionButton)).perform(click());
-//
-//    }
+    public void depositWithdrawTest() throws InterruptedException {
+        // Deposit amount
+        withdrawOrDepositTransaction("DEPOSIT", withdrawDepositAmount, withdrawDepositNote); // Extract later once finalized
+        Thread.sleep(2000);
+
+        // Check transaction
+        onView(new RecyclerViewMatcher(R.id.TransactionRecycler)
+                .atPositionOnView(0, R.id.transactionCardView))
+                .perform(click());
+        Thread.sleep(2000);
+        checkTransaction("", "2", "2", "p", "Completed"); // Later calculate change, extract strings
+        Thread.sleep(2000);
+
+        // Delete deposit transaction
+        deleteTransaction();
+        checkAccount(accountName, accountBalance);
+
+        // Withdraw amount
+        withdrawOrDepositTransaction("WITHDRAW", withdrawDepositAmount, withdrawDepositNote); // Extract later once finalized
+        Thread.sleep(2000);
+
+        // Check transaction
+        onView(new RecyclerViewMatcher(R.id.TransactionRecycler)
+                .atPositionOnView(1, R.id.transactionCardView))
+                .perform(click());
+        Thread.sleep(2000);
+        checkTransaction("", "-2", "-2", "p", "Completed"); // Later calculate change, extract strings
+        Thread.sleep(2000);
+
+        // Delete withdraw transaction
+        deleteTransaction();
+        checkAccount(accountName, accountBalance);
+        Thread.sleep(5000);
+    }
+}

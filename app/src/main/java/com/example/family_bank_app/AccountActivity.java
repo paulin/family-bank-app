@@ -182,6 +182,7 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
             if (deleteAccountOk) {
                 deleteTransactions(Account.getAccountUid(), true);
                 AccountViewModel.deleteAccount(this, Account);
+                Toast.makeText(this, "Account Deleted", Toast.LENGTH_LONG).show();
                 deleteAccountOk = false;
                 Intent intent = new Intent(AccountActivity.this, MainActivity.class);
                 startActivity(intent);
