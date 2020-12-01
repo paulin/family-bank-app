@@ -39,7 +39,6 @@ public class TransactionActivity extends AppCompatActivity implements Dialog_Del
 
         note = getIntent().getStringExtra("NAME");
         amount = getIntent().getDoubleExtra("AMOUNT", 0);
-        currentBal = getIntent().getDoubleExtra("BAL", 0);
         date = getIntent().getStringExtra("DATE");
         viewModel = new AccountViewModel();
         transactionUID = getIntent().getLongExtra("TRANSACTIONUID", 0);
@@ -73,13 +72,11 @@ public class TransactionActivity extends AppCompatActivity implements Dialog_Del
 
         Note = findViewById(R.id.transactionActivityMessage);
         Amount = findViewById(R.id.transactionActivityAmt);
-        CurrentBal = findViewById(R.id.transactionActivityBal);
         Date = findViewById(R.id.transactionActivityDate);
         Status = findViewById(R.id.transactionActivityStatus);
 
         Note.setText("Note: " + note);
         Amount.setText("Amount: $" + amount);
-        CurrentBal.setText("Balance: $" + currentBal);
         Date.setText(date);
 
         if (status.equals("ok")) {
