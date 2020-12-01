@@ -21,7 +21,7 @@
 
         <TextView
             android:id="@+id/transactionDate"
-            android:layout_width="130dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toStartOf="parent"
@@ -33,11 +33,13 @@
 
         <TextView
             android:id="@+id/transactionNote"
-            android:layout_width="70dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:ellipsize="end"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toStartOf="parent"
-            android:layout_marginLeft="130dp"
+            android:layout_marginLeft="100dp"
             android:textSize="15dp"
             android:padding="5dp"
             android:text="Note"
