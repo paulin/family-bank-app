@@ -194,7 +194,6 @@ public class MainActivityTest {
     public void checkTransaction(String transactionDate, String transactionBalance, String transactionAmount, String transactionNote, String transactionStatus) throws InterruptedException {
 
 //        onView(withId(R.id.transactionActivityDate)).check(matches(withText(transactionDate)));
-        onView(withId(R.id.transactionActivityBal)).check(matches(withText("Balance: $" + transactionBalance + ".0"))); // TODO: fix single digit display balance
         onView(withId(R.id.transactionActivityAmt)).check(matches(withText("Amount: $" + transactionAmount + ".0"))); // Amount?
         onView(withId(R.id.transactionActivityMessage)).check(matches(withText("Note: " + transactionNote)));
         onView(withId(R.id.transactionActivityStatus)).check(matches(withText("Status: " + transactionStatus)));
