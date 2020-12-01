@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,7 +32,7 @@ import java.util.Locale;
 import static java.lang.String.format;
 import static java.lang.String.valueOf;
 
-public class AccountActivity extends AppCompatActivity implements Dialog_DepositWithdraw.DepositWithdrawDialogListener {
+public class AccountActivity extends AppCompatActivity implements Dialog_DepositWithdraw.DepositWithdrawDialogListener, Dialog_DeleteAccount.DeleteAccountDialogListener {
     RecyclerView transactionRecyclerView;
     MyTransactionAdapter myTransactionAdapter;
     List<String> transactionName, date;
@@ -39,13 +40,14 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
     List<Long> UIDS;
     String name;
     Double balance;
-    Long UID;
+    Long AccountUID;
     int position;
+    boolean deleteAccountOk, deleteAllTransactionsOk;
     List<String> status;
 
     Boolean myBool;
-    Boolean deleteTransaction;
-    double lastTransactionAmount;
+//    Boolean deleteTransaction;
+//    double lastTransactionAmount;
 
 
     AccountViewModel accountViewModel;
@@ -59,6 +61,8 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
     //inits for deposit and withdraw dialog
     Button btn_withdraw, btn_deposit;
     private int status_depositWithdraw;
+
+    ImageButton deleteAcct;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +81,7 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
 
         accountViewModel = new AccountViewModel();
 
-        UID = getIntent().getLongExtra("UID", 0);
+        AccountUID = getIntent().getLongExtra("ACCOUNTUID", 0);
         position = getIntent().getIntExtra("POSITION", 0);
 
         accountName = findViewById(R.id.NameOfAccount);
@@ -85,7 +89,7 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
 
         transactionRecyclerView = findViewById(R.id.TransactionRecycler);
 
-        myTransactionAdapter = new MyTransactionAdapter(this, transactionName , amount, currentBal, date, UIDS, status);
+        myTransactionAdapter = new MyTransactionAdapter(this, transactionName , amount, currentBal, date, UIDS, status, AccountUID);
         transactionRecyclerView.setAdapter(myTransactionAdapter);
         transactionRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         myTransactionAdapter.notifyDataSetChanged();
@@ -105,7 +109,7 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
             accountBal.setText(builderBalance);
         };
 
-        AccountViewModel.getAccount(this, UID).observe(this, getAccountObserver);
+        AccountViewModel.getAccount(this, AccountUID).observe(this, getAccountObserver);
 
         final Observer<List<TransactionEntity>> getTransactionsObserver = transactionEntities -> {
             if (transactionEntities == null || transactionEntities.size() < 0) {
@@ -137,7 +141,7 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
             myTransactionAdapter.notifyDataSetChanged();
         };
 
-        TransactionViewModel.getAllTransactions(this, UID).observe(this, getTransactionsObserver);
+        TransactionViewModel.getAllTransactions(this, AccountUID).observe(this, getTransactionsObserver);
 
         /*
         Code for deposit and withdraw dialog below:
@@ -159,6 +163,53 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
                 depositWithdrawDialog(status_depositWithdraw);
             }
         });
+
+        deleteAcct = findViewById(R.id.deleteAccountButton);
+        deleteAcct.setOnClickListener(v -> deleteAccountDialog());
+    }
+
+    public void deleteAccountDialog() {
+        Dialog_DeleteAccount deleteDialog = new Dialog_DeleteAccount();
+        deleteDialog.show(getSupportFragmentManager(), "delete account dialog");
+    }
+
+    public void deleteAccount(boolean deleteOk) {
+        deleteAccountOk = deleteOk;
+        final Observer<AccountEntity> getAccountObserver = Account -> {
+            if (Account == null){ return; }
+
+            // Need to delete all transactions first, than account
+            if (deleteAccountOk) {
+                deleteTransactions(Account.getAccountUid(), true);
+                AccountViewModel.deleteAccount(this, Account);
+                Toast.makeText(this, "Account Deleted", Toast.LENGTH_LONG).show();
+                deleteAccountOk = false;
+                Intent intent = new Intent(AccountActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        };
+        AccountViewModel.getAccount(this, AccountUID).observe(this, getAccountObserver);
+    }
+
+    // Delete transactions associated with an account from the database
+    public void deleteTransactions(long accountUID, boolean deleteOk) {
+
+        deleteAllTransactionsOk = deleteOk;
+
+        final Observer<List<TransactionEntity>> getTransactionObserver = TransactionsList -> {
+            if (TransactionsList == null){ return; }
+
+            if (deleteAllTransactionsOk) {
+                for (int i=0; i < TransactionsList.size(); i++) {
+                    TransactionEntity transaction = TransactionsList.get(i);
+                    TransactionViewModel.deleteTransaction(this, transaction);
+
+                }
+                deleteAllTransactionsOk = false;
+            }
+
+        };
+        TransactionViewModel.getAllTransactions(this, accountUID).observe(this, getTransactionObserver);
     }
 
     //Called when either deposit or withdraw is clicked
@@ -190,7 +241,7 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
             transactionEntity.setTransactionAmount(formatAmount);
             transactionEntity.setTransactionDate(new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault()).format(new Date()));
             transactionEntity.setTransactionTitle(memo);
-            transactionEntity.setAccountMainUid(UID);
+            transactionEntity.setAccountMainUid(AccountUID);
 
             TransactionViewModel.createTransaction(transactionRecyclerView.getContext(), transactionEntity);
         }
@@ -220,42 +271,48 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
             }
 
         };
-        AccountViewModel.getAccount(this, UID).observe(this, getAccountObserver);
+        AccountViewModel.getAccount(this, AccountUID).observe(this, getAccountObserver);
     }
 
-    public void deleteLastTransaction (View view) {
-//        Toast.makeText(this, "delete " + lastTransactionUid, Toast.LENGTH_LONG).show();
+//    public void deleteLastTransaction (View view) {
+////        Toast.makeText(this, "delete " + lastTransactionUid, Toast.LENGTH_LONG).show();
+//
+//        // set status to deleted
+//        deleteTransaction = true;
+//        final Observer<TransactionEntity> getLastTransactionObserver = Transaction -> {
+//            if (Transaction == null){
+//                Toast.makeText(this, "There are no more transactions", Toast.LENGTH_LONG).show();
+//            } else if (deleteTransaction) {
+//                lastTransactionAmount = Transaction.getTransactionAmount();
+////                Toast.makeText(this, "" + lastTransactionAmount, Toast.LENGTH_LONG).show();
+//                Transaction.setTransactionStatus("deleted");
+//                TransactionViewModel.createTransaction(this, Transaction);
+//
+//                // Undo last OK status transaction in account balance
+//                sendText( -1 * lastTransactionAmount, "", true);
+//                deleteTransaction = false;
+//
+//                // reload activity to reflect strikethrough item
+//                Intent intent = new Intent(AccountActivity.this, AccountActivity.class);
+//                intent.putExtra("POSITION", position);
+//                intent.putExtra("UID", UID);
+//                finish();
+//                startActivity(intent);
+//
+//            }
+//
+//        };
+//
+//        TransactionViewModel.getLastOkTransaction(this, "ok").observe(this, getLastTransactionObserver);
+//
+//        // Ensure transaction has strike-though or something
+//        // popconfirm for delete
+//
+//    }
 
-        // set status to deleted
-        deleteTransaction = true;
-        final Observer<TransactionEntity> getLastTransactionObserver = Transaction -> {
-            if (Transaction == null){
-                Toast.makeText(this, "There are no more transactions", Toast.LENGTH_LONG).show();
-            } else if (deleteTransaction) {
-                lastTransactionAmount = Transaction.getTransactionAmount();
-//                Toast.makeText(this, "" + lastTransactionAmount, Toast.LENGTH_LONG).show();
-                Transaction.setTransactionStatus("deleted");
-                TransactionViewModel.createTransaction(this, Transaction);
+    public void toMainActivity(View view) {
 
-                // Undo last OK status transaction in account balance
-                sendText( -1 * lastTransactionAmount, "", true);
-                deleteTransaction = false;
-
-                // reload activity to reflect strikethrough item
-                Intent intent = new Intent(AccountActivity.this, AccountActivity.class);
-                intent.putExtra("POSITION", position);
-                intent.putExtra("UID", UID);
-                finish();
-                startActivity(intent);
-
-            }
-
-        };
-
-        TransactionViewModel.getLastOkTransaction(this, "ok").observe(this, getLastTransactionObserver);
-
-        // Ensure transaction has strike-though or something
-        // popconfirm for delete
+        finish();
 
     }
 

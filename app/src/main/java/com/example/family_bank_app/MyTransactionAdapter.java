@@ -26,9 +26,10 @@ public class MyTransactionAdapter extends RecyclerView.Adapter<MyTransactionAdap
     Context context;
     CardView cardView;
     int position;
+    long AccountUID;
 
                                             //   name         amount            currentBal      date              UID,          status
-    public MyTransactionAdapter(Context ct, List<String> s1, List<Double> s2, List<Double> s3, List<String> s4, List<Long> s5, List<String> s6) {
+    public MyTransactionAdapter(Context ct, List<String> s1, List<Double> s2, List<Double> s3, List<String> s4, List<Long> s5, List<String> s6, long AccountUID) {
         context = ct;
         transactionName = s1;
         amount = s2;
@@ -36,6 +37,7 @@ public class MyTransactionAdapter extends RecyclerView.Adapter<MyTransactionAdap
         date = s4;
         UIDS = s5;
         status = s6;
+        this.AccountUID = AccountUID;
     }
 
     @NonNull
@@ -96,10 +98,27 @@ public class MyTransactionAdapter extends RecyclerView.Adapter<MyTransactionAdap
         }
 
         public void goToTransactionActivity(int position) {
-            Long uid = UIDS.get(position);
+            Long Uid = UIDS.get(position);
+
+            String Name = transactionName.get(position);
+            String Date = date.get(position);
+            Double Amount = amount.get(position);
+            Double Bal = currentBal.get(position);
+            String Status = status.get(position);
+
             Intent intent = new Intent(context, TransactionActivity.class);
-            intent.putExtra("TUID", uid);
+            intent.putExtra("TRANSACTIONUID", Uid);
             intent.putExtra("POSITION", position);
+            intent.putExtra("NAME", Name);
+            intent.putExtra("DATE", Date);
+            intent.putExtra("AMOUNT", Amount);
+            intent.putExtra("BAL", Bal);
+            intent.putExtra("STATUS", Status);
+
+            // For delete transaction reload
+            intent.putExtra("POSITION", position);
+            intent.putExtra("ACCOUNTUID", AccountUID);
+
             context.startActivity(intent);
 
         }

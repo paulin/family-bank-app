@@ -68,13 +68,13 @@ public interface AccountDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertTransaction(TransactionEntity... transactionEntity);
 
+    // No longer needed
     // Query for last transaction with status ok
-    @Query("SELECT * FROM Transactions WHERE transactionStatus = :transactionStatus ORDER BY transactionUid DESC LIMIT 1")
-    LiveData<TransactionEntity> getLastOkTransaction(String transactionStatus);
+//    @Query("SELECT * FROM Transactions WHERE transactionStatus = :transactionStatus ORDER BY transactionUid DESC LIMIT 1")
+//    LiveData<TransactionEntity> getLastOkTransaction(String transactionStatus);
 
-    // Ask matt
-//    @Delete
-//    void deleteTransaction(TransactionEntity transaction);
+    @Delete
+    void deleteTransaction(TransactionEntity transaction);
 
 }
 
