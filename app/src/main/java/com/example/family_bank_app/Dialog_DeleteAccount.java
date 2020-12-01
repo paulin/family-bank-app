@@ -22,7 +22,8 @@ public class Dialog_DeleteAccount extends AppCompatDialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_delete, null);
 
-        builder.setTitle("Are you sure you would like to delete this account and all transactions?")
+        builder.setTitle("Warning!")
+                .setMessage("Are you sure you wish to delete this account and all of its transactions?\n\nTHIS CANNOT BE UNDONE!")
                 .setView(view)
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
