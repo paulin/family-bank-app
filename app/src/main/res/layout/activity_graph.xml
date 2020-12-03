@@ -33,13 +33,24 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
+        <TextView
+            android:id="@+id/NameOfGraph"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/toolbarTransactionsPage"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="20dp"
+            android:textSize="40sp"
+            android:typeface="serif"
+            android:text="Graph Name" />
+
 
         <com.jjoe64.graphview.GraphView
-            android:layout_below="@+id/toolbarTransactionsPage"
+            android:layout_below="@+id/NameOfGraph"
             android:layout_width = "match_parent"
-            android:layout_height = "350dp"
+            android:layout_height = "500dp"
             android:id = "@+id/graph"
-            android:layout_margin = "20dp"
+            android:layout_marginTop="20dp"
         />
 
     </RelativeLayout>

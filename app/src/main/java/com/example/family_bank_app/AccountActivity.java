@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
@@ -24,11 +25,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Stream;
 
 import static java.lang.String.format;
 import static java.lang.String.valueOf;
@@ -127,7 +130,7 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
                 Log.i(TAG, "updated " + i);
                 TransactionEntity transaction = transactionEntities.get(i);
                 transactionName.add(transaction.getTransactionTitle());
-                currentBal.add(transaction.getTransactionAmount());
+                currentBal.add(transaction.getTransactionCurrentBal());
                 amount.add(transaction.getTransactionAmount());
                 UIDS.add(transaction.getTransactionUid());
                 date.add(transaction.getTransactionDate());
@@ -193,7 +196,7 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
             transactionEntity.setTransactionDate(new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault()).format(new Date()));
             transactionEntity.setTransactionTitle(memo);
             transactionEntity.setAccountMainUid(UID);
-
+            transactionEntity.setTransactionCurrentBal(balance);
             TransactionViewModel.createTransaction(transactionRecyclerView.getContext(), transactionEntity);
         }
 
@@ -265,13 +268,18 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
 
         Double currentBal2[] =  new Double[currentBal.size()];
         currentBal2 = currentBal.toArray(currentBal2);
+        double currentBal3[];
+        currentBal3 = Stream.of(currentBal2).mapToDouble(Double::doubleValue).toArray();
+        Log.d("this is my array", "currentbal2: " + Arrays.toString(currentBal3));
 
         String date2[] = new String[date.size()];
         date2 = date.toArray(date2);
 
+
         Intent intent = new Intent(AccountActivity.this, GraphActivity.class);
-        intent.putExtra("BAL", currentBal2);
+        intent.putExtra("BAL", currentBal3);
         intent.putExtra("DATE", date2);
+        intent.putExtra("ACCT", name);
         finish();
         startActivity(intent);
 
