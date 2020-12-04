@@ -13,9 +13,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 public class Dialog_CreateAcc extends AppCompatDialogFragment {
-    //Made following a video tutorial from Coding in Flow on youtube, shamelessly
-    //https://www.youtube.com/watch?v=ARezg1D9Zd0
-
     private EditText editTextName;
     private EditText editTextValue;
     private CreateAccountDialogListener listener;

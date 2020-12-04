@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity implements Dialog_CreateAcc.
         DecimalFormat df = new DecimalFormat("0.00");
 
         //Account Loader from Database
-
         final Observer<List<AccountEntity>> getAccountsObserver = newAccounts -> {
             if (newAccounts == null || newAccounts.size() <= 0) {
                 return;
