@@ -1,10 +1,13 @@
 package com.example.family_bank_app;
 
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -12,13 +15,20 @@ import androidx.lifecycle.Observer;
 import java.util.Date;
 import java.util.List;
 
-public class TransactionActivity extends AppCompatActivity {
+public class TransactionActivity extends AppCompatActivity implements Dialog_DeleteTransaction.DeleteTransactionDialogListener {
     private static final String TAG = TransactionActivity.class.getSimpleName();
 
 
-    String note[], amount[], currentBal[];
-    TextView Note, Amount, CurrentBal;
+    String note, date, status, transactionStatus;
+    Double amount, currentBal;
+    Long transactionUID, accountUID;
+    boolean deleteTransactionOk, undoAccountBalanceOk;
+    int position;
+
+    TextView Note, Amount, CurrentBal, Date, Status;
     AccountViewModel viewModel;
+    ImageButton deleteTrans;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,55 +37,96 @@ public class TransactionActivity extends AppCompatActivity {
         Log.i(TAG, "in transactivity");
 
 
-        note = new String[]{"Cheese", "More Cheese", "PepperJack"};
-        amount = new String[]{"5.00", "6.00", "7.00"};
-        currentBal = new String[]{"20.00", "14.00", "7.00" };
+        note = getIntent().getStringExtra("NAME");
+        amount = getIntent().getDoubleExtra("AMOUNT", 0);
+        date = getIntent().getStringExtra("DATE");
         viewModel = new AccountViewModel();
-        Long UID = getIntent().getLongExtra("UID", 0);
-
-        /*
-           final Observer<AccountEntity> getAccountObserver = newAccount -> {
-            if (newAccount == null) {
-                return;
-            }
-
-                AccountEntity account = newAccount;
-                names[i] = account.getAccountName();
-                balances[i] = String.valueOf(account.getAccountBalance());
-                UIDS[i] = account.getAccountUid();
-
-
-
-
-            myAccountAdapter.notifyDataSetChanged();
-
-        };
-
-        viewModel.getAccount(this, UID) {
-
-        };
-    */
-        int pos = getIntent().getIntExtra("POSITION", 0);
+        transactionUID = getIntent().getLongExtra("TRANSACTIONUID", 0);
+        status = getIntent().getStringExtra("STATUS");
+        position = getIntent().getIntExtra("POSITION", 0);
+        accountUID = getIntent().getLongExtra("ACCOUNTUID", 0);
 
         Note = findViewById(R.id.transactionActivityMessage);
         Amount = findViewById(R.id.transactionActivityAmt);
-        CurrentBal = findViewById(R.id.transactionActivityBal);
+        Date = findViewById(R.id.transactionActivityDate);
+        Status = findViewById(R.id.transactionActivityStatus);
 
-        Note.setText(note[pos]);
-        Amount.setText("Amount: $" + amount[pos]);
-        CurrentBal.setText("Balance: $" + currentBal[pos]);
+        Note.setText("Note: " + note); // TODO: Extract strings
+        Amount.setText("Amount: $" + amount);
+        Date.setText(date);
+
+        if (status.equals("ok")) {
+            Status.setText("Status: Completed");
+        } else {
+            Status.setText("Status: Deleted");
+        }
+
+        deleteTrans = findViewById(R.id.deleteTransactionButton);
+        deleteTrans.setOnClickListener(v -> deleteTransactionDialog());
+    }
 
 
+    public void deleteTransactionDialog() {
+        Dialog_DeleteTransaction deleteDialog = new Dialog_DeleteTransaction();
+        deleteDialog.show(getSupportFragmentManager(), "delete transaction dialog");
+    }
 
+    public void deleteTransaction(boolean deleteOk) {
+        deleteTransactionOk = deleteOk;
 
+        final Observer<TransactionEntity> getTransactionObserver = Transaction -> {
+            if (Transaction == null){ return; }
 
+            transactionStatus = Transaction.getTransactionStatus();
+
+            if (deleteTransactionOk) {
+                if (transactionStatus.equals("ok")) {
+                    Toast.makeText(this, "Transaction Deleted", Toast.LENGTH_LONG).show();
+                    Transaction.setTransactionStatus("deleted");
+                    double transactionAmount = Transaction.getTransactionAmount();
+                    TransactionViewModel.createTransaction(this, Transaction);
+                    deleteTransactionOk = false;
+
+                    undoAccountBalance(transactionAmount);
+
+                    Intent intent = new Intent(TransactionActivity.this, AccountActivity.class);
+                    intent.putExtra("POSITION", position);
+                    intent.putExtra("ACCOUNTUID", accountUID);
+                    startActivity(intent);
+
+                } else {
+                    Toast.makeText(this, Transaction.getTransactionUid() + "Transaction already deleted", Toast.LENGTH_LONG).show();
+                }
+            }
+
+        };
+
+        TransactionViewModel.getTransaction(this, transactionUID).observe(this, getTransactionObserver);
 
     }
 
+    // Once transaction is delete, undo account balance
+    public void undoAccountBalance(double transactionAmount) {
+
+        undoAccountBalanceOk = true;
+        final Observer<AccountEntity> getAccountObserver = Account -> {
+            if (Account == null){ return; }
+
+            if (undoAccountBalanceOk) {
+                double getBal = Account.getAccountBalance();
+                getBal += -1 * transactionAmount;
+                Account.setAccountBalance(getBal);
+                AccountViewModel.updateAccount(this, Account);
+                undoAccountBalanceOk = false;
+            }
+
+        };
+        AccountViewModel.getAccount(this, accountUID).observe(this, getAccountObserver);
+    }
+
+    // Fix back button to go to last activity.
     public void toAccountActivity(View view) {
-
         finish();
-
     }
 
 

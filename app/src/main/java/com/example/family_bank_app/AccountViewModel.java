@@ -9,13 +9,6 @@ import java.util.List;
 
 public class AccountViewModel extends ViewModel {
 
-
-    // Grab all accounts and associated transactions
-//    public LiveData<List<AccountWithTransactions>> getAccountWithTransactions(Context context) {
-//        AppDatabase db = AppDatabaseSingleton.getDatabase(context);
-//        return db.accountDao().getAccountWithTransactions();
-//    }
-
     public LiveData<List<AccountEntity>> loadAllByIds(Context context) {
         AppDatabase db = AppDatabaseSingleton.getDatabase(context);
         return db.accountDao().getAllAccounts();
@@ -41,10 +34,5 @@ public class AccountViewModel extends ViewModel {
         AppDatabase db = AppDatabaseSingleton.getDatabase(context);
         return db.accountDao().getAccount(accountUID);
     }
-
-//    public static AccountEntity getAccountEntity(Context context, long accountUID){
-//        AppDatabase db = AppDatabaseSingleton.getDatabase(context);
-//        return db.accountDao().getAccountEntity(accountUID);
-//    }
 
 }

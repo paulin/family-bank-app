@@ -19,7 +19,7 @@ import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity implements Dialog_CreateAcc.CreateAccountDialogListener {
-    private static final String TAG = MainActivity.class.getSimpleName();
+//    private static final String TAG = MainActivity.class.getSimpleName();
 
     RecyclerView accountRecyclerView;
     MyAccountAdapter myAccountAdapter;

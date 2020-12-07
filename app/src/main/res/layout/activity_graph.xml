@@ -53,5 +53,19 @@
             android:layout_marginTop="20dp"
         />
 
+        <Button
+            android:text="@string/back"
+            android:id="@+id/Btn_GraphBack"
+            android:layout_width="170dp"
+            android:layout_below="@+id/graph"
+            android:layout_centerInParent="true"
+            android:layout_height="@dimen/createAcct_height"
+            android:contentDescription="@string/new_account"
+            android:padding="0dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/button_blank"
+            android:onClick="toAccountActivity"
+            />
+
     </RelativeLayout>
 </ScrollView>

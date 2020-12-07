@@ -41,5 +41,7 @@
     <string name="datetime">datetime</string>
     <string name="confirm">Confirm</string>
     <string name="jerry_law">Jerry Law</string>
+    <string name="back">Back</string>
+    <string name="status">Status</string>
 
 </resources>

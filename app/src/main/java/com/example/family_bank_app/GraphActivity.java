@@ -3,6 +3,7 @@ package com.example.family_bank_app;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -63,9 +64,6 @@ public class GraphActivity extends AppCompatActivity {
         graphView.getViewport().setScrollableY(true);
         graphView.addSeries(series);
 
-
-
-
         /*
         for(int i = 0; i < date.length; i++) {
             double z = currentBal[i];
@@ -79,12 +77,12 @@ public class GraphActivity extends AppCompatActivity {
 
 
         */
-
-
-
      }
 
-
+    // Fix back button to go to last activity.
+    public void toAccountActivity(View view) {
+        finish();
+    }
     }
 
 
