@@ -1,4 +1,4 @@
-package com.example.family_bank_app;
+package nscad.ad430_5216.family_bank_app;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -7,13 +7,14 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-public class Dialog_DeleteAccount extends AppCompatDialogFragment {
+import com.example.family_bank_app.R;
 
-    private DeleteAccountDialogListener listener;
+public class Dialog_DeleteTransaction extends AppCompatDialogFragment {
+
+    private DeleteTransactionDialogListener listener;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState){
@@ -23,12 +24,12 @@ public class Dialog_DeleteAccount extends AppCompatDialogFragment {
         View view = inflater.inflate(R.layout.dialog_delete, null);
 
         builder.setTitle("Warning!")
-                .setMessage("Are you sure you wish to delete this account and all of its transactions?\n\nTHIS CANNOT BE UNDONE!")
+                .setMessage("Are you sure you wish to delete this transaction?\n\nTHIS CANNOT BE UNDONE!")
                 .setView(view)
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        listener.deleteAccount(true);
+                          listener.deleteTransaction(true);
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -45,12 +46,12 @@ public class Dialog_DeleteAccount extends AppCompatDialogFragment {
         super.onAttach(context);
 
         try {
-            listener = (DeleteAccountDialogListener) context;
+            listener = (DeleteTransactionDialogListener) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement DeleteAccountDialogListener");
+            throw new ClassCastException(context.toString() + " must implement DeleteTransactionDialogListener");
         }
     }
 
-    public interface DeleteAccountDialogListener{
-        void deleteAccount(boolean deleteOK);
+    public interface DeleteTransactionDialogListener{
+        void deleteTransaction(boolean deleteOK);
     }}

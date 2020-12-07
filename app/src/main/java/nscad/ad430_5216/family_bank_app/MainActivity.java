@@ -1,9 +1,6 @@
-package com.example.family_bank_app;
+package nscad.ad430_5216.family_bank_app;
 
 import android.os.Bundle;
-
-import android.util.Log;
-import android.view.View;
 
 import android.widget.ImageButton;
 
@@ -11,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.family_bank_app.R;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
