@@ -20,7 +20,6 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static org.hamcrest.Matchers.not;
 
-
 @RunWith(AndroidJUnit4.class)
 public class MainActivityTest {
 
