@@ -11,8 +11,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 
-import com.example.family_bank_app.R;
-
 public class TransactionActivity extends AppCompatActivity implements Dialog_DeleteTransaction.DeleteTransactionDialogListener {
     private static final String TAG = TransactionActivity.class.getSimpleName();
 

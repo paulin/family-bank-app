@@ -12,8 +12,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-import com.example.family_bank_app.R;
-
 public class Dialog_DepositWithdraw extends AppCompatDialogFragment {
     private static final String TAG = Dialog_DepositWithdraw.class.getSimpleName();
 

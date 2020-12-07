@@ -9,8 +9,6 @@ import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.family_bank_app.R;
-
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -76,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements Dialog_CreateAcc.
     //Called when create new account button is clicked
     //Brings up dialog for entering account name and starting balance
     public void createAccDialog() {
-        // see CreateAccDialog class in /java/com.example.family_bank_app
+        // see CreateAccDialog class in /java/nscad.ad430_5216.family_bank_app
         Dialog_CreateAcc accDialog = new Dialog_CreateAcc();
         accDialog.show(getSupportFragmentManager(), "create acc dialog");
     }

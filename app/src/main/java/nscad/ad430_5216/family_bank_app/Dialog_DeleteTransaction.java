@@ -10,8 +10,6 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-import com.example.family_bank_app.R;
-
 public class Dialog_DeleteTransaction extends AppCompatDialogFragment {
 
     private DeleteTransactionDialogListener listener;

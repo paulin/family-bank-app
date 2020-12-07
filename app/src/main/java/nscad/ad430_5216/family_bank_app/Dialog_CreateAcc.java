@@ -12,8 +12,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-import com.example.family_bank_app.R;
-
 public class Dialog_CreateAcc extends AppCompatDialogFragment {
     private EditText editTextName;
     private EditText editTextValue;
