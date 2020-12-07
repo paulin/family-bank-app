@@ -58,14 +58,12 @@ public class MyTransactionAdapter extends RecyclerView.Adapter<MyTransactionAdap
         holder.text4.setText(String.valueOf(currentBal.get(position)));
 
         this.position = position + 1;
-
     }
 
     @Override
     public int getItemCount() {
         if(amount == null){return 0;}
         return amount.size();
-
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -79,8 +77,6 @@ public class MyTransactionAdapter extends RecyclerView.Adapter<MyTransactionAdap
             text4 = itemView.findViewById(R.id.transactionCurrentBalance);
             cardView = itemView.findViewById(R.id.transactionCardView);
 
-//            String status = text5.getText().toString();
-//            Log.i(TAG, ""+position + "@@@@@@ " + status.get(position));
             if (status.get(position).equals("deleted")) {
                 text1.setPaintFlags(text1.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                 text2.setPaintFlags(text2.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
@@ -120,7 +116,6 @@ public class MyTransactionAdapter extends RecyclerView.Adapter<MyTransactionAdap
             intent.putExtra("ACCOUNTUID", AccountUID);
 
             context.startActivity(intent);
-
         }
     }
 }

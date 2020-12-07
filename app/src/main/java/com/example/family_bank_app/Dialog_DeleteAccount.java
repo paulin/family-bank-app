@@ -29,7 +29,6 @@ public class Dialog_DeleteAccount extends AppCompatDialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         listener.deleteAccount(true);
-
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {

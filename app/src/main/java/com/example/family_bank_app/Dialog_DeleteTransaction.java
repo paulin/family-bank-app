@@ -27,16 +27,12 @@ public class Dialog_DeleteTransaction extends AppCompatDialogFragment {
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
-//                        Toast.makeText(getActivity(), "delete", Toast.LENGTH_LONG).show();
                           listener.deleteTransaction(true);
-
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-//                        Toast.makeText(getActivity(), "don't delete", Toast.LENGTH_LONG).show();
                     }
                 });
 

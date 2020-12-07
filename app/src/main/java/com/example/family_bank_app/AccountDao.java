@@ -25,10 +25,6 @@ public interface AccountDao {
 //    AccountEntity getAccount(long accountUid);
     LiveData<AccountEntity> getAccount(long accountUid);
 
-//    @Query("SELECT * FROM Accounts WHERE accountUid = :accountUid")
-//    AccountEntity getAccountEntity(long accountUid);
-
-
     // Query for all accounts in db
     @Query("SELECT * FROM Accounts")
     LiveData<List<AccountEntity>> getAllAccounts();
@@ -45,16 +41,6 @@ public interface AccountDao {
 
     // Transaction ---------------------
 
-    // Grab all accounts and transactions
-//    @Transaction // Like batching
-//    @Query("SELECT * FROM Accounts")
-//    LiveData<List<AccountWithTransactions>> getAccountWithTransactions();
-
-    // Query for specific account and all associated transactions
-//    @Transaction // Like batching
-//    @Query("SELECT * FROM Accounts WHERE accountUid = :accountUid")
-//    LiveData<List<AccountWithTransactions>> getAccountWithTransactions(long accountUid);
-
     // Query for specific transaction data
     @Query("SELECT * FROM Transactions WHERE transactionUid = :transactionUid")
     LiveData<TransactionEntity> getTransaction(long transactionUid);
@@ -68,17 +54,6 @@ public interface AccountDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertTransaction(TransactionEntity... transactionEntity);
 
-    // No longer needed
-    // Query for last transaction with status ok
-//    @Query("SELECT * FROM Transactions WHERE transactionStatus = :transactionStatus ORDER BY transactionUid DESC LIMIT 1")
-//    LiveData<TransactionEntity> getLastOkTransaction(String transactionStatus);
-
     @Delete
     void deleteTransaction(TransactionEntity transaction);
-
 }
-
-// @@@Not sure if we want to query accounts by the name, this could lead to data issues. What if two users have the same name?
-//Query all Accounts with Regular Expression
-//    @Query("SELECT * FROM Accounts WHERE name = :name")
-//    AccountEntity getAccount(String name);

@@ -46,12 +46,8 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
     List<String> status;
 
     Boolean myBool;
-//    Boolean deleteTransaction;
-//    double lastTransactionAmount;
-
 
     AccountViewModel accountViewModel;
-//    TransactionViewModel transactionViewModel;
     TextView accountName, accountBal;
     //Call df.format(DOUBLE) to output a string with proper formatting
     DecimalFormat df = new DecimalFormat("0.00");
@@ -135,8 +131,6 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
                 date.add(transaction.getTransactionDate());
                 // Strike through text for deleted
                 status.add(transaction.getTransactionStatus());
-
-
             }
             myTransactionAdapter.notifyDataSetChanged();
         };
@@ -203,11 +197,9 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
                 for (int i=0; i < TransactionsList.size(); i++) {
                     TransactionEntity transaction = TransactionsList.get(i);
                     TransactionViewModel.deleteTransaction(this, transaction);
-
                 }
                 deleteAllTransactionsOk = false;
             }
-
         };
         TransactionViewModel.getAllTransactions(this, accountUID).observe(this, getTransactionObserver);
     }
@@ -246,16 +238,6 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
             TransactionViewModel.createTransaction(transactionRecyclerView.getContext(), transactionEntity);
         }
 
-
-//        Log.i(TAG, ""+TransactionViewModel.getTransaction(transactionRecyclerView.getContext(), 0) );
-
-
-//        AccountEntity accEnt = AccountViewModel.getAccountEntity(this, UID);
-//        double workingBal = accEnt.getAccountBalance();
-//        workingBal += amount;
-//        accEnt.setAccountBalance(workingBal);
-//        //TODO: take this off main thread
-
         myBool = true;
         double finalAmount = formatAmount;
         final Observer<AccountEntity> getAccountObserver = Account -> {
@@ -274,58 +256,7 @@ public class AccountActivity extends AppCompatActivity implements Dialog_Deposit
         AccountViewModel.getAccount(this, AccountUID).observe(this, getAccountObserver);
     }
 
-//    public void deleteLastTransaction (View view) {
-////        Toast.makeText(this, "delete " + lastTransactionUid, Toast.LENGTH_LONG).show();
-//
-//        // set status to deleted
-//        deleteTransaction = true;
-//        final Observer<TransactionEntity> getLastTransactionObserver = Transaction -> {
-//            if (Transaction == null){
-//                Toast.makeText(this, "There are no more transactions", Toast.LENGTH_LONG).show();
-//            } else if (deleteTransaction) {
-//                lastTransactionAmount = Transaction.getTransactionAmount();
-////                Toast.makeText(this, "" + lastTransactionAmount, Toast.LENGTH_LONG).show();
-//                Transaction.setTransactionStatus("deleted");
-//                TransactionViewModel.createTransaction(this, Transaction);
-//
-//                // Undo last OK status transaction in account balance
-//                sendText( -1 * lastTransactionAmount, "", true);
-//                deleteTransaction = false;
-//
-//                // reload activity to reflect strikethrough item
-//                Intent intent = new Intent(AccountActivity.this, AccountActivity.class);
-//                intent.putExtra("POSITION", position);
-//                intent.putExtra("UID", UID);
-//                finish();
-//                startActivity(intent);
-//
-//            }
-//
-//        };
-//
-//        TransactionViewModel.getLastOkTransaction(this, "ok").observe(this, getLastTransactionObserver);
-//
-//        // Ensure transaction has strike-though or something
-//        // popconfirm for delete
-//
-//    }
-
     public void toMainActivity(View view) {
-
         finish();
-
     }
-
-     /*
-     // Demo to test transaction data
-     TransactionEntity transactionEntity = new TransactionEntity();
-
-     transactionEntity.setTransactionAmount(100.00);
-     transactionEntity.setTransactionDate("1/1/1111");
-     transactionEntity.setTransactionTitle("test transaction");
-     transactionEntity.setAccountMainUid(0);
-
-     TransactionViewModel.createTransaction(view.getContext(), transactionEntity);
-     Log.i(TAG, ""+TransactionViewModel.getTransaction(view.getContext(),0));
-     */
 }

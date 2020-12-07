@@ -20,12 +20,12 @@ public class TransactionActivity extends AppCompatActivity implements Dialog_Del
 
 
     String note, date, status, transactionStatus;
-    Double amount, currentBal;
+    Double amount;
     Long transactionUID, accountUID;
     boolean deleteTransactionOk, undoAccountBalanceOk;
     int position;
 
-    TextView Note, Amount, CurrentBal, Date, Status;
+    TextView Note, Amount, Date, Status;
     AccountViewModel viewModel;
     ImageButton deleteTrans;
 
@@ -36,7 +36,6 @@ public class TransactionActivity extends AppCompatActivity implements Dialog_Del
 
         Log.i(TAG, "in transactivity");
 
-
         note = getIntent().getStringExtra("NAME");
         amount = getIntent().getDoubleExtra("AMOUNT", 0);
         date = getIntent().getStringExtra("DATE");
@@ -45,30 +44,6 @@ public class TransactionActivity extends AppCompatActivity implements Dialog_Del
         status = getIntent().getStringExtra("STATUS");
         position = getIntent().getIntExtra("POSITION", 0);
         accountUID = getIntent().getLongExtra("ACCOUNTUID", 0);
-
-        /*
-           final Observer<AccountEntity> getAccountObserver = newAccount -> {
-            if (newAccount == null) {
-                return;
-            }
-
-                AccountEntity account = newAccount;
-                names[i] = account.getAccountName();
-                balances[i] = String.valueOf(account.getAccountBalance());
-                UIDS[i] = account.getAccountUid();
-
-
-
-
-            myAccountAdapter.notifyDataSetChanged();
-
-        };
-
-        viewModel.getAccount(this, UID) {
-
-        };
-    */
-
 
         Note = findViewById(R.id.transactionActivityMessage);
         Amount = findViewById(R.id.transactionActivityAmt);
@@ -96,8 +71,6 @@ public class TransactionActivity extends AppCompatActivity implements Dialog_Del
     }
 
     public void deleteTransaction(boolean deleteOk) {
-//        Toast.makeText(this, "delete: " + UID, Toast.LENGTH_LONG).show();
-
         deleteTransactionOk = deleteOk;
 
         final Observer<TransactionEntity> getTransactionObserver = Transaction -> {
@@ -124,11 +97,9 @@ public class TransactionActivity extends AppCompatActivity implements Dialog_Del
                     Toast.makeText(this, Transaction.getTransactionUid() + "Transaction already deleted", Toast.LENGTH_LONG).show();
                 }
             }
-
         };
 
         TransactionViewModel.getTransaction(this, transactionUID).observe(this, getTransactionObserver);
-
     }
 
     // Once transaction is delete, undo account balance
@@ -145,7 +116,6 @@ public class TransactionActivity extends AppCompatActivity implements Dialog_Del
                 AccountViewModel.updateAccount(this, Account);
                 undoAccountBalanceOk = false;
             }
-
         };
         AccountViewModel.getAccount(this, accountUID).observe(this, getAccountObserver);
     }
@@ -154,6 +124,5 @@ public class TransactionActivity extends AppCompatActivity implements Dialog_Del
     public void toAccountActivity(View view) {
         finish();
     }
-
 
 }
