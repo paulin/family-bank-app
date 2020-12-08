@@ -1,4 +1,4 @@
-package com.example.family_bank_app;
+package nscad.ad430_5216.family_bank_app;
 
 import org.junit.Test;
 

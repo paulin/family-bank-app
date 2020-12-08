@@ -1,13 +1,9 @@
-package com.example.family_bank_app;
+package nscad.ad430_5216.family_bank_app;
 
-import android.view.View;
-import android.widget.Toast;
-
+import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
 
-
-import org.hamcrest.Matcher;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,7 +19,6 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static org.hamcrest.Matchers.not;
-
 
 @RunWith(AndroidJUnit4.class)
 public class MainActivityTest {
@@ -55,7 +50,7 @@ public class MainActivityTest {
     @Test
     public void hasTextOnScreen() throws InterruptedException {
         Thread.sleep(3000);
-        onView(withId(R.id.MainAccount)).check(matches(withText(R.string.accounts)));
+        onView(ViewMatchers.withId(R.id.MainAccount)).check(matches(withText(R.string.accounts)));
     }
 
     // Tests all features of the app

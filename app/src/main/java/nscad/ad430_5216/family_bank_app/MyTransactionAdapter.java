@@ -1,9 +1,8 @@
-package com.example.family_bank_app;
+package nscad.ad430_5216.family_bank_app;
 
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.Date;
+
 import java.util.List;
 
 

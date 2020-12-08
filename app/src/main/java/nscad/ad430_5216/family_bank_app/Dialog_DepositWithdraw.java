@@ -1,11 +1,10 @@
-package com.example.family_bank_app;
+package nscad.ad430_5216.family_bank_app;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;

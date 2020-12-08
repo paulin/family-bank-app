@@ -1,9 +1,6 @@
-package com.example.family_bank_app;
+package nscad.ad430_5216.family_bank_app;
 
 import android.os.Bundle;
-
-import android.util.Log;
-import android.view.View;
 
 import android.widget.ImageButton;
 
@@ -77,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements Dialog_CreateAcc.
     //Called when create new account button is clicked
     //Brings up dialog for entering account name and starting balance
     public void createAccDialog() {
-        // see CreateAccDialog class in /java/com.example.family_bank_app
+        // see CreateAccDialog class in /java/nscad.ad430_5216.family_bank_app
         Dialog_CreateAcc accDialog = new Dialog_CreateAcc();
         accDialog.show(getSupportFragmentManager(), "create acc dialog");
     }

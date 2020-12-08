@@ -1,6 +1,5 @@
-package com.example.family_bank_app;
+package nscad.ad430_5216.family_bank_app;
 
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,9 +10,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
-
-import java.util.Date;
-import java.util.List;
 
 public class TransactionActivity extends AppCompatActivity implements Dialog_DeleteTransaction.DeleteTransactionDialogListener {
     private static final String TAG = TransactionActivity.class.getSimpleName();
