@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<ScrollView
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:background="@color/BankGreenBackground"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        >
+
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            android:background="@color/BankGreen"
+            android:id="@+id/toolbarTransactionsPage"
+            >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:padding="10dp"
+                android:layout_height="100dp"
+                android:src="@drawable/logo"
+                android:contentDescription="@string/logo" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <TextView
+            android:id="@+id/NameOfGraph"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/toolbarTransactionsPage"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="20dp"
+            android:textSize="40sp"
+            android:typeface="serif"
+            android:text="Graph Name" />
+
+        <Button
+            android:text="@string/back"
+            android:id="@+id/Btn_GraphBack"
+            android:layout_width="50dp"
+            android:layout_height="40dp"
+            android:layout_below="@+id/toolbarTransactionsPage"
+            android:contentDescription="@string/new_account"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/button_blank"
+            android:onClick="toAccountActivity"
+            />
+
+
+        <com.jjoe64.graphview.GraphView
+            android:layout_below="@+id/NameOfGraph"
+            android:layout_width = "match_parent"
+            android:layout_height = "500dp"
+            android:id = "@+id/graph"
+            android:layout_marginTop="20dp"
+        />
+
+    </RelativeLayout>
+</ScrollView>

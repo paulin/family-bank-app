@@ -46,7 +46,7 @@ public class TransactionActivity extends AppCompatActivity implements Dialog_Del
         Date = findViewById(R.id.transactionActivityDate);
         Status = findViewById(R.id.transactionActivityStatus);
 
-        Note.setText("Note: " + note);
+        Note.setText("Note: " + note); // TODO: Extract strings
         Amount.setText("Amount: $" + amount);
         Date.setText(date);
 

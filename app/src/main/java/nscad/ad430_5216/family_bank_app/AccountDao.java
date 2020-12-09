@@ -19,10 +19,8 @@ public interface AccountDao {
     @Query("SELECT * FROM Accounts WHERE accountUid = :accountUid")
     List<AccountWithTransactions> getAccountsWithTransactions(long accountUid);
 
-    // @@@This should be changed to livedata
-    //Query all Accounts with an account uid
+    // Query all Accounts with an account uid
     @Query("SELECT * FROM Accounts WHERE accountUid = :accountUid")
-//    AccountEntity getAccount(long accountUid);
     LiveData<AccountEntity> getAccount(long accountUid);
 
     // Query for all accounts in db
@@ -33,11 +31,10 @@ public interface AccountDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAccount(AccountEntity... accountEntity);
 
-    // @@@Should rename to deleteAccount
+    // TODO: Should rename to deleteAccount
     // Delete specific account
     @Delete
     void delete(AccountEntity account);
-
 
     // Transaction ---------------------
 
@@ -45,8 +42,7 @@ public interface AccountDao {
     @Query("SELECT * FROM Transactions WHERE transactionUid = :transactionUid")
     LiveData<TransactionEntity> getTransaction(long transactionUid);
 
-    //Query for all transaction data
-
+    // Query for all transaction data
     @Query("SELECT * FROM transactions WHERE accountMainUid = :accountUID")
     LiveData<List<TransactionEntity>> getAllTransactions(long accountUID);
 

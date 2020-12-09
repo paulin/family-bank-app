@@ -26,25 +26,13 @@ public class MainActivityTest {
     @Rule
     public ActivityTestRule<MainActivity> mActivityRuleMain = new ActivityTestRule<>(MainActivity.class, true);
 
-    private static final String TAG = MainActivityTest.class.getSimpleName();
+//    private static final String TAG = MainActivityTest.class.getSimpleName();
     public String accountName = "test";
     public String accountBalance = "10";
     public String withdrawDepositAmount = "2";
     public String withdrawDepositNote = "p";
 
     // TESTS DO NOT RUN SEQUENTIALLY
-
-    // Method for reading toasts text given a string param
-    public void checkToast(String toastText) {
-        onView(withText(toastText))
-                .inRoot(withDecorView(not(mActivityRuleMain.getActivity()
-                        .getWindow().getDecorView()))).check(matches(isDisplayed()));
-    }
-
-    // Check transaction for UI details and data
-    public void checkTransaction() throws InterruptedException {
-
-    }
 
     // Checks initial screen UI
     @Test
@@ -70,27 +58,40 @@ public class MainActivityTest {
                 .perform(click());
         Thread.sleep(2000);
 
+        // Test graph button toast for less than 2 transactions
+        onView(withId(R.id.toGraphView)).perform(click());
+        checkToast("You must have at least 2 transactions"); // TODO extract string
+        Thread.sleep(2000);
+
+        // Test dialogs for both withdraw and deposit, and deleting transactions
         depositWithdrawTest();
+        Thread.sleep(2000);
+
+        // Deposit twice to test graph view
+        withdrawOrDepositTransaction("DEPOSIT", "3", "t"); // TODO: extract hardcoded and move to separate method
+        Thread.sleep(2000);
+        withdrawOrDepositTransaction("DEPOSIT", "3", "t");
+        Thread.sleep(2000);
+
+        // Click graph view button
+        onView(withId(R.id.toGraphView)).perform(click());
+        Thread.sleep(2000);
+        onView(withId(R.id.Btn_GraphBack)).perform(click());
+        Thread.sleep(2000);
 
         deleteAccount();
 
-//
-//        // Withdraw amount
-//        withdrawOrDepositTransaction("WITHDRAW", withdrawDepositAmount, withdrawDepositNote); // Extract later once finalized
-//        checkAccount(accountName, accountBalance);
-//        Thread.sleep(2000);
-//
-//        // Delete withdraw transaction
-//        deleteTransaction();
-//        checkAccount(accountName, accountBalance);
-//        deleteAccount();
     }
 
+    // Method for reading toasts text given a string param
+    public void checkToast(String toastText) {
+        onView(withText(toastText))
+                .inRoot(withDecorView(not(mActivityRuleMain.getActivity()
+                        .getWindow().getDecorView()))).check(matches(isDisplayed()));
+    }
 
-    // Create account
-    // Check account created
-    // Test dialog toasts
-//    @Test
+    // Tests create new account dialog, and creates a new test account
+    // Param: Name and balance of the account to be created
     public void createNewAccount(String accountName, String accountBalance) throws InterruptedException {
 
         Thread.sleep(5000);
@@ -105,7 +106,7 @@ public class MainActivityTest {
         Thread.sleep(2000);
         onView(withText(R.string.create)).inRoot(isDialog()).perform(click());
 
-        checkToast("Please enter a name and value"); // Extract string later once finalized
+        checkToast("Please enter a name and value"); // TODO: Extract string later once finalized
         Thread.sleep(2000);
 
         // Enter valid form data
@@ -135,7 +136,8 @@ public class MainActivityTest {
         onView(withId(R.id.balance)).check(matches(withText("Balance: $" + accountBalance + ".00")));
     }
 
-    // Interact with the deposit feature
+    // Interact with the deposit/withdraw feature
+    // Param: withdrawDeposit dictates which of the buttons to press, WITHDRAW/DEPOSIT
     public void withdrawOrDepositTransaction(String withdrawDeposit, String withdrawDepositAmount, String withdrawDepositNote) throws InterruptedException {
 
         onView(withText(withdrawDeposit)).perform(click());
@@ -158,6 +160,7 @@ public class MainActivityTest {
         Thread.sleep(2000);
     }
 
+    // 'Deletes' the chosen transaction
     public void deleteTransaction() throws InterruptedException {
 
         onView(withId(R.id.deleteTransactionButton)).perform(click());
@@ -172,6 +175,7 @@ public class MainActivityTest {
         checkToast("Transaction Deleted");
     }
 
+    // Clicks the delete Account button, deleting account and all associated transactions
     public void deleteAccount() throws InterruptedException {
 
         onView(withId(R.id.deleteAccountButton)).perform(click());
@@ -186,6 +190,7 @@ public class MainActivityTest {
         checkToast("Account Deleted");
     }
 
+    // Checks transaction details for matching params
     public void checkTransaction(String transactionDate, String transactionBalance, String transactionAmount, String transactionNote, String transactionStatus) throws InterruptedException {
 
 //        onView(withId(R.id.transactionActivityDate)).check(matches(withText(transactionDate)));
