@@ -47,7 +47,7 @@
             android:src="@drawable/graph"
             android:layout_below="@+id/toolbarTransactionsPage"
             android:layout_marginTop="5dp"
-            android:layout_marginStart="370dp"
+            android:layout_marginStart="340dp"
             />
 
         <TextView
