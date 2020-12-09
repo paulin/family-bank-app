@@ -35,14 +35,16 @@ public class TransactionEntity {
     @ColumnInfo(name = "transactionAmount")
     private double transactionAmount = 0;
 
+    @NonNull
+    @ColumnInfo(name = "transactionCurrentBal")
+    private double transactionCurrentBal = 0;
+
+
+
     // Status field,: empty string = normal, deleted = deleted...
     @NonNull
     @ColumnInfo(name = "transactionStatus")
     private String transactionStatus = "ok";
-
-    // Add field for 'new total' AccountEntity - newTotal. Do we want this in the DB or calculated on runtime?
-    //Aggregate query of transactions would be most accurate, is there a way to cache that calculation?
-
 
     // Accessors/Mutators
     @NonNull
@@ -68,6 +70,11 @@ public class TransactionEntity {
     public double getTransactionAmount() { return transactionAmount; }
 
     public void setTransactionAmount( double transactionAmount ) { this.transactionAmount = transactionAmount; }
+
+    @NonNull
+    public double getTransactionCurrentBal() { return transactionCurrentBal; }
+
+    public void setTransactionCurrentBal( double transactionCurrentBal ) { this.transactionCurrentBal = transactionCurrentBal; }
 
     @NonNull
     public String getTransactionStatus() { return transactionStatus; }

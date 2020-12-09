@@ -18,7 +18,7 @@ import java.util.List;
 
 
 public class MyTransactionAdapter extends RecyclerView.Adapter<MyTransactionAdapter.ViewHolder> {
-    private static final String TAG = MyTransactionAdapter.class.getSimpleName();
+//    private static final String TAG = MyTransactionAdapter.class.getSimpleName();
 
     List<String> transactionName, date, status;
     List<Double> amount, currentBal;
@@ -44,7 +44,6 @@ public class MyTransactionAdapter extends RecyclerView.Adapter<MyTransactionAdap
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//        Log.i(TAG, "in transadapt");
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.transaction_card_layout, parent, false );
 
