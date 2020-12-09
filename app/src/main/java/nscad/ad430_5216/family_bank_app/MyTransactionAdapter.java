@@ -13,6 +13,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 
@@ -26,6 +27,7 @@ public class MyTransactionAdapter extends RecyclerView.Adapter<MyTransactionAdap
     CardView cardView;
     int position;
     long AccountUID;
+    DecimalFormat df = new DecimalFormat ("0.00");
 
                                             //   name         amount            currentBal      date              UID,          status
     public MyTransactionAdapter(Context ct, List<String> s1, List<Double> s2, List<Double> s3, List<String> s4, List<Long> s5, List<String> s6, long AccountUID) {
@@ -52,9 +54,9 @@ public class MyTransactionAdapter extends RecyclerView.Adapter<MyTransactionAdap
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         holder.text1.setText(String.valueOf(date.get(position)));
-        holder.text2.setText(String.valueOf(amount.get(position)));
+        holder.text2.setText(df.format(amount.get(position)));
         holder.text3.setText(transactionName.get(position));
-        holder.text4.setText(String.valueOf(currentBal.get(position)));
+        holder.text4.setText(df.format(currentBal.get(position)));
 
         this.position = position + 1;
     }
